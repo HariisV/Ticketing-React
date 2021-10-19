@@ -1,0 +1,876 @@
+* {
+  font-family: "Mulish", sans-serif;
+}
+.hero_overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #2b156bb3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.hero {
+  height: 100%;
+  position: relative;
+}
+.hero__background {
+  /* background-image: ursl('assets/img/hero.png'); */
+  width: 100%;
+
+  height: 100vh;
+}
+.hero__overlay--logo {
+  width: 50%;
+  height: 20%;
+}
+.hero__desc {
+  color: white;
+}
+.form__password input {
+  margin-top: 10px !important;
+  border-radius: 10px !important;
+  width: 100%;
+  padding: 15px 10px !important;
+}
+
+.line {
+  display: block;
+  margin-bottom: 25px;
+}
+.line h2 {
+  font-size: 15px;
+  text-align: center;
+  border-bottom: 0.5px solid #dedede;
+  position: relative;
+}
+.line h2 span {
+  background-color: white;
+  color: #aaaaaa;
+  position: relative;
+  top: 10px;
+  padding: 0 10px;
+  margin: 0;
+}
+.icon {
+  height: 25px;
+  width: 25px;
+}
+.password__icon {
+  position: absolute !important;
+  top: 16px;
+  right: 10px;
+}
+.btn__login {
+  width: 100%;
+  border-radius: 5px;
+}
+.hero__home {
+  width: 369px;
+  height: 420.06px;
+}
+.navbar-nav .nav-item .nav-link {
+  margin-left: 35px;
+}
+.showing__hr {
+  width: 80px;
+  background-color: #5f2eea;
+  height: 3px !important;
+  opacity: 1;
+  margin-left: 20px;
+}
+.showing__list--image {
+  width: 160px;
+  height: 244px;
+  border-radius: 6px;
+}
+.upcoming__list--image {
+  width: 160px;
+  height: 244px;
+  border-radius: 6px;
+}
+.upcoming--category {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  overflow-x: scroll;
+}
+.showing__list {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  overflow-x: scroll;
+}
+.upcoming__list {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  overflow-x: scroll;
+}
+.showing__list--wrapper {
+  display: flex;
+  margin-right: 50px;
+  margin-bottom: 15px;
+}
+.upcoming__list--wrapper {
+  display: flex;
+  margin-right: 50px;
+  margin-bottom: 15px;
+}
+.showing__list::-webkit-scrollbar {
+  display: none;
+}
+.upcoming__list::-webkit-scrollbar {
+  display: none;
+}
+.upcoming__category--wrapper {
+  display: flex;
+  margin-bottom: 15px;
+}
+.upcoming--category a {
+  margin-left: 20px;
+  width: 140px;
+}
+.upcoming__category--wrapper .active {
+  box-shadow: 5px 5px 18px rgb(95 46 234 / 30%);
+  margin-left: 0 !important;
+}
+.upcoming--category::-webkit-scrollbar {
+  display: none;
+}
+.upcoming__list--detail {
+  width: 100%;
+}
+.upcoming__list--title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+.upcoming__list--category {
+  font-size: 14px;
+}
+.email {
+  margin-top: 100px;
+  /* pb-4 mb-5 */
+  padding-bottom: 20px;
+  margin-bottom: 80px;
+}
+.email__form--btn {
+  margin-right: -170px;
+}
+.email__desc {
+  font-size: 24px;
+}
+.email__title {
+  font-size: 48px;
+}
+.email__form input {
+  padding: 15px;
+}
+.email__form span a {
+  padding: 15px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.footer__expor {
+  list-style: none;
+  padding: 0;
+}
+.footer__expor--item {
+  margin-top: 5px;
+  color: #4e4b66;
+}
+.footer_sponsor {
+  padding: 0;
+  list-style: none;
+}
+.footer_sponsor--item {
+  /* width: 50%;
+  height: 30px; */
+
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+.footer__followus {
+  list-style: none;
+  padding: 0;
+}
+.footer__followus--item {
+  margin-top: 20px;
+}
+.footer__followus--item span {
+  margin-left: 10px;
+  color: #6c757d !important;
+}
+.timesticket__list img {
+  width: 100px;
+  height: 40px;
+  margin-top: 15px;
+}
+
+.footer_followus--icon {
+  width: 23px;
+  height: 20px;
+}
+.footer__end {
+  margin-top: 50px;
+  padding-bottom: 50px;
+}
+.showing__details--btn {
+  width: 100%;
+  margin-top: 10px;
+}
+.showing__list--wrapper:hover .showing__details {
+  display: block !important;
+  z-index: 9999;
+}
+.hero__text--desc {
+  font-size: 24px;
+}
+.hero__text--title {
+  font-size: 56px !important;
+  font-weight: 700;
+}
+.heroo {
+  margin-bottom: 50px;
+}
+.footer_sponsor--item.cineone_mobile {
+  margin-right: 50px;
+}
+.heroo__details--border {
+  position: relative;
+  width: 332px;
+  height: 458px;
+  background-size: 300px;
+  background-repeat: no-repeat;
+  background-image: url("../img/border-hero.png");
+}
+.heroo__details--image {
+  width: 226px;
+  position: absolute;
+  right: 20%;
+  top: 7%;
+  height: 340px;
+  border-radius: 6px;
+}
+.heroo_details {
+  margin-bottom: 30px;
+}
+
+.table__detail--movie tr td {
+  border: none;
+  color: #8692a6;
+  font-size: 14px;
+}
+.table__detail--movie tr td {
+  padding: 0;
+  margin-top: 10px;
+}
+.table__detail--movie tr td h5 {
+  color: black;
+  font-size: 16px;
+  padding: 0;
+  /* margin-top: 10px; */
+  /* margin: 0; */
+}
+.heroo_details--sypnosis {
+  color: #4e4b66;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: 0.75px;
+}
+.heroo_details--category {
+  font-size: 18px;
+  color: #4e4b66;
+  font-weight: 300;
+}
+.showtimes {
+  background-color: #f5f6f8;
+  margin-bottom: 85px;
+}
+.showtimes__input .input-group {
+  width: 280px;
+  margin-left: 30px;
+}
+.showtimes__input select {
+  width: 280px;
+  margin-left: 30px;
+  padding: 15px;
+  background-color: #f5f6f8;
+}
+.showtimes .input-group .input-group-text {
+  background-color: #f5f6f8;
+  border-right: 0;
+}
+.showtimes .input-group input {
+  border-left: 0;
+  background-color: #f5f6f8;
+  padding: 15px;
+}
+.timesticket__list {
+  padding-left: 30px;
+}
+.timesticket__list .row .col-md-8 span {
+  font-size: 24px;
+  font-weight: 600;
+}
+.timesticket__list .row .col-md-8 p {
+  font-size: 12px;
+  font-weight: 300;
+}
+.timesticket .row .col-md-4 .card {
+  width: 95%;
+}
+.timesticket__hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.timesticket__details--time .col-3 {
+  font-size: 12px;
+  color: #6e7191;
+  margin-bottom: 10px;
+  padding: 0;
+}
+.timesticket__details--selected {
+  color: #4e4b66 !important;
+  padding: 0;
+}
+.timesticket__price--seat {
+  font-size: 16px;
+  color: black;
+}
+.timesticket .row .col-md-4 {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 30px;
+}
+.showtimes__paginate .paginate {
+  border-radius: 11px !important;
+  margin-left: 20px;
+}
+.timesticket__br {
+  margin-bottom: 130px;
+}
+.showtimes__sponsor--image {
+  object-fit: contain;
+}
+/* .selected__movie button,
+p {
+  display: inline;
+}
+.selected__movie button {
+  float: right;
+}
+.selected__movie p {
+  margin-top: 20px;
+} */
+.selected__movie {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 0;
+}
+.selected__movie h5 {
+  font-size: 18px;
+  color: #000;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+.selected__movie button {
+  background-color: #eff0f6;
+  padding-left: 20px;
+  background-color: #eff0f6;
+  padding-right: 20px;
+  border-color: white;
+}
+.selected__movie--title {
+  font-size: 19px;
+  color: #14142b;
+  font-weight: bold;
+}
+.selected__seat {
+  display: inline;
+  padding-bottom: 50px;
+  /* padding: 60px 187px 60px 177px; */
+}
+.selected__seat small {
+  display: block;
+}
+.selected__seat--available {
+  width: 26px;
+  height: 26px;
+  background-color: #d6d8e7;
+  margin-right: 10px;
+}
+.selected__seat--selected {
+  width: 26px;
+  height: 26px;
+  background-color: #5f2eea;
+  margin-right: 10px;
+}
+.selected__seat--love {
+  width: 26px;
+  height: 26px;
+  background-color: #f589d7;
+  margin-right: 10px;
+}
+.selected__seat--sold {
+  width: 26px;
+  height: 26px;
+  background-color: #6e7191;
+  margin-right: 10px;
+}
+.selected__seat--wrapper {
+  display: flex;
+  margin-left: 20px;
+}
+.selected__seat--key {
+  padding-left: 151px;
+}
+.selected__seat--key h5 {
+  font-size: 16px;
+  font-weight: 600;
+}
+.selected__movie--btn a {
+  padding: 10px 80px;
+}
+.order__sponsor--image {
+  width: 130px;
+  object-fit: contain;
+}
+.list__details li span {
+  float: right;
+  font-size: 16px;
+  color: black;
+}
+.list__details li {
+  font-size: 15px;
+  color: #6b6b6b;
+}
+.showing__list--wrapper {
+  padding: 35px;
+}
+.card.shadow.showing__list--wrapper .card-body {
+  padding: 0;
+}
+.list__details--totalpayment span {
+  font-size: 20px;
+  font-weight: 600;
+}
+.payment__method button img {
+  width: 75px;
+  height: 40px;
+  object-fit: contain;
+}
+.payment__method {
+  display: flex;
+  justify-content: center;
+}
+.payment__method button {
+  margin-top: 30px;
+  border: 2px solid #dedede;
+  border-radius: 10px;
+  flex: 1;
+  margin-left: 30px;
+  height: 60px;
+}
+.payment__method {
+  background-color: white;
+  border: 1px solid white;
+}
+.personal_info .form-group {
+  margin-bottom: 20px;
+}
+.personal_info .form-group input {
+  padding: 10px 20px;
+}
+.personal_info .form-group label {
+  /* padding: 10px 20px; */
+  font-size: 14px;
+  color: #696f79;
+}
+
+.list-group-item p {
+  margin: 0;
+  padding: 10px;
+}
+.personal_info .alert {
+  background-color: #f4b7404d;
+  border-radius: 10px;
+}
+.personal_info--alert img {
+  width: 25px;
+  margin-left: 5px;
+  margin-right: 10px;
+}
+.btn__limit {
+  margin-right: 20px;
+}
+.payment__mobile {
+  display: none;
+}
+.payment__method2 button {
+  margin-top: 15px;
+}
+.line__payment {
+  width: 100%;
+  height: 100px;
+}
+.line__payment a {
+  text-decoration: none;
+  font-weight: 600;
+}
+.line__payment p {
+  color: #6e7191;
+}
+.mobile__selected--seat {
+  display: none;
+}
+.image__seat {
+  width: 600px;
+  object-fit: cover;
+}
+.order__sponsor--title {
+  font-weight: 600;
+  font-size: 20px;
+}
+.footer__logo--ig {
+  width: 25px;
+  object-fit: contain;
+  height: 25px;
+  margin-left: -3px;
+}
+.navbar__right {
+  display: contents;
+}
+.d-none-desktop {
+  display: none;
+}
+.navbar-brand img {
+  width: 130px;
+  height: 50px;
+}
+.order__sponsor--answer {
+  font-size: 16px;
+  font-weight: 600;
+}
+.order__sponsor--info {
+  font-size: 14px;
+  font-weight: 400;
+}
+.order__sponsor--price {
+  font-size: 18px;
+  font-weight: 700;
+}
+.avatar {
+  width: 40px;
+  height: 40px;
+}
+.bginput__blue {
+  background-color: #e9ecff !important;
+}
+.footer__styles {
+  background-color: white;
+  padding-top: 50px;
+  margin-top: 50px;
+}
+
+@media (min-width: 768px) {
+  .heroo__margin {
+    margin-left: auto;
+  }
+}
+@media (min-width: 1200px) {
+  .heroo__margin {
+    margin-left: 80px;
+  }
+}
+@media (min-width: 1400px) {
+  .heroo__margin {
+    margin-left: 30px;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .selected__seat--key {
+    padding-left: 40px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .hero {
+    display: none;
+  }
+  .form--desc__h2 {
+    margin-bottom: 30px;
+    font-weight: 600 !important;
+  }
+  .logo-mobile {
+    display: block !important;
+    width: 85px;
+    height: 33px;
+  }
+  .icon__name {
+    display: none;
+  }
+  .btn__login {
+    margin-top: 50px !important;
+    margin-bottom: 50px !important;
+  }
+  .line {
+    margin-top: 20px !important;
+    margin-bottom: 30px !important;
+  }
+  .email__form--btn {
+    margin-right: 0;
+    display: block;
+  }
+  .input-group.email__form {
+    display: block;
+  }
+  .email__input {
+    width: 100% !important;
+  }
+  /* .hero__home {
+    width: 327px;
+    height: 327px;
+  } */
+  .hero__text--desc {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  .hero__text--title {
+    font-size: 35px !important;
+    margin-bottom: 35px;
+  }
+  .showing {
+    margin-bottom: 50px;
+  }
+  .heroo {
+    margin-bottom: 80px;
+  }
+  .footer__logo {
+    margin-bottom: 60px;
+  }
+  .footer__exporr {
+    margin-bottom: 20px;
+  }
+  .ebuid_mobile {
+    width: 80px;
+    height: 30px;
+  }
+  .cineone_mobile {
+    width: 105px;
+    height: 16px;
+  }
+  .hiflix_mobile {
+    width: 76px;
+    height: 23px;
+  }
+  /* .footer__followuss {
+    margin-left: 25px;
+  } */
+  .footer_sponsor--item.cineone_mobile {
+    margin-right: 0;
+  }
+  .heroo__details--border {
+    position: unset;
+    background-image: none;
+  }
+  .timesticket .row .col-md-4 .card {
+    margin: 0 auto; /* Added */
+    float: none; /* Added */
+    margin-bottom: 10px; /* Added */
+  }
+  .showtimes .showtimes__input {
+    display: block !important;
+    margin-bottom: 30px;
+    margin: 0 auto; /* Added */
+    float: none; /* Added */
+    margin-bottom: 10px; /* Added */
+    text-align: -webkit-center;
+  }
+  .showtimes .showtimes__input .input-group {
+    margin-bottom: 20px; /* Added */
+  }
+  .heroo__details--title {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 20px;
+    color: black;
+  }
+  .heroo_details--category {
+    text-align: center;
+    color: #4e4b66;
+    font-size: 16px;
+  }
+  .table__detail--movie tr td {
+    width: 200px;
+  }
+  .showtimes__input--wrapper {
+    margin-top: 40px;
+  }
+
+  .shotimes__sponsor--name {
+    display: none;
+  }
+  .timesticket .row .col-md-4 {
+    margin-bottom: 0;
+  }
+  .shotimes__sponsor--address {
+    text-align: center;
+    font-size: 13px;
+    line-height: 22px;
+    color: #aaaaaa;
+  }
+
+  .footer__followus--item span {
+    display: none;
+  }
+  .footer__followus--item {
+    display: contents;
+  }
+  .footer__followus--item img {
+    margin-right: 15%;
+  }
+  .footer__expor {
+    display: block;
+  }
+  .footer__expor--item {
+    margin-right: 20px;
+    display: inline;
+  }
+  .heroo__details--image {
+    margin: 10px;
+    border-radius: 10px;
+    position: unset;
+  }
+
+  .heroo__details--border {
+    width: 100%;
+  }
+  .heroo__details--card {
+    -webkit-box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
+    padding: 28px;
+    margin-bottom: 42px;
+  }
+  .showtimes__sponsor--image {
+    margin-right: auto !important;
+    margin-left: auto !important;
+    display: block !important;
+  }
+  .payment__method button img {
+    width: 100%;
+  }
+  .btn__limit {
+    display: none;
+  }
+  .payment__method button {
+    margin-left: 15px;
+    margin-top: 10px;
+    margin-right: 10px;
+  }
+  .Payment_Info {
+    display: none;
+  }
+  .payment__mobile .card-body span {
+    float: right;
+  }
+  .payment__method1 button {
+    margin-top: 2rem;
+  }
+  .payment__mobile {
+    display: block;
+  }
+  .payment__mobile.card,
+  .payment__mobile .card-body {
+    border: unset;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+  }
+  .selected__movie--btn a {
+    padding: 10px 10px;
+  }
+  .desktop__selected--seat {
+    display: none;
+  }
+  .mobile__selected--seat {
+    display: block;
+  }
+  .image__seat {
+    width: 100%;
+    object-fit: cover;
+  }
+  .mobile__list--item span {
+    margin-left: 50px;
+    display: inline-flex;
+  }
+  .mobile__list--item {
+    text-align: start;
+  }
+  .mobile__list--items span {
+    margin-left: 100px;
+  }
+  .mobile__list--items {
+    text-align: start;
+  }
+  .showtimes {
+    margin-top: -60px;
+  }
+  .navbar__right {
+    display: none;
+  }
+  .navbar-nav li a {
+    text-align: center;
+  }
+  .navbar-nav li {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 0.5px solid #dedede;
+  }
+  .navbar__input--search {
+    padding: 15px;
+    border-left: none;
+  }
+  .navbar__input--btnsearch {
+    border-right: none;
+  }
+  .nav-item .form-group {
+    margin-top: 30px;
+  }
+  .d-none-desktop {
+    display: block;
+  }
+  .navbar .navbar-toggler {
+    border: unset;
+  }
+  .hero__home {
+    width: 320px;
+    height: 420.06px;
+    object-fit: cover;
+  }
+  .selected__movie--selection {
+    display: none;
+  }
+  .order__sponsor--selectedname {
+    display: none;
+  }
+  .order__sponsor--name {
+    justify-content: center !important;
+    font-weight: 700;
+  }
+  .line__payment {
+    margin-top: -25px;
+  }
+  .timesticket__list {
+    margin-top: 30px !important;
+  }
+}
