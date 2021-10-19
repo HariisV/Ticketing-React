@@ -1,0 +1,19 @@
+.container {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.container::before {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 1px;
+  left: 0;
+  display: block;
+  clear: both;
+  background-color: black;
+}
+.icon__name strong,
+.forgot__password {
+  font-weight: 600;
+}
