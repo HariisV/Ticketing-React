@@ -6,7 +6,7 @@ import Home from "./pages/main/Home";
 import Details from "./pages/main/MovieDetail";
 import Booking from "./pages/main/MovieBooking";
 import Checkout from "./pages/main/MovieCheckout";
-
+import ShowingCard from "./components/ShowingCard";
 class App extends Component {
   render() {
     return (
@@ -18,6 +18,7 @@ class App extends Component {
           <Route path="/details" exact component={Details} />
           <Route path="/booking" exact component={Booking} />
           <Route path="/checkout" exact component={Checkout} />
+          <Route path="/ShowingCard" exact component={ShowingCard} />
         </Switch>
       </Router>
     );

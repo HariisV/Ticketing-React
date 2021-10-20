@@ -2,82 +2,13 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../../components/Navbar/navbar2";
 import Footer from "../../../components/Footer";
+import TicketCard from "../../../components/TicketCard";
 class MovieDetail extends Component {
   render() {
     return (
       <>
         <div className="container">
-          <nav className="navbar navbar-expand-lg navbar-light bg-light mt-3">
-            <div className="container-fluid">
-              <Link className="navbar-brand" href="/">
-                <img src="/assets/img/logo-sm.svg" alt="" />
-              </Link>
-              <button
-                className="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span>
-                  <img src="/assets/icon/toggle.svg" alt="" />
-                </span>
-              </button>
-              <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul className="navbar-nav me-auto">
-                  <li className="nav-item d-none-desktop">
-                    <div className="form-group">
-                      <div className="input-group mb-3">
-                        <span className="input-group-text bg-light navbar__input--btnsearch">
-                          <img src="/assets/icon/search.svg" alt="" />
-                        </span>
-                        <input
-                          id="ph"
-                          type="number"
-                          className="form-control navbar__input--search"
-                          placeholder="Search..."
-                        />
-                      </div>
-                    </div>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link active" aria-current="page" href="/">
-                      Home
-                    </Link>
-                  </li>
-
-                  <li className="nav-item">
-                    <Link className="nav-link" href="/booking.html">
-                      Profile
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" href="/payment.html">
-                      Payment
-                    </Link>
-                  </li>
-
-                  <li className="nav-item d-none-desktop">
-                    <p className="text-center footer__end">© 2020 Tickitz. All Rights Reserved.</p>
-                  </li>
-                </ul>
-                <div className="navbar__right">
-                  <form className="d-flex">
-                    <select className="form-select border-0">
-                      <option selected>Location</option>
-                      <option value="1">Jakarta</option>
-                      <option value="2">Medan</option>
-                      <option value="3">Pekan Baru</option>
-                    </select>
-                  </form>
-                  <img src="/assets/icon/search.svg" className="mx-4" alt="" />
-                  <img src="/assets/img/avatar.png" className="avatar rounded-circle" alt="" />
-                </div>
-              </div>
-            </div>
-          </nav>
+          <Navbar />
           <section className="heroo_details mt-5">
             <div className="row">
               <div className="col-md-3 col-lg-4 col-xl-3 col-sm-12">
@@ -128,7 +59,7 @@ class MovieDetail extends Component {
           </section>
         </div>
 
-        <section className="showtimes text-center">
+        <section className="showtimes text-center mt-5">
           <br />
           <h4 className="mt-5">Showtimes and Tickets</h4>
           <div className="d-flex justify-content-center showtimes__input mb-5">
@@ -152,258 +83,103 @@ class MovieDetail extends Component {
           </div>
           <div className="container timesticket text-start">
             <div className="row">
-              <div className="col-md-4">
-                <div className="card card-body timesticket__list">
-                  <div className="row">
-                    <div className="col-md-4">
-                      <img
-                        src="/assets/img/sponsor1.png"
-                        className="showtimes__sponsor--image"
-                        alt=""
-                      />
-                    </div>
-                    <div className="col-md-8">
-                      <span className="shotimes__sponsor--name">ebu.id</span>
-                      <br />
-                      <p className="p-0 m-0 shotimes__sponsor--address">
-                        Whatever street No.12, South Purwokerto
-                      </p>
-                    </div>
-                    <hr className="timesticket__hr" />
-                    <div className="row timesticket__details--time">
-                      <div className="col-3 timesticket__details--selected">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                    </div>
-                    <div className="timesticket__price mt-4">
-                      <small className="d-inline text-muted">Price</small>
-                      <strong
-                        className="timesticket__price--seat fw-bold"
-                        style={{ float: "right" }}
-                      >
-                        $10.00 / seat
-                      </strong>
-                    </div>
-                    <Link to="/booking" className="btn btn-primary w-100 mt-4 mb-3 shadow">
-                      Book now
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4">
-                <div className="card card-body timesticket__list">
-                  <div className="row">
-                    <div className="col-md-4">
-                      <img
-                        src="/assets/img/sponsor2.png"
-                        className="showtimes__sponsor--image"
-                        alt=""
-                      />
-                    </div>
-                    <div className="col-md-8">
-                      <span className="shotimes__sponsor--name">CineOne21</span>
-                      <br />
-                      <p className="p-0 m-0 shotimes__sponsor--address">
-                        Whatever street No.12, South Purwokerto
-                      </p>
-                    </div>
-                    <hr className="timesticket__hr" />
-                    <div className="row timesticket__details--time">
-                      <div className="col-3 timesticket__details--selected">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                    </div>
-                    <div className="timesticket__price mt-4">
-                      <small className="d-inline text-muted">Price</small>
-                      <strong
-                        className="timesticket__price--seat fw-bold"
-                        style={{ float: "right" }}
-                      >
-                        $10.00 / seat
-                      </strong>
-                    </div>
-                    <Link to="/booking" className="btn btn-primary w-100 mt-4 mb-3 shadow">
-                      Book now
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4">
-                <div className="card card-body timesticket__list">
-                  <div className="row">
-                    <div className="col-md-4">
-                      <img
-                        src="/assets/img/sponsor3.png"
-                        className="showtimes__sponsor--image"
-                        alt=""
-                      />
-                    </div>
-                    <div className="col-md-8">
-                      <span className="shotimes__sponsor--name">hiFlix</span>
-                      <br />
-                      <p className="p-0 m-0 shotimes__sponsor--address">
-                        Whatever street No.12, South Purwokerto
-                      </p>
-                    </div>
-                    <hr className="timesticket__hr" />
-                    <div className="row timesticket__details--time">
-                      <div className="col-3 timesticket__details--selected">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                    </div>
-                    <div className="timesticket__price mt-4">
-                      <small className="d-inline text-muted">Price</small>
-                      <strong
-                        className="timesticket__price--seat fw-bold"
-                        style={{ float: "right" }}
-                      >
-                        $10.00 / seat
-                      </strong>
-                    </div>
-                    <Link to="/booking" className="btn btn-primary w-100 mt-4 mb-3 shadow">
-                      Book now
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4">
-                <div className="card card-body timesticket__list">
-                  <div className="row">
-                    <div className="col-md-4">
-                      <img
-                        src="/assets/img/sponsor1.png"
-                        className="showtimes__sponsor--image"
-                        alt=""
-                      />
-                    </div>
-                    <div className="col-md-8">
-                      <span className="shotimes__sponsor--name">ebu.id</span>
-                      <br />
-                      <p className="p-0 m-0 shotimes__sponsor--address">
-                        Whatever street No.12, South Purwokerto
-                      </p>
-                    </div>
-                    <hr className="timesticket__hr" />
-                    <div className="row timesticket__details--time">
-                      <div className="col-3 timesticket__details--selected">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                    </div>
-                    <div className="timesticket__price mt-4">
-                      <small className="d-inline text-muted">Price</small>
-                      <strong
-                        className="timesticket__price--seat fw-bold"
-                        style={{ float: "right" }}
-                      >
-                        $10.00 / seat
-                      </strong>
-                    </div>
-                    <Link to="/booking" className="btn btn-primary w-100 mt-4 mb-3 shadow">
-                      Book now
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4">
-                <div className="card card-body timesticket__list">
-                  <div className="row">
-                    <div className="col-md-4">
-                      <img
-                        src="/assets/img/sponsor2.png"
-                        className="showtimes__sponsor--image"
-                        alt=""
-                      />
-                    </div>
-                    <div className="col-md-8">
-                      <span className="shotimes__sponsor--name">CineOne21</span>
-                      <br />
-                      <p className="p-0 m-0 shotimes__sponsor--address">
-                        Whatever street No.12, South Purwokerto
-                      </p>
-                    </div>
-                    <hr className="timesticket__hr" />
-                    <div className="row timesticket__details--time">
-                      <div className="col-3 timesticket__details--selected">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                    </div>
-                    <div className="timesticket__price mt-4">
-                      <small className="d-inline text-muted">Price</small>
-                      <strong
-                        className="timesticket__price--seat fw-bold"
-                        style={{ float: "right" }}
-                      >
-                        $10.00 / seat
-                      </strong>
-                    </div>
-                    <Link to="/booking" className="btn btn-primary w-100 mt-4 mb-3 shadow">
-                      Book now
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4">
-                <div className="card card-body timesticket__list">
-                  <div className="row">
-                    <div className="col-md-4">
-                      <img
-                        src="/assets/img/sponsor3.png"
-                        className="showtimes__sponsor--image"
-                        alt=""
-                      />
-                    </div>
-                    <div className="col-md-8">
-                      <span className="shotimes__sponsor--name">hiFlix</span>
-                      <br />
-                      <p className="p-0 m-0 shotimes__sponsor--address">
-                        Whatever street No.12, South Purwokerto
-                      </p>
-                    </div>
-                    <hr className="timesticket__hr" />
-                    <div className="row timesticket__details--time">
-                      <div className="col-3 timesticket__details--selected">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                      <div className="col-3">08:30am</div>
-                    </div>
-                    <div className="timesticket__price mt-4">
-                      <small className="d-inline text-muted">Price</small>
-                      <strong
-                        className="timesticket__price--seat fw-bold"
-                        style={{ float: "right" }}
-                      >
-                        $10.00 / seat
-                      </strong>
-                    </div>
-                    <Link to="/booking" className="btn btn-primary w-100 mt-4 mb-3 shadow">
-                      Book now
-                    </Link>
-                  </div>
-                </div>
-              </div>
+              <TicketCard
+                image="/assets/img/sponsor1.png"
+                name="ebu.id"
+                alamat="Whatever street No.12, South Purwokerto"
+                time={[
+                  "08:30 am",
+                  "10:30 am",
+                  "12:00 am",
+                  "14:00 am",
+                  "16:30 pm",
+                  "19:00 pm",
+                  "20:30 pm"
+                ]}
+                price="10.00"
+                linkBooking="/booking"
+              />
+              <TicketCard
+                image="/assets/img/sponsor2.png"
+                name="cineOne21"
+                alamat="Cineone No.12, South Purwokerto"
+                time={[
+                  "01:30 am",
+                  "11:30 am",
+                  "13:00 am",
+                  "15:00 am",
+                  "17:30 pm",
+                  "13:00 pm",
+                  "20:30 pm"
+                ]}
+                price="10.00"
+                linkBooking="/booking"
+              />
+              <TicketCard
+                image="/assets/img/sponsor3.png"
+                name="hiFlix"
+                alamat="Whatever street No.12, South Purwokerto"
+                time={[
+                  "08:30 am",
+                  "10:30 am",
+                  "12:00 am",
+                  "14:00 am",
+                  "16:30 pm",
+                  "19:00 pm",
+                  "20:30 pm"
+                ]}
+                price="10.00"
+                linkBooking="/booking"
+              />
+
+              <TicketCard
+                image="/assets/img/sponsor1.png"
+                name="ebu.id"
+                alamat="Whatever street No.12, South Purwokerto"
+                time={[
+                  "08:30 am",
+                  "10:30 am",
+                  "12:00 am",
+                  "14:00 am",
+                  "16:30 pm",
+                  "19:00 pm",
+                  "20:30 pm"
+                ]}
+                price="10.00"
+                linkBooking="/booking"
+              />
+              <TicketCard
+                image="/assets/img/sponsor2.png"
+                name="cineOne21"
+                alamat="Cineone No.12, South Purwokerto"
+                time={[
+                  "01:30 am",
+                  "11:30 am",
+                  "13:00 am",
+                  "15:00 am",
+                  "17:30 pm",
+                  "13:00 pm",
+                  "20:30 pm"
+                ]}
+                price="10.00"
+                linkBooking="/booking"
+              />
+              <TicketCard
+                image="/assets/img/sponsor3.png"
+                name="hiFlix"
+                alamat="Whatever street No.12, South Purwokerto"
+                time={[
+                  "08:30 am",
+                  "10:30 am",
+                  "12:00 am",
+                  "14:00 am",
+                  "16:30 pm",
+                  "19:00 pm",
+                  "20:30 pm"
+                ]}
+                price="10.00"
+                linkBooking="/booking"
+              />
             </div>
           </div>
           <div className="showtimes__paginate mb-5">
