@@ -1,10 +1,33 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Navbar from "../../../components/Navbar/navbar2";
+import Navbar from "../../../components/Navbar/navbar";
 import Footer from "../../../components/Footer";
 import TicketCard from "../../../components/TicketCard";
+import axios from "../../../utils/axios";
 class MovieDetail extends Component {
+  constructor() {
+    super();
+    this.state = {
+      data: []
+    };
+  }
+  componentDidMount() {
+    this.getMovieById(this.props.match.params.id);
+  }
+  getMovieById = (id) => {
+    axios
+      .get(`movie/${id}`)
+      .then((res) => {
+        this.setState({
+          data: res.data.data[0]
+        });
+      })
+      .catch((err) => {
+        this.props.history.push("/");
+      });
+  };
   render() {
+    const data = this.state.data;
     return (
       <>
         <div className="container">
@@ -19,28 +42,28 @@ class MovieDetail extends Component {
                 </div>
               </div>
               <div className="col-md-7 col-lg-7 col-xl-8 col-sm-12 heroo__margin">
-                <h3 className="heroo__details--title">Spider-man: Homecoming</h3>
-                <p className="heroo_details--category">Adventurer, Action, Sci-Fi</p>
+                <h3 className="heroo__details--title">{data.name}</h3>
+                <p className="heroo_details--category">{data.category}</p>
 
                 <table className="table mt-3 table__detail--movie">
                   <tr>
                     <td>
                       Release Date
-                      <h5>June 28, 2017</h5>
+                      <h5>{data.releaseDate.getMonth()}</h5>
                     </td>
                     <td>
                       Directed By
-                      <h5>Jon Wats</h5>
+                      <h5>{data.director}</h5>
                     </td>
                   </tr>
                   <tr style={{ borderTop: "none" }}>
                     <td>
                       Duration
-                      <h5>2 Hours 13 Minutes</h5>
+                      <h5>{data.duration}</h5>
                     </td>
                     <td>
                       Casts
-                      <h5>Tom Holland, Michael Keaten,Robert Downey Jr,...</h5>
+                      <h5>{data.cast} ...</h5>
                     </td>
                   </tr>
                 </table>
@@ -184,7 +207,7 @@ class MovieDetail extends Component {
           </div>
           <div className="showtimes__paginate mb-5">
             <div className="d-flex justify-content-center">
-              <div className="paginate active">
+              {/* <div className="paginate active">
                 <Link className="btn btn-primary"> 1 </Link>
               </div>
               <div className="paginate">
@@ -198,7 +221,7 @@ class MovieDetail extends Component {
               </div>
               <div className="paginate">
                 <Link className="btn btn-outline-primary shadow"> 5 </Link>
-              </div>
+              </div> */}
             </div>
           </div>
           <br />

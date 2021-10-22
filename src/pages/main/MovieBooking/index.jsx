@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Navbar from "../../../components/Navbar/navbar2";
+import Navbar from "../../../components/Navbar/navbar";
 import Footer from "../../../components/Footer";
 import styles from "./MovieBooking.module.css";
 class MovieBooking extends Component {

@@ -1,11 +1,37 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Navbar from "../../../components/Navbar/navbar1";
+import Navbar from "../../../components/Navbar/";
 import Footer from "../../../components/Footer";
 import ShowingCard from "../../../components/ShowingCard";
 import UpcomingCard from "../../../components/UpcomingCard";
+import axios from "../../../utils/axios";
 
 class Home extends Component {
+  constructor() {
+    super();
+    this.state = {
+      dataShowing: [],
+      dataUpcoming: []
+    };
+  }
+  componentDidMount() {
+    this.getDataMovieShowing();
+    this.getDataMovieUpcoming();
+  }
+  getDataMovieShowing = () => {
+    axios.get("movie?page=1&limit=7&sort=id&sortType=DESC").then((res) => {
+      this.setState({
+        dataShowing: res.data.data
+      });
+    });
+  };
+  getDataMovieUpcoming = () => {
+    axios.get("movie?page=1&limit=7&sort=releaseDate&sortType=DESC").then((res) => {
+      this.setState({
+        dataUpcoming: res.data.data
+      });
+    });
+  };
   render() {
     return (
       <>
@@ -29,41 +55,20 @@ class Home extends Component {
             </small>
             <hr className="showing__hr" />
             <section className="showing__list mt-5">
-              <ShowingCard
-                image="/assets/img/movie1.png"
-                name="Spiderman 2"
-                category="Action, Adventure, Sci-Fi"
-                linkDetail="/details"
-                linkBooking="/details"
-              />
-              <ShowingCard
-                image="/assets/img/movie2.png"
-                name="The Lion"
-                category="Animated, Adventure, Animal"
-                linkDetail="/details"
-                linkBooking="/details"
-              />
-              <ShowingCard
-                image="/assets/img/movie3.png"
-                name="John Wick"
-                category="Action, Adventure, Sci-Fi"
-                linkDetail="/details"
-                linkBooking="/details"
-              />
-              <ShowingCard
-                image="/assets/img/movie4.png"
-                name="Spiderman 5"
-                category="Action, Adventure, Sci-Fi"
-                linkDetail="/details"
-                linkBooking="/details"
-              />
-              <ShowingCard
-                image="/assets/img/movie5.png"
-                name="The Bocil Lion"
-                category="Action, Adventure, Sci-Fi"
-                linkDetail="/details"
-                linkBooking="/details"
-              />
+              {this.state.dataShowing.map((item, index) => (
+                <ShowingCard
+                  image={
+                    item.image
+                      ? `http://localhost:3001/uploads/movie/${item.image}`
+                      : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
+                  }
+                  name={item.name}
+                  category={item.category}
+                  linkDetail={`/movie/${item.id}`}
+                  linkBooking={`/movie/${item.id}`}
+                  key={item.id}
+                />
+              ))}
             </section>
           </section>
           <section className="upcoming mt-5">
@@ -73,70 +78,33 @@ class Home extends Component {
             </small>
             <section className="upcoming--category mt-4">
               <div className="upcoming__category--wrapper">
-                <Link to="/" className="btn btn-primary active">
-                  Oktober
-                </Link>
-                <Link to="/" className="btn btn-outline-primary">
-                  November
-                </Link>
-                <Link to="/" className="btn btn-outline-primary">
-                  Desember
-                </Link>
-                <Link to="/" className="btn btn-outline-primary">
-                  January
-                </Link>
-                <Link to="/" className="btn btn-outline-primary">
-                  February
-                </Link>
-                <Link to="/" className="btn btn-outline-primary">
-                  March
-                </Link>
-                <Link to="/" className="btn btn-outline-primary">
-                  April
-                </Link>
-                <Link to="/" className="btn btn-outline-primary">
-                  May
-                </Link>
-                <Link to="/" className="btn btn-outline-primary">
-                  Juny
-                </Link>
-                <Link to="/" className="btn btn-outline-primary">
-                  July
-                </Link>
+                <button className="btn btn-primary active">Oktober</button>
+                <button className="btn btn-outline-primary">November</button>
+                <button className="btn btn-outline-primary">Desember</button>
+                <button className="btn btn-outline-primary">January</button>
+                <button className="btn btn-outline-primary">February</button>
+                <button className="btn btn-outline-primary">March</button>
+                <button className="btn btn-outline-primary">April</button>
+                <button className="btn btn-outline-primary">May</button>
+                <button className="btn btn-outline-primary">Juny</button>
+                <button className="btn btn-outline-primary">July</button>
               </div>
             </section>
             <section className="upcoming__list mt-4">
               <div className="showing__list">
-                <UpcomingCard
-                  image="/assets/img/movie1.png"
-                  name="Spiderman 2"
-                  category="Action, Adventure, Sci-Fi"
-                  linkDetail="/details"
-                />
-                <UpcomingCard
-                  image="/assets/img/movie2.png"
-                  name="The Lion"
-                  category="Animated, Sci-Fi, Animal"
-                  linkDetail="/details"
-                />
-                <UpcomingCard
-                  image="/assets/img/movie3.png"
-                  name="John Wick"
-                  category="Action, Adventure, Sci-Fi"
-                  linkDetail="/details"
-                />
-                <UpcomingCard
-                  image="/assets/img/movie4.png"
-                  name="Spiderman 5"
-                  category="Action, Adventure, Sci-Fi"
-                  linkDetail="/details"
-                />
-                <UpcomingCard
-                  image="/assets/img/movie5.png"
-                  name="The Bocil Lion"
-                  category="Action, Adventure, Sci-Fi"
-                  linkDetail="/details"
-                />
+                {this.state.dataUpcoming.map((element) => (
+                  <UpcomingCard
+                    image={
+                      element.image
+                        ? `http://localhost:3001/uploads/movie/${element.image}`
+                        : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
+                    }
+                    name={element.name}
+                    category={element.category}
+                    linkDetail={`/movie/${element.id}`}
+                    key={element.id}
+                  />
+                ))}
               </div>
             </section>
           </section>
@@ -151,7 +119,7 @@ class Home extends Component {
                   placeholder="Write your Email"
                 />
                 <span>
-                  <Link className="btn btn-primary email__form--btn"> Join now </Link>
+                  <button className="btn btn-primary email__form--btn"> Join now </button>
                 </span>
               </div>
             </div>

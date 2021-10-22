@@ -1,23 +1,14 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 class Navbar extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     newName: props.userLogin
-  //   };
-  // }
-  // handleLogout = () => {
-  //   this.props.history.push("/login");
-  // };
   render() {
     return (
       <>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light mt-3">
-          <div className="container-fluid">
-            <Link className="navbar-brand" to="/">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <div className="container">
+            <a className="navbar-brand" href="/">
               <img src="/assets/img/logo-sm.svg" alt="" />
-            </Link>
+            </a>
             <button
               className="navbar-toggler"
               type="button"
@@ -37,7 +28,7 @@ class Navbar extends Component {
                   <div className="form-group">
                     <div className="input-group mb-3">
                       <span className="input-group-text bg-light navbar__input--btnsearch">
-                        <img src={"../../../assets/icon/search.svg"} alt="" />
+                        <img src="/assets/icon/search.svg" alt="" />
                       </span>
                       <input
                         id="ph"
@@ -49,20 +40,20 @@ class Navbar extends Component {
                   </div>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link active" aria-current="page" to="/">
+                  <a className="nav-link active" aria-current="page" href="/">
                     Home
-                  </Link>
+                  </a>
                 </li>
 
                 <li className="nav-item">
-                  <Link className="nav-link" to="/booking.html">
+                  <a className="nav-link" href="/booking.html">
                     Profile
-                  </Link>
+                  </a>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/payment.html">
+                  <a className="nav-link" href="/payment.html">
                     Payment
-                  </Link>
+                  </a>
                 </li>
 
                 <li className="nav-item d-none-desktop">
@@ -79,14 +70,11 @@ class Navbar extends Component {
                   </select>
                 </form>
                 <img src="/assets/icon/search.svg" className="mx-4" alt="" />
-                <Link to="/login" className="btn btn-primary px-4">
-                  {" "}
-                  Sign Up{" "}
-                </Link>
+                <img src="/assets/img/avatar.png" className="avatar rounded-circle" alt="" />
               </div>
             </div>
           </div>
-        </nav>{" "}
+        </nav>
       </>
     );
   }

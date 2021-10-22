@@ -1,8 +1,62 @@
 import React, { Component } from "react";
 import styles from "./auth.module.css";
 import { Link } from "react-router-dom";
+import { getSupportInfo } from "prettier";
+import axios from "../../../utils/axios";
 
 class Login extends Component {
+  constructor() {
+    super();
+    this.state = {
+      form: {
+        email: "",
+        password: ""
+      },
+      isError: false,
+      msg: "",
+      passwordType: "password"
+    };
+  }
+  handleSubmit = (event) => {
+    event.preventDefault();
+    axios
+      .post("/auth/login", this.state.form)
+      .then((res) => {
+        localStorage.setItem("token", res.data.data.token);
+        this.props.history.push("/");
+      })
+      .catch((err) => {
+        this.setState({
+          isError: true,
+          msg: err.response.data.msg
+        });
+        setTimeout(() => {
+          this.setState({
+            isError: false,
+            msg: ""
+          });
+        }, 3000);
+      });
+  };
+  handleChangeInput = (event) => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        [event.target.name]: event.target.value
+      }
+    });
+  };
+  showButton = (event) => {
+    if (this.state.passwordType == "password") {
+      this.setState({
+        passwordType: "text"
+      });
+    } else {
+      this.setState({
+        passwordType: "password"
+      });
+    }
+  };
   render() {
     return (
       <>
@@ -33,15 +87,30 @@ class Login extends Component {
                   className="mb-5 d-none logo-mobile"
                   alt="Logo Tickez"
                 />
+
                 <h2 className="form--desc__h2 fw-bold">Sign In</h2>
-                <p className="text-muted mb-4 d-none d-md-block">
-                  Sign in with your data that you entered during your registration
-                </p>
-                <form action="">
+                {this.state.isError && (
+                  <div className="alert alert-danger alert__login">{this.state.msg}</div>
+                )}
+                {this.state.isError === false ? (
+                  <p className="text-muted mb-4 d-none d-md-block">
+                    Sign in with your data that you entered during your registration
+                  </p>
+                ) : (
+                  ""
+                )}
+                <form action="" onSubmit={this.handleSubmit}>
                   <div className="form-group form__password">
                     <label htmlFor="" className="form-control-label" />
                     Email
-                    <input type="email" className="form-control" placeholder="Write your Email" />
+                    <input
+                      type="email"
+                      onChange={this.handleChangeInput}
+                      required
+                      name="email"
+                      className="form-control"
+                      placeholder="Write your Email"
+                    />
                   </div>
                   <div className="form-group mt-3">
                     <label htmlFor="" className="form-control-label">
@@ -50,15 +119,22 @@ class Login extends Component {
                     </label>
                     <div className="form__password input-group">
                       <input
-                        type="password"
+                        type={this.state.passwordType}
+                        onChange={this.handleChangeInput}
+                        required
                         // style="width: 100%"
+                        name="password"
                         className="form-control w-100"
                         placeholder="Write your password"
                       />
                       <span>
-                        <btn className="btn btn-light password__icon">
+                        <button
+                          className="btn btn-light password__icon"
+                          type="button"
+                          onClick={this.showButton}
+                        >
                           <img src="/assets/img/eye.png" height="20px" alt="" />
-                        </btn>
+                        </button>
                       </span>
                     </div>
                   </div>

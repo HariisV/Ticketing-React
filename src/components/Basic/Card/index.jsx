@@ -1,0 +1,38 @@
+import React, { Component } from "react";
+import { Card, Button } from "react-bootstrap";
+export default class index extends Component {
+  handleSetUpdate = () => {
+    this.props.handleUpdate(1);
+  };
+  render() {
+    console.log(this.props);
+    const { id, name, category, image } = this.props.data;
+    return (
+      <>
+        <Card style={{ width: "18rem" }}>
+          <Card.Img
+            variant="top"
+            src={
+              image
+                ? `http://localhost:3001/uploads/movie/${image}`
+                : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
+            }
+            // src={`http://localhost:3001/uploads/movie/${image}`}
+          />
+          <Card.Body>
+            <Card.Title>{name}</Card.Title>
+            <Card.Text>{category}.</Card.Text>
+            <Button variant="primary" onClick={() => this.props.handleDetail(id)}>
+              Detail
+            </Button>
+            <Button variant="secondary" onClick={this.handleSetUpdate}>
+              Update
+            </Button>
+
+            <Button variant="danger">Delete</Button>
+          </Card.Body>
+        </Card>
+      </>
+    );
+  }
+}

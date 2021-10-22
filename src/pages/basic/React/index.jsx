@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import Navbar from "../../../components/Navbar";
+import Navbar from "../../../components/Basic/Navbar";
 import { Button, Modal } from "react-bootstrap";
+import CardMovie from "../../../components/Basic/Card";
 class BasicReact extends Component {
   constructor() {
     super();
@@ -56,17 +57,20 @@ class BasicReact extends Component {
       show: false
     });
   };
+  handleUpdateMovie = (data) => {
+    console.log(data);
+  };
 
   render() {
     // console.log(this.state.data);
     return (
       <>
-        <h1>Hello World !</h1>
-        {this.state.data.map((item, index) => (
+        {/* <h1>Hello World !</h1> */}
+        {/* {this.state.data.map((item, index) => (
           <div key={index}>
             <h2>{item.movieName}</h2>
           </div>
-        ))}
+        ))} */}
         <Navbar userLogin="haris" />
         <button onClick={() => this.handleClick2(1)}>Click Me</button>
         <hr />
@@ -105,6 +109,11 @@ class BasicReact extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
+
+        <hr />
+
+        {/* COMPONENT COMMUNICATION */}
+        <CardMovie handleUpdate={this.handleUpdateMovie} />
       </>
     );
   }
