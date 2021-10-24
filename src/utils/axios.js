@@ -2,7 +2,7 @@ import axios from "axios";
 
 // ENV
 const axiosApiInterface = axios.create({
-  baseURL: "http://localhost:3001/"
+  baseURL: "http://tickez.herokuapp.com/"
 });
 
 axiosApiInterface.interceptors.request.use(
