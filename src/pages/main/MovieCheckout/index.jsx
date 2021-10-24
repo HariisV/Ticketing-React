@@ -3,15 +3,118 @@ import { Link } from "react-router-dom";
 import Navbar from "../../../components/Navbar/navbar";
 import Footer from "../../../components/Footer";
 import styles from "./MovieCheckout.module.css";
+import axios from "../../../utils/axios";
+
 class MovieCheckout extends Component {
+  constructor() {
+    super();
+    this.state = {
+      dataMovie: {},
+      dataSchedule: {},
+      fullName: "",
+      email: "",
+      phoneNumber: "",
+      isActive: false
+    };
+  }
+  componentDidMount() {
+    const data = this.props.location.state;
+
+    this.checkingData(data);
+    this.getMovie(data);
+    this.getSchedule(data);
+  }
+
+  checkingData = (data) => {
+    if (
+      !data ||
+      typeof data !== "object" ||
+      !data.dateBooking ||
+      !data.movieId ||
+      !data.timeBooking ||
+      !data.scheduleId ||
+      !data.seat
+    ) {
+      alert("Select Movie !");
+      this.props.history.push("/");
+    }
+  };
+  getMovie = (data) => {
+    axios
+      .get(`/movie/${data.movieId}`)
+      .then((res) => {
+        this.setState({
+          dataMovie: res.data.data[0]
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  getSchedule = (data) => {
+    axios
+      .get(`/schedule/${data.scheduleId}`)
+      .then((res) => {
+        this.setState({
+          dataSchedule: res.data.data[0]
+        });
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
+  onchangeInput = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+    if (this.state.fullName && this.state.email && this.state.phoneNumber) {
+      this.setState({
+        isActive: true
+      });
+    }
+  };
+
+  handleProcessPayment = () => {
+    const dataprops = this.props.location.state;
+    const data = this.state;
+    const setData = {
+      fullName: data.fullName,
+      Email: data.email,
+      phoneNumber: data.phoneNumber,
+      movieId: data.dataMovie.id,
+      scheduleId: data.dataSchedule.id,
+      dateBooking: dataprops.dateBooking,
+      timeBooking: dataprops.timeBooking,
+      paymentMethod: "Midtrans",
+      seat: dataprops.seat
+    };
+    axios
+      .post("booking", setData)
+      .then((res) => {
+        const saveMidtransData = res.data.data;
+        console.log(saveMidtransData.paymentUrl);
+        window.open(saveMidtransData.paymentUrl, "_blank");
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  };
+
   render() {
+    const data = this.props.location.state;
+    let dayBook = new Date(data.dateBooking);
+    var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thusday", "Friday", "Saturday"];
+    var dayBooking = `${days[dayBook.getDay()]}, ${dayBook.getDate()} ${dayBook.toLocaleString(
+      "default",
+      { month: "long" }
+    )} ${dayBook.getFullYear()}`;
     return (
       <div style={{ padding: 0, margin: 0 }} className={`${styles.body}`}>
         <Navbar />
         <div className="payment__mobile card">
           <div className="card-body list-group-item list__details--totalpayment">
             <p>
-              Total payment <span> $30,00</span>
+              Total payment <span> ${data.seat.length * this.state.dataSchedule.price}</span>
             </p>
           </div>
         </div>
@@ -24,35 +127,36 @@ class MovieCheckout extends Component {
                   <ul className="list-group list-group-flush p-3 list__details">
                     <li className="list-group-item">
                       <p>
-                        Date & Time <span> 20 Oktober 2021</span>
+                        Date & Time <span> {dayBooking}</span>
                       </p>
                     </li>
                     <li className="list-group-item">
                       <p>
-                        Movie Title <span> Spider-Man: Homecoming</span>
+                        Movie Title <span> {this.state.dataMovie.name}</span>
                       </p>
                     </li>
                     <li className="list-group-item">
                       <p>
-                        Cinema name <span> CineOne21 Cinema</span>
+                        Cinema name <span> {this.state.dataSchedule.premier}</span>
                       </p>
                     </li>
                     <li className="list-group-item">
                       <p>
-                        Number of tickets <span> 3 pieces</span>
+                        Number of tickets <span> {data.seat.length} Pieces</span>
                       </p>
                     </li>
                     <li className="list-group-item list__details--totalpayment">
                       <p>
-                        Total payment <span> $30,00</span>
+                        Total payment{" "}
+                        <span> $ {data.seat.length * this.state.dataSchedule.price}</span>
                       </p>
                     </li>
                   </ul>
                 </div>
               </section>
               <section id="PaymentMethod">
-                <h5 className="mt-5 selected__movie--title">Choose a Payment Method</h5>
-                <div className="card-body p-1 payment__method payment__method1">
+                {/* <h5 className="mt-5 selected__movie--title">Choose a Payment Method</h5> */}
+                {/* <div className="card-body p-1 payment__method payment__method1">
                   <button className="btn">
                     <img src="/assets/img/payment1.png" alt="" />
                   </button>
@@ -93,14 +197,22 @@ class MovieCheckout extends Component {
                   <p className="text-center">
                     Pay via cash. <a href="">See how it work</a>
                   </p>
-                </div>
+                </div> */}
                 <div className="d-flex justify-content-between mt-4 selected__movie--btn">
-                  <Link to="/booking" className="btn btn-outline-primary">
+                  <Link
+                    to="/booking"
+                    className="btn btn-outline-primary selected__movie--anotherLink"
+                  >
                     Previous step
                   </Link>
-                  <Link to="/" className="btn btn-primary">
+                  <button
+                    className={`btn btn-primary selected__movie--anotherLink ${
+                      this.state.isActive ? null : "ScheduleCard__nonaktifBtn"
+                    }`}
+                    onClick={this.handleProcessPayment}
+                  >
                     Pay your order
-                  </Link>
+                  </button>
                 </div>
               </section>
             </div>
@@ -110,11 +222,25 @@ class MovieCheckout extends Component {
                 <div className="personal_info mx-0">
                   <div className="form-group">
                     <label htmlFor="fn">Full Name</label>
-                    <input id="fn" type="text" className="form-control" placeholder="Full Name" />
+                    <input
+                      id="fn"
+                      onChange={this.onchangeInput}
+                      type="text"
+                      name="fullName"
+                      className="form-control"
+                      placeholder="Full Name"
+                    />
                   </div>
                   <div className="form-group">
                     <label htmlFor="em">Email</label>
-                    <input id="em" type="email" className="form-control" placeholder="Email" />
+                    <input
+                      id="em"
+                      onChange={this.onchangeInput}
+                      type="email"
+                      className="form-control"
+                      name="email"
+                      placeholder="Email"
+                    />
                   </div>
                   <div className="form-group">
                     <label htmlFor="Ph">Phone Number</label>
@@ -123,6 +249,8 @@ class MovieCheckout extends Component {
                       <input
                         id="ph"
                         type="number"
+                        name="phoneNumber"
+                        onChange={this.onchangeInput}
                         className="form-control"
                         placeholder="123456789"
                       />

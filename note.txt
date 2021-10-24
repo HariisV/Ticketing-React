@@ -1,2 +1,7 @@
 1. Bearer Config Axios
 2. Env
+3. ADD IMAGE SCHEDULE
+4. Address Schedule
+5. Location + date Get Schedule
+6. Auth
+7. VALIDATE INPUT NPM

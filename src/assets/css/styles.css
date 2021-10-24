@@ -256,6 +256,7 @@
   top: 7%;
   height: 340px;
   border-radius: 6px;
+  object-fit: cover;
 }
 .heroo_details {
   margin-bottom: 30px;
@@ -439,7 +440,7 @@ p {
   font-size: 16px;
   font-weight: 600;
 }
-.selected__movie--btn a {
+.selected__movie--anotherLink {
   padding: 10px 80px;
 }
 .order__sponsor--image {
@@ -630,6 +631,11 @@ p {
   border-color: red;
   padding: 10px;
   background: #ffe9e9;
+}
+.ScheduleCard__nonaktifBtn {
+  background-color: #9985d0;
+  border-color: #9985d0;
+  cursor: not-allowed !important;
 }
 
 @media (min-width: 768px) {
@@ -847,7 +853,7 @@ p {
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
   }
-  .selected__movie--btn a {
+  .selected__movie--anotherLink {
     padding: 10px 10px;
   }
   .desktop__selected--seat {

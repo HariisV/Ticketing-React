@@ -7,12 +7,19 @@ import axios from "../../../utils/axios";
 class MovieDetail extends Component {
   constructor() {
     super();
+    var d = new Date();
     this.state = {
-      data: []
+      data: [],
+      dateBooking: `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`,
+      schedule: [],
+      IdScheduleSelected: "",
+      timeSelected: ""
     };
   }
+
   componentDidMount() {
     this.getMovieById(this.props.match.params.id);
+    this.getScheduleFilter();
   }
   getMovieById = (id) => {
     axios
@@ -26,8 +33,50 @@ class MovieDetail extends Component {
         this.props.history.push("/");
       });
   };
+  getScheduleFilter = () => {
+    axios
+      .get("/schedule?page=1&limit=6&location=Jakarta")
+      .then((res) => {
+        this.setState({
+          schedule: res.data.data
+        });
+        // console.log(res.data.data);
+      })
+      .catch((err) => {
+        this.props.history.push("/");
+      });
+  };
+
+  changeDateBooking = () => {
+    this.setState({
+      dateBooking: event.target.value
+    });
+  };
+  handleClickState = (time, scheduleId) => {
+    this.setState({
+      timeSelected: time,
+      IdScheduleSelected: scheduleId
+    });
+  };
+  handleBooking = () => {
+    const setData = {
+      movieId: this.state.data.id,
+      scheduleId: this.state.IdScheduleSelected,
+      dateBooking: this.state.dateBooking,
+      timeBooking: this.state.timeSelected
+    };
+    this.props.history.push("/booking", setData);
+  };
   render() {
     const data = this.state.data;
+    var dateReleasee = new Date(data.releaseDate);
+    const dateRelease = `${
+      dateReleasee.toLocaleString("default", { month: "short" }) +
+      " " +
+      dateReleasee.getDate() +
+      ", " +
+      dateReleasee.getFullYear()
+    }`;
     return (
       <>
         <div className="container">
@@ -37,7 +86,15 @@ class MovieDetail extends Component {
               <div className="col-md-3 col-lg-4 col-xl-3 col-sm-12">
                 <div className="heroo__details--border d-flex justify-content-center">
                   <div className="heroo__details--card">
-                    <img src="/assets/img/movie2.png" className="heroo__details--image" alt="" />
+                    <img
+                      src={
+                        data.image
+                          ? `http://localhost:3001/uploads/movie/${data.image}`
+                          : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
+                      }
+                      className="heroo__details--image"
+                      alt=""
+                    />
                   </div>
                 </div>
               </div>
@@ -49,7 +106,7 @@ class MovieDetail extends Component {
                   <tr>
                     <td>
                       Release Date
-                      <h5>{data.releaseDate.getMonth()}</h5>
+                      <h5>{dateRelease}</h5>
                     </td>
                     <td>
                       Directed By
@@ -69,14 +126,7 @@ class MovieDetail extends Component {
                 </table>
                 <hr />
                 <h4 className="mb-4">Sypnosis</h4>
-                <p className="heroo_details--sypnosis">
-                  Thrilled by his experience with the Avengers, Peter returns home, where he lives
-                  with his Aunt May, under the watchful eye of his new mentor Tony Stark, Peter
-                  tries to fall back into his normal daily routine - distracted by thoughts of
-                  proving himself to be more than just your friendly neighborhood Spider-Man - but
-                  when the Vulture emerges as a new villain, everything that Peter holds most
-                  important will be threatened.
-                </p>
+                <p className="heroo_details--sypnosis">{data.sypnosis}</p>
               </div>
             </div>
           </section>
@@ -90,7 +140,12 @@ class MovieDetail extends Component {
               <span className="input-group-text bginput__blue">
                 <img src="/assets/icon/date.svg" alt="" />
               </span>
-              <input type="date" className="form-control bginput__blue" />
+              <input
+                type="date"
+                className="form-control bginput__blue"
+                value={this.state.dateBooking}
+                onChange={this.changeDateBooking}
+              />
             </div>
             <div className="input-group">
               <span className="input-group-text bginput__blue">
@@ -106,103 +161,21 @@ class MovieDetail extends Component {
           </div>
           <div className="container timesticket text-start">
             <div className="row">
-              <TicketCard
-                image="/assets/img/sponsor1.png"
-                name="ebu.id"
-                alamat="Whatever street No.12, South Purwokerto"
-                time={[
-                  "08:30 am",
-                  "10:30 am",
-                  "12:00 am",
-                  "14:00 am",
-                  "16:30 pm",
-                  "19:00 pm",
-                  "20:30 pm"
-                ]}
-                price="10.00"
-                linkBooking="/booking"
-              />
-              <TicketCard
-                image="/assets/img/sponsor2.png"
-                name="cineOne21"
-                alamat="Cineone No.12, South Purwokerto"
-                time={[
-                  "01:30 am",
-                  "11:30 am",
-                  "13:00 am",
-                  "15:00 am",
-                  "17:30 pm",
-                  "13:00 pm",
-                  "20:30 pm"
-                ]}
-                price="10.00"
-                linkBooking="/booking"
-              />
-              <TicketCard
-                image="/assets/img/sponsor3.png"
-                name="hiFlix"
-                alamat="Whatever street No.12, South Purwokerto"
-                time={[
-                  "08:30 am",
-                  "10:30 am",
-                  "12:00 am",
-                  "14:00 am",
-                  "16:30 pm",
-                  "19:00 pm",
-                  "20:30 pm"
-                ]}
-                price="10.00"
-                linkBooking="/booking"
-              />
-
-              <TicketCard
-                image="/assets/img/sponsor1.png"
-                name="ebu.id"
-                alamat="Whatever street No.12, South Purwokerto"
-                time={[
-                  "08:30 am",
-                  "10:30 am",
-                  "12:00 am",
-                  "14:00 am",
-                  "16:30 pm",
-                  "19:00 pm",
-                  "20:30 pm"
-                ]}
-                price="10.00"
-                linkBooking="/booking"
-              />
-              <TicketCard
-                image="/assets/img/sponsor2.png"
-                name="cineOne21"
-                alamat="Cineone No.12, South Purwokerto"
-                time={[
-                  "01:30 am",
-                  "11:30 am",
-                  "13:00 am",
-                  "15:00 am",
-                  "17:30 pm",
-                  "13:00 pm",
-                  "20:30 pm"
-                ]}
-                price="10.00"
-                linkBooking="/booking"
-              />
-              <TicketCard
-                image="/assets/img/sponsor3.png"
-                name="hiFlix"
-                alamat="Whatever street No.12, South Purwokerto"
-                time={[
-                  "08:30 am",
-                  "10:30 am",
-                  "12:00 am",
-                  "14:00 am",
-                  "16:30 pm",
-                  "19:00 pm",
-                  "20:30 pm"
-                ]}
-                price="10.00"
-                linkBooking="/booking"
-              />
+              {this.state.schedule.map((item) => (
+                <TicketCard
+                  image="/assets/img/sponsor1.png"
+                  id={item.id}
+                  selectedSchedule={this.state.IdScheduleSelected}
+                  selectedTime={this.state.timeSelected}
+                  name={item.premier}
+                  alamat="Whatever street No.12, South Purwokerto"
+                  time={item.time}
+                  price={item.price}
+                  key={item.id}
+                  handleUpdate={this.handleClickState.bind()}
+                  handleBooking={this.handleBooking.bind()}
+                />
+              ))}
             </div>
           </div>
           <div className="showtimes__paginate mb-5">

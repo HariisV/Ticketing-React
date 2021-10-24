@@ -3,8 +3,97 @@ import { Link } from "react-router-dom";
 import Navbar from "../../../components/Navbar/navbar";
 import Footer from "../../../components/Footer";
 import styles from "./MovieBooking.module.css";
+import axios from "../../../utils/axios";
+import Seat from "../../../components/Seat";
 class MovieBooking extends Component {
+  constructor() {
+    super();
+    this.state = {
+      dataMovie: "",
+      dataSchedule: "",
+      selectedSeat: [],
+      soldSeat: ["A1", "C7"]
+    };
+  }
+  componentDidMount() {
+    const data = this.props.location.state;
+
+    this.checkingData(data);
+    this.getMovie(data);
+    this.getSchedule(data);
+  }
+  checkingData = (data) => {
+    if (
+      !data ||
+      typeof data !== "object" ||
+      !data.scheduleId ||
+      !data.movieId ||
+      !data.timeBooking ||
+      !data.dateBooking
+    ) {
+      alert("Select Movie !");
+      this.props.history.push("/");
+    }
+  };
+  getSchedule = (data) => {
+    axios
+      .get(`/schedule/${data.scheduleId}`)
+      .then((res) => {
+        this.setState({
+          dataSchedule: res.data.data[0]
+        });
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
+  getMovie = (data) => {
+    axios
+      .get(`/movie/${data.movieId}`)
+      .then((res) => {
+        this.setState({
+          dataMovie: res.data.data[0]
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  selectedSeat = (data) => {
+    if (this.state.selectedSeat.includes(data)) {
+      const deletedSeat = this.state.selectedSeat.filter((e) => {
+        return e !== data;
+      });
+      this.setState({
+        selectedSeat: deletedSeat
+      });
+    } else {
+      this.setState({
+        selectedSeat: [...this.state.selectedSeat, data]
+      });
+    }
+  };
+  handleCheckout = () => {
+    const data = this.props.location.state;
+    const setData = {
+      seat: this.state.selectedSeat,
+      movieId: this.state.dataMovie.id,
+      scheduleId: this.state.dataSchedule.id,
+      dateBooking: data.dateBooking,
+      timeBooking: data.timeBooking
+    };
+    this.props.history.push("/checkout", setData);
+  };
   render() {
+    const data = this.props.location.state;
+    let dayBook = new Date(data.dateBooking);
+    var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thusday", "Friday", "Saturday"];
+    var dayBooking = `${days[dayBook.getDay()]}, ${dayBook.getDate()} ${dayBook.toLocaleString(
+      "default",
+      { month: "long" }
+    )} ${dayBook.getFullYear()} 
+    `;
+    const listAbjad = ["A", "B", "C", "D", "E", "F", "G"];
     return (
       <div className={`${styles.bodys}`} style={{ padding: "0", margin: "0" }}>
         <Navbar />
@@ -15,7 +104,7 @@ class MovieBooking extends Component {
                 <h5 className="mt-5 selected__movie--title">Movie Selected</h5>
                 <div className="card card-body p-1">
                   <div className="d-flex selected__movie mx-3">
-                    <h5>Spider-Man: Homecoming</h5>
+                    <h5>{this.state.dataMovie.name}</h5>
                     <Link to="/" className="btn btn-outline-primary">
                       Change movie
                     </Link>
@@ -26,7 +115,20 @@ class MovieBooking extends Component {
                 <h5 className="mt-4 selected__movie--title">Chose Your Seat</h5>
                 <div className="card card-body p-1">
                   <div className="text-center selected__seat">
-                    <img src="/assets/img/seat.png" className="image__seat" alt="" />
+                    <div className="container text-center">
+                      <h6 className="mt-3 mb-4">Screen</h6>
+                      <hr />
+                      {listAbjad.map((element, index) => (
+                        <div key={index}>
+                          <Seat
+                            abjad={element}
+                            selectedSeat={this.selectedSeat}
+                            sold={this.state.soldSeat}
+                            selected={this.state.selectedSeat}
+                          />
+                        </div>
+                      ))}
+                    </div>
                     <div className="desktop__selected--seat selected__seat--key  mt-3">
                       <h5 className="text-start mb-3">Seating key</h5>
                       <div className="d-flex text-center">
@@ -78,12 +180,17 @@ class MovieBooking extends Component {
                   </div>
                 </div>
                 <div className="d-flex justify-content-between mt-4 selected__movie--btn">
-                  <Link to="/" className="btn btn-outline-primary">
-                    change your movie
+                  <Link to="/" className="btn btn-outline-primary selected__movie--anotherLink">
+                    change movie
                   </Link>
-                  <Link to="/checkout" className="btn btn-primary">
+                  <button
+                    onClick={this.state.selectedSeat.length > 0 ? this.handleCheckout : null}
+                    className={`btn btn-primary selected__movie--anotherLink ${
+                      this.state.selectedSeat.length > 0 ? null : "ScheduleCard__nonaktifBtn"
+                    } `}
+                  >
                     checkout now
-                  </Link>
+                  </button>
                 </div>
               </section>
             </div>
@@ -93,30 +200,38 @@ class MovieBooking extends Component {
                 <div className="order__sponsor mx-0 ">
                   <div className="order__sponsor--header text-center">
                     <img src="/assets/img/sponsor2.png" className="order__sponsor--image" alt="" />
-                    <p className="order__sponsor--title mb-4">CineOne21 Cinema</p>
+                    <p className="order__sponsor--title mb-4">{this.state.dataSchedule.premier}</p>
                   </div>
                   <div className="mt-4 order__sponsor--name d-flex justify-content-between">
                     <p className="order__sponsor--info order__sponsor--selectedname">
                       Movie selected
                     </p>
-                    <p className="text-center order__sponsor--answer">Spider-Man: Homecoming</p>
+                    <p className="text-center order__sponsor--answer">
+                      {this.state.dataMovie.name}
+                    </p>
                   </div>
                   <div className="d-flex justify-content-between">
-                    <p className="order__sponsor--info">Tuesday, 07 July 2020</p>
-                    <p className="order__sponsor--answer">02:00pm</p>
+                    <p className="order__sponsor--info">{dayBooking}</p>
+                    <p className="order__sponsor--answer">{data.timeBooking}</p>
                   </div>
                   <div className="d-flex justify-content-between">
                     <p className="order__sponsor--info">One ticket price</p>
-                    <p className="order__sponsor--answer">$10</p>
+                    <p className="order__sponsor--answer">${this.state.dataSchedule.price}</p>
                   </div>
-                  <div className="d-flex justify-content-between">
-                    <p className="order__sponsor--info">Seat choosed</p>
-                    <p className="order__sponsor--answer">C4, C5, C6</p>
-                  </div>
+                  {this.state.selectedSeat.length > 0 ? (
+                    <div className="d-flex justify-content-between">
+                      <p className="order__sponsor--info">Seat choosed</p>
+                      <p className="order__sponsor--answer">
+                        {this.state.selectedSeat.map((element) => `${element}, `)}
+                      </p>
+                    </div>
+                  ) : null}
                   <hr />
                   <div className="d-flex justify-content-between">
                     <p className="order__sponsor--info">Total Payment</p>
-                    <p className="order__sponsor--price text-primary">$30</p>
+                    <p className="order__sponsor--price text-primary">
+                      $ {this.state.selectedSeat.length * this.state.dataSchedule.price}
+                    </p>
                   </div>
                 </div>
               </div>
