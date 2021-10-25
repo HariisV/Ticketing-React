@@ -1,6 +1,29 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
+import axios from "../../utils/axios";
 class Navbar extends Component {
+  constructor() {
+    super();
+    this.state = {
+      city: []
+    };
+  }
+  componentDidMount() {
+    this.getCity();
+  }
+  getCity = () => {
+    axios
+      .get("/user/city")
+      .then((res) => {
+        this.setState({
+          city: res.data.data
+        });
+        // console.log(res.data.data);
+      })
+      .catch((err) => {
+        console.log("TIDAK AD KOTA");
+      });
+  };
   render() {
     return (
       <>
@@ -63,10 +86,12 @@ class Navbar extends Component {
               <div className="navbar__right">
                 <form className="d-flex">
                   <select className="form-select border-0">
-                    <option selected>Location</option>
-                    <option value="1">Jakarta</option>
-                    <option value="2">Medan</option>
-                    <option value="3">Pekan Baru</option>
+                    <option value="Jakarta">Location</option>
+                    {this.state.city.map((item, index) => (
+                      <option value={item.name} key={index}>
+                        {item.name}
+                      </option>
+                    ))}
                   </select>
                 </form>
                 <img src="/assets/icon/search.svg" className="mx-4" alt="" />

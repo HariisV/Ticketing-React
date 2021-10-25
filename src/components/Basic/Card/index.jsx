@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Card, Button } from "react-bootstrap";
+require("dotenv").config();
+
 export default class index extends Component {
   handleSetUpdate = () => {
     this.props.handleUpdate(1);
@@ -14,10 +16,9 @@ export default class index extends Component {
             variant="top"
             src={
               image
-                ? `http://localhost:3001/uploads/movie/${image}`
+                ? `${process.env.REACT_APP_URL_BACKEND}uploads/movie/${image}`
                 : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
             }
-            // src={`http://localhost:3001/uploads/movie/${image}`}
           />
           <Card.Body>
             <Card.Title>{name}</Card.Title>

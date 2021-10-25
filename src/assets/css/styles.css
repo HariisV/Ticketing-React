@@ -138,6 +138,12 @@
   box-shadow: 5px 5px 18px rgb(95 46 234 / 30%);
   margin-left: 0 !important;
 }
+.btn__active--Month {
+  box-shadow: 5px 5px 18px rgb(95 46 234 / 30%);
+  /* margin-left: 10px !important; */
+  background-color: #5f2eea;
+  color: white;
+}
 .upcoming--category::-webkit-scrollbar {
   display: none;
 }
@@ -434,7 +440,7 @@ p {
   margin-left: 20px;
 }
 .selected__seat--key {
-  padding-left: 151px;
+  padding-left: 40px;
 }
 .selected__seat--key h5 {
   font-size: 16px;
@@ -594,18 +600,18 @@ p {
   color: rgb(198, 197, 202);
   border-color: rgb(198, 197, 202);
 }
-.pagination > .pagination__active > a {
+/* .pagination > .pagination__active > a {
   background-color: #47ccde;
   border-color: #47ccde;
   color: #fff;
-}
-.pagination > li > a {
+} */
+/* .pagination > li > a {
   border: 1px solid #47ccde;
   padding: 5px 10px;
   outline: none;
   cursor: pointer;
-}
-.pagination > .pagination__active > a,
+} */
+/* .pagination > .pagination__active > a,
 .pagination > .pagination__active > span,
 .pagination > .pagination__active > a:hover,
 .pagination > .pagination__active > span:hover,
@@ -624,8 +630,17 @@ p {
 .pagination > li:last-child > a,
 .pagination > li:last-child > span {
   border-radius: unset;
+} */
+.pagination__button.btn-primary {
+  color: white;
 }
-
+.pagination__button {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.nonaktif_previous {
+  display: none;
+}
 .alert__login {
   color: red;
   border-color: red;

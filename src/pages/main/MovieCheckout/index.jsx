@@ -209,7 +209,7 @@ class MovieCheckout extends Component {
                     className={`btn btn-primary selected__movie--anotherLink ${
                       this.state.isActive ? null : "ScheduleCard__nonaktifBtn"
                     }`}
-                    onClick={this.handleProcessPayment}
+                    onClick={this.state.isActive ? this.handleProcessPayment : null}
                   >
                     Pay your order
                   </button>

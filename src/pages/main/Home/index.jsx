@@ -5,13 +5,16 @@ import Footer from "../../../components/Footer";
 import ShowingCard from "../../../components/ShowingCard";
 import UpcomingCard from "../../../components/UpcomingCard";
 import axios from "../../../utils/axios";
+import MontButton from "../../../components/monthButton";
+require("dotenv").config();
 
 class Home extends Component {
   constructor() {
     super();
     this.state = {
       dataShowing: [],
-      dataUpcoming: []
+      dataUpcoming: [],
+      activeMonth: `${new Date().getMonth() + 1}`
     };
   }
   componentDidMount() {
@@ -19,19 +22,44 @@ class Home extends Component {
     this.getDataMovieUpcoming();
   }
   getDataMovieShowing = () => {
-    axios.get("movie?page=1&limit=7&sort=id&sortType=DESC").then((res) => {
+    axios.get("movie?page=1&limit=7&sort=id&sortType=ASC").then((res) => {
       this.setState({
         dataShowing: res.data.data
       });
     });
   };
   getDataMovieUpcoming = () => {
-    axios.get("movie?page=1&limit=7&sort=releaseDate&sortType=DESC").then((res) => {
-      this.setState({
-        dataUpcoming: res.data.data
+    axios
+      .get("movie/upcoming")
+      .then((res) => {
+        this.setState({
+          dataUpcoming: res.data.data
+        });
+      })
+      .catch((err) => {
+        console.log(err.response);
       });
-    });
   };
+  changeMonthMovie = (data) => {
+    this.setState({
+      activeMonth: data
+    });
+    const setData = {
+      month: data
+    };
+    axios
+      .post("movie/upcoming", setData)
+      .then((res) => {
+        console.log(res);
+        this.setState({
+          dataUpcoming: res.data.data
+        });
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
+
   render() {
     return (
       <>
@@ -59,7 +87,7 @@ class Home extends Component {
                 <ShowingCard
                   image={
                     item.image
-                      ? `http://localhost:3001/uploads/movie/${item.image}`
+                      ? `${process.env.REACT_APP_URL_BACKEND}uploads/movie/${item.image}`
                       : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
                   }
                   name={item.name}
@@ -78,16 +106,10 @@ class Home extends Component {
             </small>
             <section className="upcoming--category mt-4">
               <div className="upcoming__category--wrapper">
-                <button className="btn btn-primary active">Oktober</button>
-                <button className="btn btn-outline-primary">November</button>
-                <button className="btn btn-outline-primary">Desember</button>
-                <button className="btn btn-outline-primary">January</button>
-                <button className="btn btn-outline-primary">February</button>
-                <button className="btn btn-outline-primary">March</button>
-                <button className="btn btn-outline-primary">April</button>
-                <button className="btn btn-outline-primary">May</button>
-                <button className="btn btn-outline-primary">Juny</button>
-                <button className="btn btn-outline-primary">July</button>
+                <MontButton
+                  changeMonth={this.changeMonthMovie}
+                  activeMonth={this.state.activeMonth}
+                />
               </div>
             </section>
             <section className="upcoming__list mt-4">
@@ -96,7 +118,7 @@ class Home extends Component {
                   <UpcomingCard
                     image={
                       element.image
-                        ? `http://localhost:3001/uploads/movie/${element.image}`
+                        ? `${process.env.REACT_APP_URL_BACKEND}uploads/movie/${element.image}`
                         : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
                     }
                     name={element.name}

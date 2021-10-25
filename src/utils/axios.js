@@ -1,10 +1,11 @@
 import axios from "axios";
+require("dotenv").config();
 
 // ENV
 const axiosApiInterface = axios.create({
-  baseURL: "http://tickez.herokuapp.com/"
+  baseURL: process.env.REACT_APP_URL_BACKEND
 });
-
+// console.log(process.env.REACT_APP_BASE_URL);
 axiosApiInterface.interceptors.request.use(
   function (config) {
     config.headers = {

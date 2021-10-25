@@ -12,7 +12,7 @@ class MovieBooking extends Component {
       dataMovie: "",
       dataSchedule: "",
       selectedSeat: [],
-      soldSeat: ["A1", "C7"]
+      soldSeat: []
     };
   }
   componentDidMount() {
@@ -21,6 +21,7 @@ class MovieBooking extends Component {
     this.checkingData(data);
     this.getMovie(data);
     this.getSchedule(data);
+    this.getSoldSeat(data);
   }
   checkingData = (data) => {
     if (
@@ -59,6 +60,24 @@ class MovieBooking extends Component {
         console.log(err);
       });
   };
+  getSoldSeat = (data) => {
+    axios
+      .get(
+        `/booking/seat?idSchedule=${data.scheduleId}&idMovie=${data.movieId}&dateSchedule=${data.dateBooking}&timeSchedule=${data.timeBooking}`
+      )
+      .then((res) => {
+        const soldSeat = [];
+        res.data.data.map((element) => {
+          soldSeat.push(element.seat);
+        });
+        this.setState({
+          soldSeat: soldSeat
+        });
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
   selectedSeat = (data) => {
     if (this.state.selectedSeat.includes(data)) {
       const deletedSeat = this.state.selectedSeat.filter((e) => {
@@ -84,6 +103,7 @@ class MovieBooking extends Component {
     };
     this.props.history.push("/checkout", setData);
   };
+
   render() {
     const data = this.props.location.state;
     let dayBook = new Date(data.dateBooking);
@@ -94,6 +114,7 @@ class MovieBooking extends Component {
     )} ${dayBook.getFullYear()} 
     `;
     const listAbjad = ["A", "B", "C", "D", "E", "F", "G"];
+    console.log(this.state);
     return (
       <div className={`${styles.bodys}`} style={{ padding: "0", margin: "0" }}>
         <Navbar />
@@ -140,10 +161,7 @@ class MovieBooking extends Component {
                           <div className="selected__seat--selected"></div>
                           selected
                         </p>
-                        <p className="selected__seat--wrapper">
-                          <div className="selected__seat--love"></div>
-                          Love nest
-                        </p>
+
                         <p className="selected__seat--wrapper">
                           <div className="selected__seat--sold"></div>
                           Sold
@@ -199,7 +217,7 @@ class MovieBooking extends Component {
               <div className="card card-body">
                 <div className="order__sponsor mx-0 ">
                   <div className="order__sponsor--header text-center">
-                    <img src="/assets/img/sponsor2.png" className="order__sponsor--image" alt="" />
+                    <img src="/assets/img/sponsor1.png" className="order__sponsor--image" alt="" />
                     <p className="order__sponsor--title mb-4">{this.state.dataSchedule.premier}</p>
                   </div>
                   <div className="mt-4 order__sponsor--name d-flex justify-content-between">

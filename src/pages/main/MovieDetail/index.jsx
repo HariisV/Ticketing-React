@@ -4,6 +4,9 @@ import Navbar from "../../../components/Navbar/navbar";
 import Footer from "../../../components/Footer";
 import TicketCard from "../../../components/TicketCard";
 import axios from "../../../utils/axios";
+import Pagination from "react-paginate";
+require("dotenv").config();
+
 class MovieDetail extends Component {
   constructor() {
     super();
@@ -13,13 +16,18 @@ class MovieDetail extends Component {
       dateBooking: `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`,
       schedule: [],
       IdScheduleSelected: "",
-      timeSelected: ""
+      timeSelected: "",
+      location: "Jakarta",
+      city: [],
+      pageInfo: {},
+      page: 1
     };
   }
 
   componentDidMount() {
     this.getMovieById(this.props.match.params.id);
-    this.getScheduleFilter();
+    this.getCity(this.state.location);
+    this.getScheduleFilter(this.state.dateBooking, this.state.location);
   }
   getMovieById = (id) => {
     axios
@@ -33,17 +41,38 @@ class MovieDetail extends Component {
         this.props.history.push("/");
       });
   };
-  getScheduleFilter = () => {
+  getScheduleFilter = (date, location) => {
+    const setData = {
+      date: date,
+      page: this.state.page,
+      location: location,
+      movieId: this.props.match.params.id
+    };
     axios
-      .get("/schedule?page=1&limit=6&location=Jakarta")
+      .post("/schedule/filter", setData)
       .then((res) => {
         this.setState({
-          schedule: res.data.data
+          schedule: res.data.data,
+          pageInfo: res.data.pagination
+        });
+        // console.log(res.data);
+      })
+      .catch((err) => {
+        alert(err.response.data.msg);
+        this.props.history.push("/");
+      });
+  };
+  getCity = () => {
+    axios
+      .get("/user/city")
+      .then((res) => {
+        this.setState({
+          city: res.data.data
         });
         // console.log(res.data.data);
       })
       .catch((err) => {
-        this.props.history.push("/");
+        console.log("TIDAK AD KOTA");
       });
   };
 
@@ -51,6 +80,13 @@ class MovieDetail extends Component {
     this.setState({
       dateBooking: event.target.value
     });
+    this.getScheduleFilter(event.target.value, this.state.location);
+  };
+  changeLocationBooking = () => {
+    this.setState({
+      location: event.target.value
+    });
+    this.getScheduleFilter(this.state.dateBooking, event.target.value);
   };
   handleClickState = (time, scheduleId) => {
     this.setState({
@@ -67,8 +103,20 @@ class MovieDetail extends Component {
     };
     this.props.history.push("/booking", setData);
   };
+  handlePagination = (event) => {
+    this.setState(
+      {
+        page: event.selected + 1
+      },
+      () => {
+        this.getScheduleFilter(this.state.dateBooking, this.state.location);
+      }
+    );
+    // console.log("HS");
+  };
   render() {
-    const data = this.state.data;
+    const { data, pageInfo } = this.state;
+    console.log(pageInfo);
     var dateReleasee = new Date(data.releaseDate);
     const dateRelease = `${
       dateReleasee.toLocaleString("default", { month: "short" }) +
@@ -89,7 +137,7 @@ class MovieDetail extends Component {
                     <img
                       src={
                         data.image
-                          ? `http://localhost:3001/uploads/movie/${data.image}`
+                          ? `${process.env.REACT_APP_URL_BACKEND}uploads/movie/${data.image}`
                           : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
                       }
                       className="heroo__details--image"
@@ -151,11 +199,16 @@ class MovieDetail extends Component {
               <span className="input-group-text bginput__blue">
                 <img src="/assets/icon/location.svg" alt="" />
               </span>
-              <select className="form-select bginput__blue" aria-label="Default select example">
-                <option selected>Purwokerto</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+              <select className="form-select bginput__blue" onChange={this.changeLocationBooking}>
+                {this.state.city.map(
+                  (item, index) => (
+                    <option value={item.name} key={index}>
+                      {item.name}
+                    </option>
+                  )
+                  // console.log(item.id)
+                )}
+                {/* {typeof this.state.city} */}
               </select>
             </div>
           </div>
@@ -180,21 +233,19 @@ class MovieDetail extends Component {
           </div>
           <div className="showtimes__paginate mb-5">
             <div className="d-flex justify-content-center">
-              {/* <div className="paginate active">
-                <Link className="btn btn-primary"> 1 </Link>
-              </div>
-              <div className="paginate">
-                <Link className="btn btn-outline-primary shadow"> 2 </Link>
-              </div>
-              <div className="paginate">
-                <Link className="btn btn-outline-primary shadow"> 3 </Link>
-              </div>
-              <div className="paginate">
-                <Link className="btn btn-outline-primary shadow"> 4 </Link>
-              </div>
-              <div className="paginate">
-                <Link className="btn btn-outline-primary shadow"> 5 </Link>
-              </div> */}
+              <Pagination
+                previousLabel={"Sebelumnya"}
+                nextLabel={"Selanjutnya"}
+                previousClassName={"nonaktif_previous"}
+                nextClassName={"nonaktif_previous"}
+                breakLabel={"..."}
+                pageCount={pageInfo.totalPage}
+                onPageChange={this.handlePagination}
+                containerClassName={"pagination"}
+                disabledClassName={"pagination__link--disabled"}
+                activeClassName={"pagination__link--active btn-primary "}
+                pageClassName={"pagination__button btn btn-outline-primary"}
+              />
             </div>
           </div>
           <br />
