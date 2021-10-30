@@ -114,7 +114,6 @@ class MovieBooking extends Component {
     )} ${dayBook.getFullYear()} 
     `;
     const listAbjad = ["A", "B", "C", "D", "E", "F", "G"];
-    console.log(this.state);
     return (
       <div className={`${styles.bodys}`} style={{ padding: "0", margin: "0" }}>
         <Navbar />

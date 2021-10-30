@@ -18,7 +18,6 @@ class Navbar extends Component {
         this.setState({
           city: res.data.data
         });
-        // console.log(res.data.data);
       })
       .catch((err) => {
         console.log("TIDAK AD KOTA");

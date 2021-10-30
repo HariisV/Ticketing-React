@@ -7,7 +7,6 @@ export default class index extends Component {
     this.props.handleUpdate(1);
   };
   render() {
-    console.log(this.props);
     const { id, name, category, image } = this.props.data;
     return (
       <>

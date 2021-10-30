@@ -1,7 +1,3 @@
-2. Env
-3. ADD IMAGE SCHEDULE
-4. Address Schedule
-8. Redirect If Token Err
-9. Error Handling
-10. Page ALL MOVIE
-11. 
+1. ADD IMAGE SCHEDULE
+2. Address Schedule
+3. Bisa milih seat yang udah di booking

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Navbar from "../../../components/Basic/Navbar";
 import { Button, Modal } from "react-bootstrap";
 import CardMovie from "../../../components/Basic/Card";
+import axios from "../../../utils/axios";
 class BasicReact extends Component {
   constructor() {
     super();
@@ -10,7 +11,17 @@ class BasicReact extends Component {
       name: "Haris",
       data: [],
       search: "",
-      show: false
+      show: false,
+      form: {
+        name: "",
+        category: "",
+        releaseDate: "",
+        duration: "",
+        director: "",
+        cast: "",
+        sypnosis: "",
+        image: ""
+      }
     };
   }
   componentDidMount() {
@@ -60,7 +71,48 @@ class BasicReact extends Component {
   handleUpdateMovie = (data) => {
     console.log(data);
   };
+  changeText = () => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        [event.target.name]: event.target.value
+      }
+    });
+  };
 
+  handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(this.state.form);
+    const formData = new FormData();
+    formData.append("name", this.state.form.name);
+    for (const data in this.state.form) {
+      formData.append(data, this.state.form[data]);
+    }
+    for (const pair of formData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+    // axios.post("movie", formData);
+  };
+
+  setUpdate = () => {
+    console.log("setUpdate");
+  };
+
+  handleUpdate = () => {
+    console.log("handleUpdate");
+  };
+
+  handleDelete = () => {
+    console.log("DELETES");
+  };
+  changeFile = (event) => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        [event.target.name]: event.target.files[0]
+      }
+    });
+  };
   render() {
     // console.log(this.state.data);
     return (
@@ -91,7 +143,87 @@ class BasicReact extends Component {
         {/* BTRAP */}
         <button className="btn btn-primary">SS</button>
         <Button variant="primary"> PRIMARS</Button>
+        <hr />
+        <hr />
+        <input
+          type="text"
+          className="form-control"
+          name="name"
+          placeholder="name"
+          onChange={(event) => {
+            this.changeText(event);
+          }}
+        />
+        <input
+          type="text"
+          className="form-control mt-3"
+          name="category"
+          placeholder="category"
+          onChange={(event) => {
+            this.changeText(event);
+          }}
+        />
+        <input
+          type="date"
+          className="form-control mt-3"
+          name="releaseDate"
+          placeholder="releaseDate"
+          onChange={(event) => {
+            this.changeText(event);
+          }}
+        />
+        <input
+          type="text"
+          className="form-control mt-3"
+          name="duration"
+          placeholder="duration"
+          onChange={(event) => {
+            this.changeText(event);
+          }}
+        />
+        <input
+          type="text"
+          className="form-control mt-3"
+          name="director"
+          placeholder="director"
+          onChange={(event) => {
+            this.changeText(event);
+          }}
+        />
+        <input
+          type="text"
+          className="form-control mt-3"
+          name="cast"
+          placeholder="cast"
+          onChange={(event) => {
+            this.changeText(event);
+          }}
+        />
+        <input
+          type="text"
+          className="form-control mt-3"
+          name="sypnosis"
+          placeholder="sypnosis"
+          onChange={(event) => {
+            this.changeText(event);
+          }}
+        />
+        <input
+          type="file"
+          className="form-control mt-3"
+          name="image"
+          placeholder="sypnosis"
+          onChange={(event) => {
+            this.changeFile(event);
+          }}
+        />
 
+        <button onClick={this.handleSubmit} className="btn btn-primary">
+          submit
+        </button>
+
+        <hr />
+        <hr />
         <Button variant="primary" onClick={this.handleShow}>
           Launch demo modal
         </Button>
@@ -109,11 +241,9 @@ class BasicReact extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
-
         <hr />
-
         {/* COMPONENT COMMUNICATION */}
-        <CardMovie handleUpdate={this.handleUpdateMovie} />
+        {/* <CardMovie handleUpdate={this.handleUpdateMovie} /> */}
       </>
     );
   }

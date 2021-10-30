@@ -17,7 +17,7 @@ class MovieDetail extends Component {
       schedule: [],
       IdScheduleSelected: "",
       timeSelected: "",
-      location: "Jakarta",
+      location: "Aceh",
       city: [],
       pageInfo: {},
       page: 1
@@ -55,21 +55,21 @@ class MovieDetail extends Component {
           schedule: res.data.data,
           pageInfo: res.data.pagination
         });
-        // console.log(res.data);
       })
       .catch((err) => {
-        alert(err.response.data.msg);
-        this.props.history.push("/");
+        console.log(err.response);
+        // alert(err.response.data.msg);
+        // this.props.history.push("/");
       });
   };
   getCity = () => {
     axios
-      .get("/user/city")
+      .get("https://dev.farizdotid.com/api/daerahindonesia/provinsi")
       .then((res) => {
+        // console.log();
         this.setState({
-          city: res.data.data
+          city: res.data.provinsi
         });
-        // console.log(res.data.data);
       })
       .catch((err) => {
         console.log("TIDAK AD KOTA");
@@ -112,11 +112,9 @@ class MovieDetail extends Component {
         this.getScheduleFilter(this.state.dateBooking, this.state.location);
       }
     );
-    // console.log("HS");
   };
   render() {
     const { data, pageInfo } = this.state;
-    console.log(pageInfo);
     var dateReleasee = new Date(data.releaseDate);
     const dateRelease = `${
       dateReleasee.toLocaleString("default", { month: "short" }) +
@@ -125,6 +123,7 @@ class MovieDetail extends Component {
       ", " +
       dateReleasee.getFullYear()
     }`;
+
     return (
       <>
         <div className="container">
@@ -200,14 +199,11 @@ class MovieDetail extends Component {
                 <img src="/assets/icon/location.svg" alt="" />
               </span>
               <select className="form-select bginput__blue" onChange={this.changeLocationBooking}>
-                {this.state.city.map(
-                  (item, index) => (
-                    <option value={item.name} key={index}>
-                      {item.name}
-                    </option>
-                  )
-                  // console.log(item.id)
-                )}
+                {this.state.city.map((item, index) => (
+                  <option value={item.nama} key={index}>
+                    {item.nama}
+                  </option>
+                ))}
                 {/* {typeof this.state.city} */}
               </select>
             </div>

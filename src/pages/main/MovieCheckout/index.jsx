@@ -4,7 +4,7 @@ import Navbar from "../../../components/Navbar/navbar";
 import Footer from "../../../components/Footer";
 import styles from "./MovieCheckout.module.css";
 import axios from "../../../utils/axios";
-
+import Modal from "react-bootstrap/Modal";
 class MovieCheckout extends Component {
   constructor() {
     super();
@@ -14,7 +14,8 @@ class MovieCheckout extends Component {
       fullName: "",
       email: "",
       phoneNumber: "",
-      isActive: false
+      isActive: false,
+      showModal: false
     };
   }
   componentDidMount() {
@@ -92,14 +93,21 @@ class MovieCheckout extends Component {
       .post("booking", setData)
       .then((res) => {
         const saveMidtransData = res.data.data;
-        console.log(saveMidtransData.paymentUrl);
         window.open(saveMidtransData.paymentUrl, "_blank");
       })
       .catch((err) => {
         console.log(err.response.data);
       });
+
+    // Handle Clik
+    this.handleClickModal();
   };
 
+  handleClickModal = () => {
+    this.setState({
+      showModal: true
+    });
+  };
   render() {
     const data = this.props.location.state;
     let dayBook = new Date(data.dateBooking);
@@ -155,49 +163,6 @@ class MovieCheckout extends Component {
                 </div>
               </section>
               <section id="PaymentMethod">
-                {/* <h5 className="mt-5 selected__movie--title">Choose a Payment Method</h5> */}
-                {/* <div className="card-body p-1 payment__method payment__method1">
-                  <button className="btn">
-                    <img src="/assets/img/payment1.png" alt="" />
-                  </button>
-                  <button className="btn">
-                    <img src="/assets/img/payment2.png" alt="" />
-                  </button>
-                  <button className="btn">
-                    <img src="/assets/img/payment3.png" alt="" />
-                  </button>
-                  <button className="btn btn__limit">
-                    <img src="/assets/img/payment4.png" alt="" />
-                  </button>
-                </div>
-                <div className="card-body p-1 payment__method payment__method2 mr-5">
-                  <button className="btn">
-                    <img src="/assets/img/payment5.png" alt="" />
-                  </button>
-                  <button className="btn">
-                    <img src="/assets/img/payment6.png" alt="" />
-                  </button>
-                  <button className="btn">
-                    <img src="/assets/img/payment7.png" alt="" />
-                  </button>
-                  <button className="btn btn__limit">
-                    <img src="/assets/img/payment8.png" alt="" />
-                  </button>
-
-                  <br />
-                </div>
-                <div className="line__payment bg-light">
-                  <div className="mx-5">
-                    <span className="line">
-                      <h2 className="m-0">
-                        <span>or</span>
-                      </h2>
-                    </span>
-                  </div>
-                  <p className="text-center">
-                    Pay via cash. <a href="">See how it work</a>
-                  </p>
-                </div> */}
                 <div className="d-flex justify-content-between mt-4 selected__movie--btn">
                   <Link
                     to="/booking"
@@ -215,6 +180,36 @@ class MovieCheckout extends Component {
                   </button>
                 </div>
               </section>
+
+              <Modal
+                show={this.state.showModal}
+                onHide={this.handleClose}
+                size="l"
+                backdrop="static"
+                keyboard={false}
+              >
+                <Modal.Header>
+                  <Modal.Title>
+                    <h4>Process Transaction</h4>
+                  </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <div className="text-center">
+                    <h3 className="h5 mb-3 mt-4">Waiting Your Payment</h3>
+                    <div className="d-flex justify-content-center">
+                      <div className="loader mb-5"></div>
+                    </div>
+                  </div>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Link to="/" className="btn btn-outline-primary px-4">
+                    Home
+                  </Link>
+                  <Link to="/account/history" className="btn btn-primary px-4">
+                    History Order
+                  </Link>
+                </Modal.Footer>
+              </Modal>
             </div>
             <div className="col-md-4">
               <h5 className="mt-5 selected__movie--title">Personal Info</h5>

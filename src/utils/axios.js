@@ -1,11 +1,9 @@
 import axios from "axios";
 require("dotenv").config();
 
-// ENV
 const axiosApiInterface = axios.create({
   baseURL: process.env.REACT_APP_URL_BACKEND
 });
-// console.log(process.env.REACT_APP_BASE_URL);
 axiosApiInterface.interceptors.request.use(
   function (config) {
     config.headers = {
@@ -23,6 +21,10 @@ axiosApiInterface.interceptors.response.use(
     return response;
   },
   function (error) {
+    if (error.response.status === 403) {
+      localStorage.clear();
+      window.location.href = "/";
+    }
     return Promise.reject(error);
   }
 );

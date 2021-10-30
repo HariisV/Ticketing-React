@@ -89,6 +89,7 @@
 .upcoming__list--image {
   width: 160px;
   height: 244px;
+  object-fit: cover;
   border-radius: 6px;
 }
 .upcoming--category {
@@ -653,6 +654,43 @@ p {
   cursor: not-allowed !important;
 }
 
+.success__bg {
+  background-color: #e4e4e4;
+}
+
+.loader-wrapper {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #d6e0f6;
+  display: grid;
+  place-items: center;
+}
+
+.loader {
+  border: 16px solid #e3e3e3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 140px;
+  height: 140px;
+  animation: spin 1s linear infinite;
+}
+.SuccessPayment {
+  width: 100%;
+  height: 100vh;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
 @media (min-width: 768px) {
   .heroo__margin {
     margin-left: auto;
@@ -945,4 +983,291 @@ p {
   .timesticket__list {
     margin-top: 30px !important;
   }
+}
+
+.tab__bar--text {
+  padding: 10px 20px;
+  color: #aaaaaa;
+  font-size: 18px;
+}
+.tab__bar--text.active {
+  color: #14142b;
+  font-weight: 600;
+}
+.img__sponsor {
+  width: 150px;
+  height: 40px;
+  object-fit: contain;
+  float: right;
+  margin-top: 30px;
+}
+
+.tab__btn--active {
+  width: 300px;
+}
+
+.tab__btn--float {
+  float: right;
+}
+.tab__btn--float button {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+.tab__btn--primary {
+  color: white;
+  padding-right: 40px;
+  padding-left: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 10px;
+
+  /* padding-right: 0px 44px; */
+}
+.tab__btn--primary:hover {
+  color: white;
+  padding-left: 45px;
+  padding-right: 45px;
+}
+.tab__history--card {
+  margin-top: 30px;
+}
+.tab__date {
+  font-size: 14px;
+  color: #aaaaaa;
+}
+.tab__title {
+  font-weight: 600;
+  font-size: 24px;
+}
+.ngeflex__width {
+  height: 50px;
+}
+.tab__btn--isUsed,
+.tab__btn--isUsed:hover {
+  background-color: #6e7191;
+  border-color: #6e7191;
+}
+.img__profile {
+  width: 136px;
+  filter: drop-shadow(0px 8px 16px rgba(73, 83, 99, 0.24));
+}
+.profile__name {
+  font-size: 20px;
+  font-weight: 600;
+}
+.setting__account--btn {
+  width: 100%;
+  padding: 10px 35px;
+  margin-top: 25px;
+}
+.setting__account--iconeye {
+  position: absolute !important;
+  top: 3px;
+  right: 10px;
+}
+.heroo__update {
+  height: 302px;
+  background-size: 200px !important;
+}
+.update__movie--img {
+  width: 157px;
+  position: absolute;
+  right: 46%;
+  top: 8%;
+  height: 230px;
+  border-radius: 6px;
+}
+.update__movie--btn {
+  padding: 9px 50px;
+  margin-top: 25px;
+  margin-left: 20px;
+  border-width: 3px;
+} /* Profile */
+
+.dropdown__sort {
+  margin: 0 30px;
+  padding: 10px 20px;
+  border-radius: 16px;
+}
+.dropdown__schedule {
+  margin: 0 10px;
+  padding: 10px 30px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+}
+
+.movie__name--search {
+  border-radius: 16px;
+}
+.title__sort {
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: bold;
+}
+
+.sponsor__list {
+  width: 80px;
+  height: 100%;
+  object-fit: contain;
+}
+.tambah__time {
+  padding: 0 30px;
+}
+.tambah__time:hover {
+  color: white !important;
+}
+
+.heroo__kecilin--width {
+  margin-bottom: 0 !important;
+}
+
+.select__dashboard--filter {
+  padding: 12px;
+}
+
+.border__width {
+  border-width: 3px;
+}
+
+.ticket__result--isi {
+  border: 1px solid #dedede;
+}
+.ticket__header {
+  height: 60px;
+}
+
+.ticket__bola {
+  width: 60px;
+  position: absolute;
+  top: 119px;
+  right: 280px;
+}
+
+.pembatas::before {
+  content: "";
+  padding: 140px;
+  position: absolute;
+  top: 119px;
+  right: 310px;
+  border-right: 1px dashed #a0a0a0;
+}
+.admit__one {
+  color: white;
+}
+
+.result__qrcode {
+  width: 190px;
+  height: 190px;
+}
+
+.result__btn {
+  margin: 0;
+  width: 150px;
+  margin-left: 15px;
+}
+.mobile__result--success {
+  width: 50px;
+  height: 50px;
+}
+
+.mobile__result--container {
+  border-bottom: 1px dashed #6e5a5a;
+}
+@media (max-width: 1199.98px) {
+  .ticket__bola {
+    top: 115px;
+    right: 230px;
+  }
+
+  .pembatas::before {
+    right: 260px;
+    border-right: 1px dashed #a0a0a0;
+  }
+  .result__qrcode--desktop {
+    position: relative;
+    right: 27px;
+  }
+
+  .personal__margin {
+    margin-top: 50px;
+  }
+  .ngeflex__width {
+    display: contents !important;
+    height: 50px;
+  }
+  .img__sponsor {
+    float: left;
+    width: 110px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .img__profile {
+    width: 100% !important;
+  }
+}
+.setting__account--update {
+  width: 100%;
+  /* padding: 10px 10%; */
+  margin-top: 25px;
+}
+.card__ticket {
+  border: 2px dashed #0000002e;
+}
+.register__overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #2b156bcc;
+}
+.register__overlay--img {
+  height: 50px;
+  object-fit: cover;
+}
+
+.stepper {
+  counter-reset: step;
+}
+
+.stepper__list::before {
+  counter-increment: step 1;
+  content: counter(step);
+  margin-right: 10px;
+  border: 2px solid white;
+  border-radius: 20px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stepper__list {
+  display: flex;
+  align-items: center;
+}
+
+.stepper__list--line {
+  border-left: 2px solid white;
+  height: 25px;
+  position: relative;
+  left: 14px;
+}
+.stepper__list--active::before {
+  border: 2px solid white;
+  background-color: white;
+  color: #29034180;
+}
+.stepper__list--active {
+  color: white;
+}
+
+.register__overlay--title {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 60px;
+}
+
+.register__overlay--desc {
+  color: #ffffffb2;
+  font-size: 16px;
 }

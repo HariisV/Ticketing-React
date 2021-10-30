@@ -18,7 +18,6 @@ class TicketCard extends Component {
   }
 
   render() {
-    console.log(this.props.selectedTime);
     return (
       <>
         <div className="col-md-4">

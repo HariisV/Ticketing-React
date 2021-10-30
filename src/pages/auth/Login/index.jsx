@@ -3,7 +3,8 @@ import styles from "./auth.module.css";
 import { Link } from "react-router-dom";
 import { getSupportInfo } from "prettier";
 import axios from "../../../utils/axios";
-
+import { connect } from "react-redux";
+import { login } from "../../../stores/actions/auth";
 class Login extends Component {
   constructor() {
     super();
@@ -19,10 +20,11 @@ class Login extends Component {
   }
   handleSubmit = (event) => {
     event.preventDefault();
-    axios
-      .post("/auth/login", this.state.form)
+    this.props
+      .login(this.state.form)
       .then((res) => {
-        localStorage.setItem("token", res.data.data.token);
+        // console.log(res.value.data);
+        localStorage.setItem("token", res.value.data.data.token);
         this.props.history.push("/");
       })
       .catch((err) => {
@@ -183,5 +185,8 @@ class Login extends Component {
     );
   }
 }
-
-export default Login;
+const mapStateToProps = (state) => ({
+  auth: state.auth
+});
+const mapDispatchToProps = { login };
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

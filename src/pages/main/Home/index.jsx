@@ -50,7 +50,6 @@ class Home extends Component {
     axios
       .post("movie/upcoming", setData)
       .then((res) => {
-        console.log(res);
         this.setState({
           dataUpcoming: res.data.data
         });
