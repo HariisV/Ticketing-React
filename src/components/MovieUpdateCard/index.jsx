@@ -18,11 +18,10 @@ const MovieUpdateCard = (props) => {
           <p className="text-center upcoming__list--category text-muted">{props.category}</p>
           <br />
           <Link
-            // to="/"
-            to={`/movie/update/${props.id}`}
+            to={`/movies/update/${props.id}`}
             className="btn btn-outline-primary upcoming__list--detail"
           >
-            Detail
+            Update
           </Link>
           <a className="btn btn-outline-danger upcoming__list--detail mt-2">Delete</a>
         </div>

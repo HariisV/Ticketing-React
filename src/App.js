@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+// Page
 import BasicReact from "./pages/basic/React";
-import Logins from "./pages/basic/Login";
 import Login from "./pages/auth/Login";
 import Home from "./pages/main/Home";
 import Details from "./pages/main/MovieDetail";
@@ -12,7 +13,10 @@ import detailMovie from "./pages/basic/DetailMovie";
 import SuccessPayment from "./pages/main/SuccessPayment";
 import Register from "./pages/auth/Register";
 import Dashboard from "./pages/admin/Dashboard";
-import UpdateMovie from "./pages/admin/UpdateMovie";
+import UpdateMovie from "./pages/admin/ManageMovie";
+import UpdateSchedule from "./pages/admin/UpdateSchedule";
+import profile from "./pages/main/Profile";
+
 // Redux
 import CounterClass from "./pages/basic/Counter/counter.class";
 import CounterFunction from "./pages/basic/Counter/counter.function";
@@ -42,14 +46,17 @@ class App extends Component {
             <PublicRoute path="/login" restricted={true} exact component={Login} />
             <PublicRoute path="/register" restricted={true} exact component={Register} />
             {/* PrivateRoute */}
+            <PrivateRoute path="/profile" exact component={profile} />
             <PrivateRoute path="/basic-react" exact component={BasicReact} />
             <PrivateRoute path="/booking" exact component={Booking} />
             <PrivateRoute path="/checkout" exact component={Checkout} />
             <PrivateRoute path="/SuccessPayment" exact component={SuccessPayment} />
 
             {/* AdminRoute */}
-            <AdminRoute path="/dashboard" exact component={Dashboard} />
-            <AdminRoute path="/movie/update/:id" exact component={UpdateMovie} />
+            {/* <AdminRoute path="/dashboard" exact component={Dashboard} /> */}
+            <AdminRoute path="/movies/create" exact component={UpdateMovie} />
+            <AdminRoute path="/movies/update/:id" exact component={UpdateMovie} />
+            <AdminRoute path="/schedule/update/:id" exact component={UpdateSchedule} />
             {/* AdminRouteEnd */}
           </Switch>
         </Router>

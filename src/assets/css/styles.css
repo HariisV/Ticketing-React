@@ -28,10 +28,15 @@
 .hero__desc {
   color: white;
 }
-.form__password input {
+.form__password input,
+.form__register {
   margin-top: 10px !important;
   border-radius: 10px !important;
   width: 100%;
+  padding: 15px 10px !important;
+}
+.form__register--select {
+  margin-top: 10px !important;
   padding: 15px 10px !important;
 }
 
@@ -497,7 +502,8 @@ p {
 .personal_info .form-group {
   margin-bottom: 20px;
 }
-.personal_info .form-group input {
+.personal_info .form-group input,
+.personal_info .form-group select {
   padding: 10px 20px;
 }
 .personal_info .form-group label {
@@ -1270,4 +1276,15 @@ p {
 .register__overlay--desc {
   color: #ffffffb2;
   font-size: 16px;
+}
+.img__management {
+  cursor: pointer;
+}
+.update__movie--noimg {
+  width: 157px;
+  position: absolute;
+  right: 46%;
+  top: 15%;
+  height: 150px;
+  border-radius: 6px;
 }

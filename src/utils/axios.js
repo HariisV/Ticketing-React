@@ -22,8 +22,9 @@ axiosApiInterface.interceptors.response.use(
   },
   function (error) {
     if (error.response.status === 403) {
+      alert(error.response.data.msg);
       localStorage.clear();
-      window.location.href = "/";
+      // window.location.href = "/";
     }
     return Promise.reject(error);
   }
