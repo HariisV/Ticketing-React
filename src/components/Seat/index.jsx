@@ -38,7 +38,7 @@ class Seat extends Component {
                     ? "seat__list--selected"
                     : "seat__list--available"
                 }`}
-                onClick={() => selectedSeat(element)}
+                onClick={sold.includes(element) ? null : () => selectedSeat(element)}
               ></div>
             </div>
           ))}

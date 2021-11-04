@@ -13,16 +13,18 @@ class Navbar extends Component {
   }
   getCity = () => {
     axios
-      .get("/user/city")
+      .get("https://dev.farizdotid.com/api/daerahindonesia/provinsi")
       .then((res) => {
+        // console.log();
         this.setState({
-          city: res.data.data
+          city: res.data.provinsi
         });
       })
       .catch((err) => {
         console.log("TIDAK AD KOTA");
       });
   };
+
   render() {
     return (
       <>
@@ -95,6 +97,9 @@ class Navbar extends Component {
                 </form>
                 <img src="/assets/icon/search.svg" className="mx-4" alt="" />
                 <img src="/assets/img/avatar.png" className="avatar rounded-circle" alt="" />
+                <Link to="/login" className="btn btn-primary px-4">
+                  Sign Up
+                </Link>
               </div>
             </div>
           </div>

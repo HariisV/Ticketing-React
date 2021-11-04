@@ -1,3 +1,24 @@
-1. ADD IMAGE SCHEDULE
-2. Address Schedule
-3. Bisa milih seat yang udah di booking
+4. Readme
+9. Refresh Token
+
+PRESENTASI
+
+ REDUX
+ Higher Order Component
+
+UI Layout Color,Typograpi
+React Component, Functional
+Navigasi
+Conditional Rendering
+Event Handler
+Local Storage
+Redux 
+LOGIN
+LOGOUT
+CRUD
+URL Parameter
+RESPONSIVE
+DEPLOY
+
+HOOKS
+PERSIST STORAGE

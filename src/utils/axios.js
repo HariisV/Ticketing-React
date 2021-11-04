@@ -22,9 +22,28 @@ axiosApiInterface.interceptors.response.use(
   },
   function (error) {
     if (error.response.status === 403) {
-      alert(error.response.data.msg);
+      if (error.response.data.msg === "jwt expired") {
+        const refreshToken = localStorage.getItem("refreshToken");
+        axiosApiInterface
+          .post("auth/refresh", { refreshToken })
+          .then((res) => {
+            // res.data.data.token
+            alert("token baru sudah berhasil di dapatkan");
+            localStorage.setItem("token", res.data.data.token);
+            localStorage.setItem("refreshToken", res.data.data.refreshToken);
+            window.location.reload();
+          })
+          .catch((err) => {
+            localStorage.clear();
+            window.location.href = "/basic-login";
+          });
+      } else {
+        localStorage.clear();
+        window.location.href = "/basic-login";
+      }
+      // alert(error.response.data.msg);
       localStorage.clear();
-      // window.location.href = "/";
+      window.location.href = "/";
     }
     return Promise.reject(error);
   }

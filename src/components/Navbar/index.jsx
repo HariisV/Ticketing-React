@@ -1,24 +1,55 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
+import axios from "../../utils/axios";
+import { connect } from "react-redux";
+
 class Navbar extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     newName: props.userLogin
-  //   };
-  // }
-  // handleLogout = () => {
-  //   this.props.history.push("/login");
-  // };
+  constructor() {
+    super();
+    this.state = {
+      city: []
+    };
+  }
+
+  componentDidMount() {
+    this.getCity();
+  }
+  getCity = () => {
+    axios
+      .get("https://dev.farizdotid.com/api/daerahindonesia/provinsi")
+      .then((res) => {
+        this.setState({
+          city: res.data.provinsi
+        });
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
+
+  handleLogout = () => {
+    console.log("LOGOT");
+    localStorage.clear();
+    this.props.history.push("/login");
+  };
   render() {
+    let isAdmin = localStorage.getItem("persist:root");
+    if (isAdmin) {
+      isAdmin = JSON.parse(isAdmin).auth;
+      isAdmin = JSON.parse(isAdmin).userLogin.role;
+      isAdmin = isAdmin == "admin" ? true : false;
+    } else {
+      isAdmin = false;
+    }
+
     return (
       <>
-        <div className="container">
-          <nav className="navbar navbar-expand-lg navbar-light bg-light mt-3">
-            <div className="container-fluid">
-              <Link className="navbar-brand" to="/">
+        <div className="container mt-3">
+          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <div className="container">
+              <a className="navbar-brand" href="/">
                 <img src="/assets/img/logo-sm.svg" alt="" />
-              </Link>
+              </a>
               <button
                 className="navbar-toggler"
                 type="button"
@@ -38,7 +69,7 @@ class Navbar extends Component {
                     <div className="form-group">
                       <div className="input-group mb-3">
                         <span className="input-group-text bg-light navbar__input--btnsearch">
-                          <img src={"../../../assets/icon/search.svg"} alt="" />
+                          <img src="/assets/icon/search.svg" alt="" />
                         </span>
                         <input
                           id="ph"
@@ -49,23 +80,45 @@ class Navbar extends Component {
                       </div>
                     </div>
                   </li>
-                  <li className="nav-item">
-                    <Link className="nav-link active" aria-current="page" to="/">
-                      Home
-                    </Link>
-                  </li>
+                  {isAdmin ? (
+                    <>
+                      <li className="nav-item">
+                        <Link className="nav-link active" aria-current="page" to="/dashboard">
+                          Dashboard
+                        </Link>
+                      </li>
 
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/booking.html">
-                      Profile
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/payment.html">
-                      Payment
-                    </Link>
-                  </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/movies/create">
+                          Manage Movie
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/schedule/create">
+                          Manage Schedule
+                        </Link>
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li className="nav-item">
+                        <Link className="nav-link active" aria-current="page" to="/">
+                          Home
+                        </Link>
+                      </li>
 
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/profile">
+                          Profile
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="#">
+                          Order
+                        </Link>
+                      </li>
+                    </>
+                  )}
                   <li className="nav-item d-none-desktop">
                     <p className="text-center footer__end">© 2020 Tickitz. All Rights Reserved.</p>
                   </li>
@@ -73,17 +126,59 @@ class Navbar extends Component {
                 <div className="navbar__right">
                   <form className="d-flex">
                     <select className="form-select border-0">
-                      <option selected>Location</option>
-                      <option value="1">Jakarta</option>
-                      <option value="2">Medan</option>
-                      <option value="3">Pekan Baru</option>
+                      <option value="Jakarta">Location</option>
+                      {this.state.city.map((item, index) => (
+                        <option value={item.nama} key={index}>
+                          {item.nama}
+                        </option>
+                      ))}
                     </select>
                   </form>
                   <img src="/assets/icon/search.svg" className="mx-4" alt="" />
-                  <Link to="/login" className="btn btn-primary px-4">
-                    {" "}
-                    Sign Up{" "}
-                  </Link>
+
+                  {this.props.auth.id ? (
+                    <div className="dropdown">
+                      <a
+                        className="btn  btn-sm"
+                        href="#"
+                        role="button"
+                        id="dropdownMenuLink"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        <img
+                          src={
+                            this.props.auth.image
+                              ? `/assets/img/${this.props.auth.image}`
+                              : "/assets/img/avatar.png"
+                          }
+                          className="avatar rounded-circle"
+                          alt=""
+                        />
+                      </a>
+
+                      <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li>
+                          <Link className="dropdown-item" to="/profile">
+                            Profile
+                          </Link>
+                        </li>
+                        <li>
+                          <button
+                            className="dropdown-item"
+                            to="/profile"
+                            onClick={this.handleLogout}
+                          >
+                            Logout
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                  ) : (
+                    <Link to="/register" className="btn btn-primary px-4">
+                      Sign Up
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
@@ -93,5 +188,8 @@ class Navbar extends Component {
     );
   }
 }
-
-export default withRouter(Navbar);
+// NGAMBIL STATE DARI STORE
+const mapStateToProps = (state) => {
+  return { auth: state.auth.userLogin };
+};
+export default connect(mapStateToProps)(withRouter(Navbar));

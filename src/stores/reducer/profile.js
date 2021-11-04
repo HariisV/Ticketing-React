@@ -3,19 +3,45 @@ const initialState = {
   isLoading: false,
   isError: false,
   msg: "",
-  status: ""
+  status: "",
+  dataTicket: []
 };
 
-const movie = (state = initialState, action) => {
+const ticket = (state = initialState, action) => {
   switch (action.type) {
-    case "Create_MOVIE_PENDING":
+    case "GET_TICKET_PENDING":
+      console.log("PENDING");
       return {
         ...state,
         isLoading: true,
         isError: false,
         msg: ""
       };
-    case "Create_MOVIE_FULFILLED":
+    case "GET_TICKET_FULFILLED":
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+        dataTicket: action.payload.data.data,
+        msg: action.payload.data.msg,
+        status: 200
+      };
+    case "GET_TICKET_REJECTED":
+      console.log(action);
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+        msg: action.payload.response.data.msg
+      };
+    case "UPDATE_PASSWORD_PENDING":
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+        msg: ""
+      };
+    case "UPDATE_PASSWORD_FULFILLED":
       return {
         ...state,
         isLoading: true,
@@ -23,21 +49,21 @@ const movie = (state = initialState, action) => {
         msg: action.payload.data.msg,
         status: 200
       };
-    case "Create_MOVIE_REJECTED":
+    case "UPDATE_PASSWORD_REJECTED":
       return {
         ...state,
         isLoading: true,
         isError: false,
         msg: action.payload.response.data.msg
       };
-    case "UPDATE_MOVIE_PENDING":
+    case "UPDATE_PROFILE_PENDING":
       return {
         ...state,
         isLoading: true,
         isError: false,
         msg: ""
       };
-    case "UPDATE_MOVIE_FULFILLED":
+    case "UPDATE_PROFILE_FULFILLED":
       return {
         ...state,
         isLoading: true,
@@ -45,39 +71,16 @@ const movie = (state = initialState, action) => {
         msg: action.payload.data.msg,
         status: 200
       };
-    case "UPDATE_MOVIE_REJECTED":
+    case "UPDATE_PROFILE_REJECTED":
       return {
         ...state,
         isLoading: true,
         isError: false,
         msg: action.payload.response.data.msg
       };
-    case "DELETE_MOVIE_PENDING":
-      return {
-        ...state,
-        isLoading: true,
-        isError: false,
-        msg: ""
-      };
-    case "DELETE_MOVIE_FULFILLED":
-      return {
-        ...state,
-        isLoading: true,
-        isError: false,
-        msg: action.payload.data.msg,
-        status: 200
-      };
-    case "DELETE_MOVIE_REJECTED":
-      return {
-        ...state,
-        isLoading: true,
-        isError: false,
-        msg: action.payload.response.data.msg
-      };
-
     default: {
       return state;
     }
   }
 };
-export default movie;
+export default ticket;

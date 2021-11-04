@@ -1,20 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 
-export default function data() {
+const ManageData = (props) => {
+  const [isAgree, setIsAgree] = useState(true);
+  const handleNextStep = () => {
+    if (props.data.firstName == "") {
+      props.toastError("First Name Tidak Boleh Kosong");
+    } else if (props.data.lastName == "") {
+      props.toastError("Last Name Tidak Boleh Kosong");
+    } else if (
+      props.data.phoneNumber == "" ||
+      props.data.phoneNumber.length > 13 ||
+      props.data.phoneNumber.length < 10
+    ) {
+      props.toastError("Nomor Telepon Tidak Valid");
+    } else if (isAgree) {
+      props.toastError("TOS Harus di centang");
+    } else {
+      props.handleSubmit();
+    }
+  };
   return (
-    <form action="">
+    <>
       <h2 className="form--desc__h2 fw-bold d-sm-block d-md-none">Register</h2>
       <div className="row mb-4">
         <div className="col-md-6">
           <div className="form-group form__password">
             <label htmlFor="" className="form-control-label" /> First Name
-            <input type="email" className="form-control" placeholder="Your first Name" />
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Your first Name"
+              name="firstName"
+              onChange={() => props.handleInput(event)}
+            />
           </div>
         </div>
         <div className="col-md-6">
           <div className="form-group form__password">
             <label htmlFor="" className="form-control-label" /> Last Name
-            <input type="email" className="form-control" placeholder="Your last name" />
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Your last name"
+              name="lastName"
+              onChange={() => props.handleInput(event)}
+            />
           </div>
         </div>
       </div>
@@ -25,42 +55,31 @@ export default function data() {
           <input
             id="ph"
             type="number"
-            name="phoneNumber"
-            // onChange={this.onchangeInput}
             className="form-control form__register--select"
+            name="phoneNumber"
+            onChange={() => props.handleInput(event)}
             placeholder="123456789"
           />
         </div>
-      </div>
-      <div className="form-group mt-4">
-        <label htmlFor="" className="form-control-label">
-          City
-        </label>
-        <select
-          className="form-select form-control form__register"
-          // onChange={this.changeLocationBooking}
-        >
-          {/* {this.state.city.map((item, index) => (
-              <option value={item.nama} key={index}>
-                {item.nama}
-              </option>
-            ))} */}
-          {/* {typeof this.state.city} */}
-        </select>
       </div>
       <div className="form-check mt-4">
         <input
           className="form-check-input "
           type="checkbox"
-          value=""
           id="flexCheckDefault"
-          checked
+          // checked
+          name="isAgree"
+          onClick={() => (isAgree == false ? setIsAgree(true) : setIsAgree(false))}
+          // onChange={`${isAgree == true ? setIsAgree(false) : setIsAgree(true)}`}
         />
         <label className="form-check-label text-muted text-center " htmlFor="flexCheckDefault">
           I agree to terms & conditions
         </label>
       </div>
-      <button className="btn btn-primary mt-4 mb-3 p-3 btn__login">Join for free now</button>
-    </form>
+      <button className="btn btn-primary mt-4 mb-3 p-3 btn__login" onClick={handleNextStep}>
+        Create Your Account
+      </button>
+    </>
   );
-}
+};
+export default ManageData;

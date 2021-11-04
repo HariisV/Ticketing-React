@@ -1,15 +1,44 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-export default function email() {
+const ManageEmail = (props) => {
+  const isEmail = (val) => {
+    let regEmail =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!regEmail.test(val)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const handleNextStep = () => {
+    if (props.data.email == "") {
+      props.toastError("Email Tidak Boleh Kosong");
+    } else if (props.data.password == "") {
+      props.toastError("Password Minimal 6 Huruf");
+    } else if (!isEmail(props.data.email)) {
+      props.toastError("Email Tidak Valid");
+    } else {
+      props.handleNextStep(2);
+    }
+  };
   return (
-    <form action="">
+    <>
       <h2 className="form--desc__h2 fw-bold d-sm-block d-md-none">Register</h2>
 
       <div className="form-group form__password">
         <label htmlFor="" className="form-control-label" /> Email
-        <input type="email" className="form-control" placeholder="Write your Email" />
+        <input
+          type="email"
+          className="form-control"
+          placeholder="Write your Email"
+          name="email"
+          onChange={() => props.handleInput(event)}
+          required
+        />
       </div>
-      <div className="form-group mt-3">
+      <div className="form-group mt-3 mb-3">
         <label htmlFor="" className="form-control-label">
           Password
         </label>
@@ -19,6 +48,8 @@ export default function email() {
             style={{ width: "100%" }}
             className="form-control"
             placeholder="Write your password"
+            name="password"
+            onChange={() => props.handleInput(event)}
           />
           <span>
             <a className="btn btn-light password__icon">
@@ -27,54 +58,25 @@ export default function email() {
           </span>
         </div>
       </div>
-      <div className="form-check mt-4">
-        <input
-          className="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckDefault"
-          checked
-        />
-        <label className="form-check-label text-muted text-center" htmlFor="flexCheckDefault">
-          I agree to terms & conditions
-        </label>
-      </div>
-      <button className="btn btn-primary mt-4 mb-3 p-3 btn__login">Join for free now</button>
-      <p className="text-muted text-center m-0">
-        <strong>
-          Do you already have an account ?{" "}
-          <a href="" className="text-primary">
-            Log in
-          </a>
-        </strong>
-      </p>
+
+      <button className="btn btn-primary mt-5 mb-3 p-3 btn__login" onClick={handleNextStep}>
+        Join for free now
+      </button>
+
       <span className="line">
         <h2 className="m-0">
           <span>or</span>
         </h2>
       </span>
-      <div className="row justify-content-md-center">
-        <div className="col-md-6 col-6 ml-2">
-          <div className="p-0 m-0" style={{ border: "none", borderRadius: "30px" }}>
-            <button className="btn btn-light shadow w-100" style={{ height: "48px" }}>
-              <img src="assets/img/google.png" className="icon" alt="" />
-              <span className="icon__name text-muted">
-                <strong> Google</strong>
-              </span>
-            </button>
-          </div>
-        </div>
-        <div className="col-md-6 col-6 mr-2">
-          <div className="p-0 m-0" style={{ border: "none", borderRadius: "30px" }}>
-            <button className="btn btn-light shadow w-100" style={{ height: "48px" }}>
-              <img src="assets/img/facebook.png" className="icon" alt="" />
-              <span className="icon__name text-muted">
-                <strong> Facebook</strong>
-              </span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </form>
+      <p className="text-muted text-center m-0">
+        <strong>
+          Do you already have an account ?
+          <Link to="/login" className="text-primary">
+            Log in
+          </Link>
+        </strong>
+      </p>
+    </>
   );
-}
+};
+export default ManageEmail;

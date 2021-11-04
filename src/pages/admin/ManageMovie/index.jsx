@@ -6,8 +6,11 @@ import MovieListCard from "../../../components/MovieUpdateCard";
 import Pagination from "react-paginate";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { addmovie, updateMovie } from "../../../stores/actions/movie";
+import { addmovie, updateMovie, deleteMovie } from "../../../stores/actions/movie";
 import { connect } from "react-redux";
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+import qs from "query-string";
 
 const UpdateMovie = (props) => {
   const id = props.match.params.id;
@@ -16,24 +19,30 @@ const UpdateMovie = (props) => {
   const [page, setPage] = useState(1);
   const [image, setImage] = useState(null);
   const inputFile = useRef(null);
+  const urlParams = qs.parse(props.location.search);
+
+  const [Search, setSearch] = useState({
+    name: "",
+    sort: "",
+    sortType: ""
+  });
   let [FormDataMovie, setFormDataMovie] = useState({
     name: "",
     category: "",
     director: "",
     cast: "",
     releaseDate: "",
-    duration: ""
+    duration: "",
+    sypnosis: ""
   });
 
   useEffect(() => {
     getListMovie(page);
     getMovieById();
+    // SORT
   }, [id, page]);
 
   // componentDidMount
-  useEffect(() => {
-    console.log("Didmount is running");
-  }, []);
 
   // componentDidUpdate
   useEffect(() => {
@@ -41,19 +50,11 @@ const UpdateMovie = (props) => {
       handleNotify(props.movie.msg);
     }
     if (props.movie.status === 200) {
-      console.log(
-        " ====================================================CARI MOVIE===================================================="
-      );
       getListMovie(1);
+      handleReset();
     }
   }, [props.movie.msg]);
 
-  // componentWillUnmount
-  useEffect(() => {
-    return () => {
-      console.log("WillUnmount is running");
-    };
-  }, []);
   const getMovieById = () => {
     if (id) {
       axios
@@ -67,17 +68,21 @@ const UpdateMovie = (props) => {
         });
     }
   };
-  const getListMovie = (page, limit) => {
+  const getListMovie = (page, limit, sort, sortType, name) => {
     const pages = typeof page === "number" ? page : 1;
     const limits = typeof limit === "number" ? limit : 8;
+    const sorts = sort ? sort : "releaseDate";
+    const sortTypes = sortType ? sortType : "DESC";
+    const names = name ? name : "";
     axios
-      .get(`/movie?page=${pages}&limit=${limits}`)
+      .get(`/movie?page=${pages}&limit=${limits}&sort=${sorts}&sortType=${sortTypes}&name=${names}`)
       .then((res) => {
         setAllMovie(res.data.data);
         setPageInfo(res.data.pagination);
       })
       .catch((err) => {
-        console.log(err.response);
+        handleNotify(err.response.data.msg);
+        // console.log(err.response);
       });
   };
   const handleNotify = (data) =>
@@ -97,7 +102,6 @@ const UpdateMovie = (props) => {
       ...FormDataMovie,
       [event.target.name]: event.target.value
     });
-    // console.log("HAI");
   };
 
   const onImageChange = (event) => {
@@ -132,14 +136,65 @@ const UpdateMovie = (props) => {
   };
 
   const handleReset = () => {
-    setFormDataMovie({});
+    setFormDataMovie({
+      name: "",
+      category: "",
+      director: "",
+      cast: "",
+      releaseDate: "",
+      duration: "",
+      sypnosis: ""
+    });
     props.history.push("/movies/create");
   };
+  const handleConfirmDelete = (id) => {
+    // console.log("TERHAPUS KAU BRO", id);
+    props.deleteMovie(id);
+  };
+  const showAlert = (id) => {
+    confirmAlert({
+      closeOnEscape: true,
+      closeOnClickOutside: false,
+      customUI: ({ onClose }) => {
+        return (
+          <div className="custom-ui">
+            <h1>Are you sure?</h1>
+            <p>You want to delete this file?</p>
+            <button onClick={onClose}>No</button>
+            <button
+              onClick={() => {
+                handleConfirmDelete(id);
+                onClose();
+              }}
+            >
+              Yes, Delete it!
+            </button>
+          </div>
+        );
+      }
+    });
+  };
+
+  const handleInputSearch = (event) => {
+    if (event.key == "Enter") {
+      props.history.push(`/movies/create?search=${event.target.value}`);
+      getListMovie(1, 8, Search.sort, Search.sortType, urlParams.search);
+    } else {
+      setSearch({
+        ...Search,
+        [event.target.name]: event.target.value
+      });
+    }
+    console.log(Search);
+  };
+  const ThisDate = `${(FormDataMovie.releaseDate
+    ? FormDataMovie.releaseDate
+    : new Date().toISOString()
+  ).slice(0, 10)}`;
   return (
     <>
       <div className="container">
         <Header />
-
         <section className="heroo_details mt-5">
           <h4 className="mb-4 fw-bold">{id ? "Update Movie" : "Create Movie"}</h4>
           <div>
@@ -202,10 +257,11 @@ const UpdateMovie = (props) => {
                       <label htmlFor="fn">Movie Name</label>
                       <input
                         name="name"
+                        placeholder="Movie Name"
                         type="text"
                         className="form-control"
                         onChange={handleInput}
-                        defaultValue={FormDataMovie.name}
+                        value={FormDataMovie.name}
                       />
                     </div>
                   </div>
@@ -218,8 +274,9 @@ const UpdateMovie = (props) => {
                         name="category"
                         type="text"
                         className="form-control"
+                        placeholder="Category"
                         onChange={handleInput}
-                        defaultValue={FormDataMovie.category}
+                        value={FormDataMovie.category}
                       />
                     </div>
                   </div>
@@ -230,10 +287,11 @@ const UpdateMovie = (props) => {
                       <label htmlFor="fn">Director</label>
                       <input
                         name="director"
+                        placeholder="Director By"
                         type="text"
                         className="form-control"
                         onChange={handleInput}
-                        defaultValue={FormDataMovie.director}
+                        value={FormDataMovie.director}
                       />
                     </div>
                   </div>
@@ -247,7 +305,8 @@ const UpdateMovie = (props) => {
                         type="text"
                         className="form-control"
                         onChange={handleInput}
-                        defaultValue={FormDataMovie.cast}
+                        value={FormDataMovie.cast}
+                        placeholder="Cast"
                       />
                     </div>
                   </div>
@@ -261,7 +320,7 @@ const UpdateMovie = (props) => {
                         type="date"
                         className="form-control"
                         onChange={handleInput}
-                        // defaultValue={FormDataMovie.releaseDate}
+                        value={ThisDate}
                       />
                     </div>
                   </div>
@@ -275,7 +334,8 @@ const UpdateMovie = (props) => {
                         type="text"
                         className="form-control"
                         onChange={handleInput}
-                        defaultValue={FormDataMovie.duration}
+                        value={FormDataMovie.duration}
+                        placeholder="1 Hours 30 Minute"
                       />
                     </div>
                   </div>
@@ -291,9 +351,9 @@ const UpdateMovie = (props) => {
               value={FormDataMovie.sypnosis}
               className="form-control"
               onChange={handleInput}
-              id=""
               cols="30"
               rows="5"
+              placeholder="Sypnosis Of Movie"
             ></textarea>
           </p>
           <div className="text-end">
@@ -326,45 +386,88 @@ const UpdateMovie = (props) => {
             <p className="mt-5 title__sort">Data Movie</p>
             <div className="personal_info mx-0 mt-5">
               <div className="d-flex">
-                <div className="dropdown">
-                  <a
-                    className="btn btn-light dropdown-toggle dropdown__sort"
+                <div className="dropdown form-group movie__name--search dropdown__sort">
+                  <button
+                    className="btn btn-light dropdown-toggle"
                     href="#"
                     role="button"
                     id="dropdownMenuLink"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    Sort
-                  </a>
+                    Sort Name
+                  </button>
 
                   <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <li>
-                      <a className="dropdown-item" href="/booking.html">
-                        Booking
-                      </a>
+                      <button
+                        className="dropdown-item"
+                        href="/booking.html"
+                        onClick={() =>
+                          setSearch({
+                            ...Search,
+                            sort: "name",
+                            sortType: "ASC"
+                          })
+                        }
+                      >
+                        Nama Movie A-Z
+                      </button>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="/payment.html">
-                        Payment
-                      </a>
+                      <button
+                        className="dropdown-item"
+                        href="/payment.html"
+                        onClick={() =>
+                          setSearch({
+                            ...Search,
+                            sort: "name",
+                            sortType: "DESC"
+                          })
+                        }
+                      >
+                        Nama Movie Z-A
+                      </button>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="/details.html">
-                        Details Page
-                      </a>
+                      <button
+                        className="dropdown-item"
+                        href="/details.html"
+                        onClick={() =>
+                          setSearch({
+                            ...Search,
+                            sort: "releaseDate",
+                            sortType: "DESC"
+                          })
+                        }
+                      >
+                        Release Lama
+                      </button>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="/login.html">
-                        Login
-                      </a>
+                      <button
+                        className="dropdown-item"
+                        href="/login.html"
+                        onClick={() =>
+                          setSearch({
+                            ...Search,
+                            sort: "releaseDate",
+                            sortType: "ASC"
+                          })
+                        }
+                      >
+                        Release Terbaru
+                      </button>
                     </li>
                   </ul>
                 </div>
-                <div className="form-group ml-5">
+
+                <div className="form-group">
                   <input
                     id="fn"
                     type="text"
+                    name="name"
+                    onKeyPress={handleInputSearch}
                     className="form-control movie__name--search"
                     placeholder="Search Movie Name..."
                   />
@@ -379,6 +482,7 @@ const UpdateMovie = (props) => {
                   key={index}
                   id={element.id}
                   name={element.name}
+                  handleDelete={showAlert}
                   img={element.image}
                   category={element.category}
                 />
@@ -417,6 +521,7 @@ const mapStateToProps = (state) => {
 // NGAMBIL FUNCTION DARI ACTION
 const mapDispatchToProps = {
   addmovie,
-  updateMovie
+  updateMovie,
+  deleteMovie
 };
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateMovie);

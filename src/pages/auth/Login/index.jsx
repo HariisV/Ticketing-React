@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { getSupportInfo } from "prettier";
 import axios from "../../../utils/axios";
 import { connect } from "react-redux";
-import { login } from "../../../stores/actions/auth";
-class Login extends Component {
+import { login, getUserById } from "../../../stores/actions/auth";
+class LoginPage extends Component {
   constructor() {
     super();
     this.state = {
@@ -20,11 +20,13 @@ class Login extends Component {
   }
   handleSubmit = (event) => {
     event.preventDefault();
+    // console.log(this.props.login);
     this.props
       .login(this.state.form)
       .then((res) => {
-        // console.log(res.value.data);
         localStorage.setItem("token", res.value.data.data.token);
+        localStorage.setItem("refreshToken", res.value.data.data.refreshToken);
+        this.props.getUserById(res.value.data.data.id);
         this.props.history.push("/");
       })
       .catch((err) => {
@@ -141,41 +143,20 @@ class Login extends Component {
                     </div>
                   </div>
                   <button className="btn btn-primary mt-5 mb-3 p-3 btn__login">Sign In</button>
-                  <p className="text-muted text-center m-0">
-                    <strong className="forgot__password">
-                      forgot your password ?{" "}
-                      <Link to="/reset-password" className="text-primary">
-                        Reset Now
-                      </Link>
-                    </strong>
-                  </p>
+
                   <span className="line">
                     <h2 className="m-0">
                       <span>or</span>
                     </h2>
                   </span>
-                  <div className="row justify-content-md-center">
-                    <div className="col-md-6 col-6 ml-2">
-                      <div className="p-0 m-0" style={{ border: "none", borderRadius: "30px" }}>
-                        <button className="btn btn-light shadow w-100" style={{ height: "48px" }}>
-                          <img src="assets/img/google.png" className="icon" alt="" />
-                          <span className="icon__name text-muted">
-                            <strong> Google</strong>
-                          </span>
-                        </button>
-                      </div>
-                    </div>
-                    <div className="col-md-6 col-6 mr-2">
-                      <div className="p-0 m-0" style={{ border: "none", borderRadius: "30px" }}>
-                        <button className="btn btn-light shadow w-100" style={{ height: "48px" }}>
-                          <img src="assets/img/facebook.png" className="icon" alt="" />
-                          <span className="icon__name text-muted">
-                            <strong> Facebook</strong>
-                          </span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                  <p className="text-muted text-center m-0">
+                    <strong className="forgot__password">
+                      Reset Your Password ?{" "}
+                      <Link to="/reset-password" className="text-primary">
+                        Reset Now
+                      </Link>
+                    </strong>
+                  </p>
                 </form>
               </div>
             </section>
@@ -188,5 +169,5 @@ class Login extends Component {
 const mapStateToProps = (state) => ({
   auth: state.auth
 });
-const mapDispatchToProps = { login };
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+const mapDispatchToProps = { login, getUserById };
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

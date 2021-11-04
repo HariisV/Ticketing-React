@@ -14,10 +14,11 @@ class Navbar extends Component {
     return (
       <>
         <h1>Navbar Components</h1>
-        <Link to="/basic-detail">Detail</Link> | <button onClick={this.handleLogout}>Logout</button>
+        <Link to="/basic-detail/440asdokasdok">Detail</Link> |{" "}
+        <button onClick={this.handleLogout}>Logout</button>
       </>
     );
   }
 }
 
-export default withRouter(Navbar);
+export default Navbar;

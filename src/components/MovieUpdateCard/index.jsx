@@ -23,7 +23,12 @@ const MovieUpdateCard = (props) => {
           >
             Update
           </Link>
-          <a className="btn btn-outline-danger upcoming__list--detail mt-2">Delete</a>
+          <button
+            className="btn btn-outline-danger upcoming__list--detail mt-2"
+            onClick={() => props.handleDelete(props.id)}
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>

@@ -1,26 +1,30 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Navbar from "../../../components/Navbar/navbar";
+import Navbar from "../../../components/Navbar/";
 import Footer from "../../../components/Footer";
 import TicketCard from "../../../components/TicketCard";
 import axios from "../../../utils/axios";
 import Pagination from "react-paginate";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 require("dotenv").config();
 
 class MovieDetail extends Component {
   constructor() {
     super();
-    var d = new Date();
+    var thisDate = new Date().toISOString();
     this.state = {
       data: [],
-      dateBooking: `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`,
+      dateBooking: `${thisDate.slice(0, 10)}`,
       schedule: [],
       IdScheduleSelected: "",
       timeSelected: "",
       location: "Aceh",
       city: [],
       pageInfo: {},
-      page: 1
+      page: 1,
+      showPaginate: false
     };
   }
 
@@ -53,11 +57,23 @@ class MovieDetail extends Component {
       .then((res) => {
         this.setState({
           schedule: res.data.data,
-          pageInfo: res.data.pagination
+          pageInfo: res.data.pagination,
+          showPaginate: true
         });
       })
       .catch((err) => {
-        console.log(err.response);
+        // console.log(err.response.data.msg);
+        toast.error(err.response.data.msg, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored"
+        });
+
         // alert(err.response.data.msg);
         // this.props.history.push("/");
       });
@@ -129,6 +145,19 @@ class MovieDetail extends Component {
         <div className="container">
           <Navbar />
           <section className="heroo_details mt-5">
+            <div>
+              <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+              />
+            </div>
             <div className="row">
               <div className="col-md-3 col-lg-4 col-xl-3 col-sm-12">
                 <div className="heroo__details--border d-flex justify-content-center">
@@ -227,7 +256,7 @@ class MovieDetail extends Component {
               ))}
             </div>
           </div>
-          <div className="showtimes__paginate mb-5">
+          <div className={`showtimes__paginate mb-5 ${this.state.showPaginate ? "" : "d-none"}`}>
             <div className="d-flex justify-content-center">
               <Pagination
                 previousLabel={"Sebelumnya"}
