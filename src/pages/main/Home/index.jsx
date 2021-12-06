@@ -1,8 +1,63 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Navbar from "../../../components/Navbar/navbar1";
+import Navbar from "../../../components/Navbar/";
 import Footer from "../../../components/Footer";
+import ShowingCard from "../../../components/ShowingCard";
+import UpcomingCard from "../../../components/UpcomingCard";
+import axios from "../../../utils/axios";
+import MontButton from "../../../components/monthButton";
+require("dotenv").config();
+
 class Home extends Component {
+  constructor() {
+    super();
+    this.state = {
+      dataShowing: [],
+      dataUpcoming: [],
+      activeMonth: `${new Date().getMonth() + 1}`
+    };
+  }
+  componentDidMount() {
+    this.getDataMovieShowing();
+    this.getDataMovieUpcoming();
+  }
+  getDataMovieShowing = () => {
+    axios.get("movie?page=1&limit=7&sort=id&sortType=ASC").then((res) => {
+      this.setState({
+        dataShowing: res.data.data
+      });
+    });
+  };
+  getDataMovieUpcoming = () => {
+    axios
+      .get("movie/upcoming")
+      .then((res) => {
+        this.setState({
+          dataUpcoming: res.data.data
+        });
+      })
+      .catch((err) => {});
+  };
+  changeMonthMovie = (data) => {
+    this.setState({
+      activeMonth: data
+    });
+    const setData = {
+      month: data
+    };
+    axios
+      .post("movie/upcoming", setData)
+      .then((res) => {
+        this.setState({
+          dataUpcoming: res.data.data
+        });
+      })
+      .catch((err) => {
+        console.log("movie/upcoming", setData);
+        console.log("MENGEROR", err.response.data);
+      });
+  };
+
   render() {
     return (
       <>
@@ -26,139 +81,20 @@ class Home extends Component {
             </small>
             <hr className="showing__hr" />
             <section className="showing__list mt-5">
-              <div className="col">
-                <div className="card shadow showing__list--wrapper card-body text-center">
-                  <div className="mx-auto d-block">
-                    <img src="/assets/img/movie1.png" className="showing__list--image" alt="" />
-                    <div className="showing__details d-none mt-2">
-                      <h4 className="h6 text-center upcoming__list--title">Spiderman 3</h4>
-                      <p className="text-center upcoming__list--category text-muted">
-                        Action, Adventure, Sci-Fi
-                      </p>
-                      <Link to="/details" className="btn btn-outline-primary showing__details--btn">
-                        Details
-                      </Link>
-                      <Link to="/details" className="btn btn-primary showing__details--btn">
-                        Book now
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col">
-                <div className="card shadow showing__list--wrapper card-body text-center">
-                  <div className="mx-auto d-block">
-                    <img src="/assets/img/movie2.png" className="showing__list--image" alt="" />
-                    <div className="showing__details d-none mt-2">
-                      <h4 className="h6 text-center upcoming__list--title">Lion King</h4>
-                      <p className="text-center upcoming__list--category text-muted">
-                        Action, Adventure, Sci-Fi
-                      </p>
-                      <Link to="/details" className="btn btn-outline-primary showing__details--btn">
-                        Details
-                      </Link>
-                      <Link to="/details" className="btn btn-primary showing__details--btn">
-                        Book now
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col">
-                <div className="card shadow showing__list--wrapper card-body text-center">
-                  <div className="mx-auto d-block">
-                    <img src="/assets/img/movie1.png" className="showing__list--image" alt="" />
-                    <div className="showing__details d-none mt-2">
-                      <h4 className="h6 text-center upcoming__list--title">Spiderman 4</h4>
-                      <p className="text-center upcoming__list--category text-muted">
-                        Action, Adventure, Sci-Fi
-                      </p>
-                      <Link to="/details" className="btn btn-outline-primary showing__details--btn">
-                        Details
-                      </Link>
-                      <Link to="/details" className="btn btn-primary showing__details--btn">
-                        Book now
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col">
-                <div className="card shadow showing__list--wrapper card-body text-center">
-                  <div className="mx-auto d-block">
-                    <img src="/assets/img/movie3.png" className="showing__list--image" alt="" />
-                    <div className="showing__details d-none mt-2">
-                      <h4 className="h6 text-center upcoming__list--title">John Wick</h4>
-                      <p className="text-center upcoming__list--category text-muted">
-                        Action, Adventure, Sci-Fi
-                      </p>
-                      <Link to="/details" className="btn btn-outline-primary showing__details--btn">
-                        Details
-                      </Link>
-                      <Link to="/details" className="btn btn-primary showing__details--btn">
-                        Book now
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col">
-                <div className="card shadow showing__list--wrapper card-body text-center">
-                  <div className="mx-auto d-block">
-                    <img src="/assets/img/movie4.png" className="showing__list--image" alt="" />
-                    <div className="showing__details d-none mt-2">
-                      <h4 className="h6 text-center upcoming__list--title">Spiderman 4</h4>
-                      <p className="text-center upcoming__list--category text-muted">
-                        Action, Adventure, Sci-Fi
-                      </p>
-                      <Link to="/details" className="btn btn-outline-primary showing__details--btn">
-                        Details
-                      </Link>
-                      <Link to="/details" className="btn btn-primary showing__details--btn">
-                        Book now
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col">
-                <div className="card shadow showing__list--wrapper card-body text-center">
-                  <div className="mx-auto d-block">
-                    <img src="/assets/img/movie5.png" className="showing__list--image" alt="" />
-                    <div className="showing__details d-none mt-2">
-                      <h4 className="h6 text-center upcoming__list--title">Spiderman 4</h4>
-                      <p className="text-center upcoming__list--category text-muted">
-                        Action, Adventure, Sci-Fi
-                      </p>
-                      <Link to="/details" className="btn btn-outline-primary showing__details--btn">
-                        Details
-                      </Link>
-                      <Link to="/details" className="btn btn-primary showing__details--btn">
-                        Book now
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col">
-                <div className="card shadow showing__list--wrapper card-body text-center">
-                  <div className="mx-auto d-block">
-                    <img src="/assets/img/movie4.png" className="showing__list--image" alt="" />
-                    <div className="showing__details d-none mt-2">
-                      <h4 className="h6 text-center upcoming__list--title">Spiderman 4</h4>
-                      <p className="text-center upcoming__list--category text-muted">
-                        Action, Adventure, Sci-Fi
-                      </p>
-                      <Link to="/details" className="btn btn-outline-primary showing__details--btn">
-                        Details
-                      </Link>
-                      <Link to="/details" className="btn btn-primary showing__details--btn">
-                        Book now
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {this.state.dataShowing.map((item, index) => (
+                <ShowingCard
+                  image={
+                    item.image
+                      ? `${process.env.REACT_APP_URL_BACKEND}uploads/movie/${item.image}`
+                      : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
+                  }
+                  name={item.name}
+                  category={item.category}
+                  linkDetail={`/movie/${item.id}`}
+                  linkBooking={`/movie/${item.id}`}
+                  key={item.id}
+                />
+              ))}
             </section>
           </section>
           <section className="upcoming mt-5">
@@ -168,146 +104,27 @@ class Home extends Component {
             </small>
             <section className="upcoming--category mt-4">
               <div className="upcoming__category--wrapper">
-                <Link className="btn btn-primary active">Oktober</Link>
-                <Link className="btn btn-outline-primary">November</Link>
-                <Link className="btn btn-outline-primary">Desember</Link>
-                <Link className="btn btn-outline-primary">January</Link>
-                <Link className="btn btn-outline-primary">February</Link>
-                <Link className="btn btn-outline-primary">March</Link>
-                <Link className="btn btn-outline-primary">April</Link>
-                <Link className="btn btn-outline-primary">May</Link>
-                <Link className="btn btn-outline-primary">Juny</Link>
-                <Link className="btn btn-outline-primary">July</Link>
+                <MontButton
+                  changeMonth={this.changeMonthMovie}
+                  activeMonth={this.state.activeMonth}
+                />
               </div>
             </section>
             <section className="upcoming__list mt-4">
               <div className="showing__list">
-                <div className="col">
-                  <div className="card shadow showing__list--wrapper">
-                    <div className="card-body text-center">
-                      <img src="/assets/img/movie1.png" className="upcoming__list--image" alt="" />
-                      <h4 className="h6 text-center upcoming__list--title">Spiderman: Far</h4>
-                      <p className="text-center upcoming__list--category text-muted">
-                        Action, Adventure, Sci-Fi
-                      </p>
-                      <br />
-                      <Link
-                        to="/details"
-                        className="btn btn-outline-primary upcoming__list--detail"
-                      >
-                        Detail
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-                <div className="col">
-                  <div className="card shadow showing__list--wrapper">
-                    <div className="card-body text-center">
-                      <img src="/assets/img/movie2.png" className="upcoming__list--image" alt="" />
-                      <h4 className="h6 text-center upcoming__list--title">The Lion</h4>
-                      <p className="text-center upcoming__list--category text-muted">
-                        Action, Adventure, Sci-Fi
-                      </p>
-                      <br />
-                      <Link
-                        to="/details"
-                        className="btn btn-outline-primary upcoming__list--detail"
-                      >
-                        Detail
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-                <div className="col">
-                  <div className="card shadow showing__list--wrapper">
-                    <div className="card-body text-center">
-                      <img src="/assets/img/movie3.png" className="upcoming__list--image" alt="" />
-                      <h4 className="h6 text-center upcoming__list--title">John Wick</h4>
-                      <p className="text-center upcoming__list--category text-muted">
-                        Action, Adventure, Sci-Fi
-                      </p>
-                      <br />
-                      <Link
-                        to="/details"
-                        className="btn btn-outline-primary upcoming__list--detail"
-                      >
-                        Detail
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-                <div className="col">
-                  <div className="card shadow showing__list--wrapper">
-                    <div className="card-body text-center">
-                      <img src="/assets/img/movie4.png" className="upcoming__list--image" alt="" />
-                      <h4 className="h6 text-center upcoming__list--title">Spiderman 4</h4>
-                      <p className="text-center upcoming__list--category text-muted">
-                        Action, Adventure, Sci-Fi
-                      </p>
-                      <br />
-                      <Link
-                        to="/details"
-                        className="btn btn-outline-primary upcoming__list--detail"
-                      >
-                        Detail
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-                <div className="col">
-                  <div className="card shadow showing__list--wrapper">
-                    <div className="card-body text-center">
-                      <img src="/assets/img/movie5.png" className="upcoming__list--image" alt="" />
-                      <h4 className="h6 text-center upcoming__list--title">Lion King</h4>
-                      <p className="text-center upcoming__list--category text-muted">
-                        Action, Adventure, Sci-Fi
-                      </p>
-                      <br />
-                      <Link
-                        to="/details"
-                        className="btn btn-outline-primary upcoming__list--detail"
-                      >
-                        Detail
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-                <div className="col">
-                  <div className="card shadow showing__list--wrapper">
-                    <div className="card-body text-center">
-                      <img src="/assets/img/movie1.png" className="upcoming__list--image" alt="" />
-                      <h4 className="h6 text-center upcoming__list--title">Spiderman 4</h4>
-                      <p className="text-center upcoming__list--category text-muted">
-                        Action, Adventure, Sci-Fi
-                      </p>
-                      <br />
-                      <Link
-                        to="/details"
-                        className="btn btn-outline-primary upcoming__list--detail"
-                      >
-                        Detail
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-                <div className="col">
-                  <div className="card shadow showing__list--wrapper">
-                    <div className="card-body text-center">
-                      <img src="/assets/img/movie1.png" className="upcoming__list--image" alt="" />
-                      <h4 className="h6 text-center upcoming__list--title">Spiderman 4</h4>
-                      <p className="text-center upcoming__list--category text-muted">
-                        Action, Adventure, Sci-Fi
-                      </p>
-                      <br />
-                      <Link
-                        to="/details"
-                        className="btn btn-outline-primary upcoming__list--detail"
-                      >
-                        Detail
-                      </Link>
-                    </div>
-                  </div>
-                </div>
+                {this.state.dataUpcoming.map((element) => (
+                  <UpcomingCard
+                    image={
+                      element.image
+                        ? `${process.env.REACT_APP_URL_BACKEND}uploads/movie/${element.image}`
+                        : "https://www.a1hosting.net/wp-content/themes/arkahost/assets/images/default.jpg"
+                    }
+                    name={element.name}
+                    category={element.category}
+                    linkDetail={`/movie/${element.id}`}
+                    key={element.id}
+                  />
+                ))}
               </div>
             </section>
           </section>
@@ -322,7 +139,7 @@ class Home extends Component {
                   placeholder="Write your Email"
                 />
                 <span>
-                  <Link className="btn btn-primary email__form--btn"> Join now </Link>
+                  <button className="btn btn-primary email__form--btn"> Join now </button>
                 </span>
               </div>
             </div>

@@ -5,7 +5,7 @@ class Footer extends Component {
   render() {
     return (
       <>
-        <footer className="">
+        <footer>
           <div className="container">
             <div className="row">
               <div className="col-md-3 text-muted footer__logo">
@@ -27,7 +27,7 @@ class Footer extends Component {
                 <ul className="mt-3 footer_sponsor list-inline">
                   <li className="list-inline-item">
                     <img
-                      src="/assets/img/sponsor1.png"
+                      src="/assets/img/ebuId.png"
                       className="footer_sponsor--item ebuid_mobile"
                       height="44px"
                       width="120px"
@@ -45,7 +45,7 @@ class Footer extends Component {
                   </li>
                   <li className="list-inline-item">
                     <img
-                      src="/assets/img/sponsor3.png"
+                      src="/assets/img/hiFlix.png"
                       className="footer_sponsor--item hiflix_mobile"
                       alt=""
                       width="80px"

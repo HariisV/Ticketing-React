@@ -1,19 +1,31 @@
 import React, { Component } from "react";
-import Navbar from "../../../components/Navbar";
+import Navbar from "../../../components/Basic/Navbar";
 import { Button, Modal } from "react-bootstrap";
+import CardMovie from "../../../components/Basic/Card";
+import axios from "../../../utils/axios";
 class BasicReact extends Component {
   constructor() {
     super();
-    // console.log("CONSTRUCTOR IS RUNNING !");
+    //
     this.state = {
       name: "Haris",
       data: [],
       search: "",
-      show: false
+      show: false,
+      form: {
+        name: "",
+        category: "",
+        releaseDate: "",
+        duration: "",
+        director: "",
+        cast: "",
+        sypnosis: "",
+        image: ""
+      }
     };
   }
   componentDidMount() {
-    // console.log("COMPONENT WILLMOUNT IS RUNNING "); //COMPONENT WILLMOUNTx
+    //
     this.setState({
       data: [
         {
@@ -26,23 +38,23 @@ class BasicReact extends Component {
     });
   }
   handleClick2 = (data) => {
-    // console.log(`HALO OM ${data}`);
+    //
   };
   changeText = (event) => {
-    // console.log(event.target.value);
-    // console.log(event);
+    //
+    //
     this.setState({
       search: event.target.value
     });
   };
   handleSearch = (event) => {
     if (event.key === "Enter") {
-      // console.log("USER PRESS ENTER");
+      //
       this.setState({
         search: event.target.value
       });
     }
-    // console.log(event.key);
+    //
   };
 
   handleShow = () => {
@@ -56,17 +68,52 @@ class BasicReact extends Component {
       show: false
     });
   };
+  handleUpdateMovie = (data) => {};
+  changeText = () => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        [event.target.name]: event.target.value
+      }
+    });
+  };
 
+  handleSubmit = (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append("name", this.state.form.name);
+    for (const data in this.state.form) {
+      formData.append(data, this.state.form[data]);
+    }
+    for (const pair of formData.entries()) {
+    }
+    // axios.post("movie", formData);
+  };
+
+  setUpdate = () => {};
+
+  handleUpdate = () => {};
+
+  handleDelete = () => {};
+  changeFile = (event) => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        [event.target.name]: event.target.files[0]
+      }
+    });
+  };
   render() {
-    // console.log(this.state.data);
+    //
     return (
       <>
-        <h1>Hello World !</h1>
-        {this.state.data.map((item, index) => (
+        {/* <h1>Hello World !</h1> */}
+        {/* {this.state.data.map((item, index) => (
           <div key={index}>
             <h2>{item.movieName}</h2>
           </div>
-        ))}
+        ))} */}
         <Navbar userLogin="haris" />
         <button onClick={() => this.handleClick2(1)}>Click Me</button>
         <hr />
@@ -87,7 +134,87 @@ class BasicReact extends Component {
         {/* BTRAP */}
         <button className="btn btn-primary">SS</button>
         <Button variant="primary"> PRIMARS</Button>
+        <hr />
+        <hr />
+        <input
+          type="text"
+          className="form-control"
+          name="name"
+          placeholder="name"
+          onChange={(event) => {
+            this.changeText(event);
+          }}
+        />
+        <input
+          type="text"
+          className="form-control mt-3"
+          name="category"
+          placeholder="category"
+          onChange={(event) => {
+            this.changeText(event);
+          }}
+        />
+        <input
+          type="date"
+          className="form-control mt-3"
+          name="releaseDate"
+          placeholder="releaseDate"
+          onChange={(event) => {
+            this.changeText(event);
+          }}
+        />
+        <input
+          type="text"
+          className="form-control mt-3"
+          name="duration"
+          placeholder="duration"
+          onChange={(event) => {
+            this.changeText(event);
+          }}
+        />
+        <input
+          type="text"
+          className="form-control mt-3"
+          name="director"
+          placeholder="director"
+          onChange={(event) => {
+            this.changeText(event);
+          }}
+        />
+        <input
+          type="text"
+          className="form-control mt-3"
+          name="cast"
+          placeholder="cast"
+          onChange={(event) => {
+            this.changeText(event);
+          }}
+        />
+        <input
+          type="text"
+          className="form-control mt-3"
+          name="sypnosis"
+          placeholder="sypnosis"
+          onChange={(event) => {
+            this.changeText(event);
+          }}
+        />
+        <input
+          type="file"
+          className="form-control mt-3"
+          name="image"
+          placeholder="sypnosis"
+          onChange={(event) => {
+            this.changeFile(event);
+          }}
+        />
 
+        <button onClick={this.handleSubmit} className="btn btn-primary">
+          submit
+        </button>
+
+        <hr />
+        <hr />
         <Button variant="primary" onClick={this.handleShow}>
           Launch demo modal
         </Button>
@@ -105,6 +232,9 @@ class BasicReact extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
+        <hr />
+        {/* COMPONENT COMMUNICATION */}
+        {/* <CardMovie handleUpdate={this.handleUpdateMovie} /> */}
       </>
     );
   }
