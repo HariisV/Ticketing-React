@@ -28,20 +28,35 @@ class Navbar extends Component {
   };
 
   handleLogout = () => {
+<<<<<<< HEAD
+=======
+    console.log("LOGOT");
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
     localStorage.clear();
     this.props.history.push("/login");
   };
   render() {
+<<<<<<< HEAD
     const isLogin = localStorage.getItem("token");
+=======
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
     let isAdmin = localStorage.getItem("persist:root");
     if (isAdmin) {
       isAdmin = JSON.parse(isAdmin).auth;
       isAdmin = JSON.parse(isAdmin).userLogin.role;
+<<<<<<< HEAD
       isAdmin = isAdmin == "admin" ? "admin" : false;
     } else {
       isAdmin = "unAuth";
     }
     console.log(isAdmin);
+=======
+      isAdmin = isAdmin == "admin" ? true : false;
+    } else {
+      isAdmin = false;
+    }
+
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
     return (
       <>
         <div className="container mt-3">
@@ -80,6 +95,7 @@ class Navbar extends Component {
                       </div>
                     </div>
                   </li>
+<<<<<<< HEAD
                   {isLogin &&
                     (isAdmin == "admin" ? (
                       <>
@@ -118,6 +134,47 @@ class Navbar extends Component {
                       </>
                     ))}
 
+=======
+                  {isAdmin ? (
+                    <>
+                      <li className="nav-item">
+                        <Link className="nav-link active" aria-current="page" to="/dashboard">
+                          Dashboard
+                        </Link>
+                      </li>
+
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/movies/create">
+                          Manage Movie
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/schedule/create">
+                          Manage Schedule
+                        </Link>
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li className="nav-item">
+                        <Link className="nav-link active" aria-current="page" to="/">
+                          Home
+                        </Link>
+                      </li>
+
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/profile">
+                          Profile
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="#">
+                          Order
+                        </Link>
+                      </li>
+                    </>
+                  )}
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
                   <li className="nav-item d-none-desktop">
                     <p className="text-center footer__end">© 2020 Tickitz. All Rights Reserved.</p>
                   </li>

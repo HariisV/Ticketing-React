@@ -5,8 +5,13 @@ import axios from "../../../utils/axios";
 
 const ViewTicket = (props) => {
   const [booking, setBooking] = useState({
+<<<<<<< HEAD
     movieId: "",
     scheduleId: "",
+=======
+    movieId: 90,
+    scheduleId: 118,
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
     seat: []
   });
   const [movie, setMovie] = useState({});
@@ -14,33 +19,60 @@ const ViewTicket = (props) => {
   useEffect(() => {
     getBookingById(props.match.params.id);
   }, []);
+<<<<<<< HEAD
   useEffect(() => {
     // getMovieById(booking.movieId);
     // getSchedulById(booking.scheduleId);
   }, [booking]);
+=======
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   const getSchedulById = (id) => {
     axios
       .get(`/schedule/${id}`)
       .then((res) => {
         setSchedule(res.data.data[0]);
       })
+<<<<<<< HEAD
       .catch((err) => {});
+=======
+      .catch((err) => {
+        console.log(err.response);
+      });
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   };
   const getMovieById = (id) => {
     axios
       .get(`/movie/${id}`)
       .then((res) => {
+<<<<<<< HEAD
         // setMovie(res.data.data[0]);
       })
       .catch((err) => {});
+=======
+        setMovie(res.data.data[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   };
   const getBookingById = (id) => {
     axios
       .get(`/booking?idBooking=${id}`)
       .then((res) => {
         setBooking(res.data.data);
+<<<<<<< HEAD
       })
       .catch((err) => {});
+=======
+        getMovieById(booking.movieId);
+        getSchedulById(booking.scheduleId);
+        console.log(booking);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   };
   let dayBook = new Date(booking.dateBooking);
   let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thusday", "Friday", "Saturday"];

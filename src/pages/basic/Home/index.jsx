@@ -26,7 +26,13 @@ export default class index extends Component {
       .then((res) => {
         this.setState({ data: res.data.data, pageInfo: res.data.pagination });
       })
+<<<<<<< HEAD
       .catch((err) => {});
+=======
+      .catch((err) => {
+        console.log(err.response);
+      });
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
 
   handlePagination = (event) => {
     const selectedPage = event.selected + 1;
@@ -44,7 +50,11 @@ export default class index extends Component {
     // this.props.history.push(`/basic/detailMovie?movieId=${data}`);
     // Cara 2 | Kalo Detail tidak ditampilkan di url
     // this.props.history.push("/basic/detailMovie", { movieId: data });
+<<<<<<< HEAD
     //
+=======
+    // console.log(data);
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
     // CARA 3 | Bisa Digunakan untuk detail product/Data
     this.props.history.push(`/basic/detailMovie/${data}`);
   };

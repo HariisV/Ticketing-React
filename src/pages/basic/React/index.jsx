@@ -6,7 +6,11 @@ import axios from "../../../utils/axios";
 class BasicReact extends Component {
   constructor() {
     super();
+<<<<<<< HEAD
     //
+=======
+    // console.log("CONSTRUCTOR IS RUNNING !");
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
     this.state = {
       name: "Haris",
       data: [],
@@ -25,7 +29,11 @@ class BasicReact extends Component {
     };
   }
   componentDidMount() {
+<<<<<<< HEAD
     //
+=======
+    // console.log("COMPONENT WILLMOUNT IS RUNNING "); //COMPONENT WILLMOUNTx
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
     this.setState({
       data: [
         {
@@ -38,23 +46,39 @@ class BasicReact extends Component {
     });
   }
   handleClick2 = (data) => {
+<<<<<<< HEAD
     //
   };
   changeText = (event) => {
     //
     //
+=======
+    // console.log(`HALO OM ${data}`);
+  };
+  changeText = (event) => {
+    // console.log(event.target.value);
+    // console.log(event);
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
     this.setState({
       search: event.target.value
     });
   };
   handleSearch = (event) => {
     if (event.key === "Enter") {
+<<<<<<< HEAD
       //
+=======
+      // console.log("USER PRESS ENTER");
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
       this.setState({
         search: event.target.value
       });
     }
+<<<<<<< HEAD
     //
+=======
+    // console.log(event.key);
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   };
 
   handleShow = () => {
@@ -68,7 +92,13 @@ class BasicReact extends Component {
       show: false
     });
   };
+<<<<<<< HEAD
   handleUpdateMovie = (data) => {};
+=======
+  handleUpdateMovie = (data) => {
+    console.log(data);
+  };
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   changeText = () => {
     this.setState({
       form: {
@@ -80,22 +110,44 @@ class BasicReact extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+<<<<<<< HEAD
 
+=======
+    console.log(this.state.form);
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
     const formData = new FormData();
     formData.append("name", this.state.form.name);
     for (const data in this.state.form) {
       formData.append(data, this.state.form[data]);
     }
     for (const pair of formData.entries()) {
+<<<<<<< HEAD
+=======
+      console.log(pair[0] + ", " + pair[1]);
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
     }
     // axios.post("movie", formData);
   };
 
+<<<<<<< HEAD
   setUpdate = () => {};
 
   handleUpdate = () => {};
 
   handleDelete = () => {};
+=======
+  setUpdate = () => {
+    console.log("setUpdate");
+  };
+
+  handleUpdate = () => {
+    console.log("handleUpdate");
+  };
+
+  handleDelete = () => {
+    console.log("DELETES");
+  };
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   changeFile = (event) => {
     this.setState({
       form: {
@@ -105,7 +157,11 @@ class BasicReact extends Component {
     });
   };
   render() {
+<<<<<<< HEAD
     //
+=======
+    // console.log(this.state.data);
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
     return (
       <>
         {/* <h1>Hello World !</h1> */}

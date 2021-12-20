@@ -10,6 +10,10 @@ const initialState = {
 const ticket = (state = initialState, action) => {
   switch (action.type) {
     case "GET_TICKET_PENDING":
+<<<<<<< HEAD
+=======
+      console.log("PENDING");
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
       return {
         ...state,
         isLoading: true,
@@ -26,6 +30,10 @@ const ticket = (state = initialState, action) => {
         status: 200
       };
     case "GET_TICKET_REJECTED":
+<<<<<<< HEAD
+=======
+      console.log(action);
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
       return {
         ...state,
         isLoading: true,

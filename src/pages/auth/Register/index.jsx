@@ -25,6 +25,13 @@ const RegisterPage = (props) => {
       [e.target.name]: e.target.value
     });
   };
+<<<<<<< HEAD
+=======
+  const handleSubmit = () => {
+    registerUser(formData);
+    setStep(3);
+  };
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   const toastError = (data) => {
     toast.error(data, {
       position: "top-right",
@@ -37,6 +44,7 @@ const RegisterPage = (props) => {
       theme: "colored"
     });
   };
+<<<<<<< HEAD
   const handleSubmit = () => {
     props
       .registerUser(formData)
@@ -62,6 +70,9 @@ const RegisterPage = (props) => {
   console.log(props.registMsg);
 
   //
+=======
+  // console.log(props.location.search);
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   return (
     <>
       <div className={`container ${styles.container}`}>
@@ -166,7 +177,11 @@ const RegisterPage = (props) => {
   );
 };
 const mapStateToProps = (state) => {
+<<<<<<< HEAD
   return { registMsg: state.register };
+=======
+  return { registerUser: state.register };
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
 };
 const mapDispatchToProps = {
   registerUser

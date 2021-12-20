@@ -36,7 +36,13 @@ class Home extends Component {
           dataUpcoming: res.data.data
         });
       })
+<<<<<<< HEAD
       .catch((err) => {});
+=======
+      .catch((err) => {
+        console.log(err.response);
+      });
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   };
   changeMonthMovie = (data) => {
     this.setState({
@@ -53,8 +59,12 @@ class Home extends Component {
         });
       })
       .catch((err) => {
+<<<<<<< HEAD
         console.log("movie/upcoming", setData);
         console.log("MENGEROR", err.response.data);
+=======
+        console.log(err.response);
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
       });
   };
 

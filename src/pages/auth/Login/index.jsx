@@ -20,7 +20,11 @@ class LoginPage extends Component {
   }
   handleSubmit = (event) => {
     event.preventDefault();
+<<<<<<< HEAD
     //
+=======
+    // console.log(this.props.login);
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
     this.props
       .login(this.state.form)
       .then((res) => {

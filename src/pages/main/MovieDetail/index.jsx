@@ -7,7 +7,10 @@ import axios from "../../../utils/axios";
 import Pagination from "react-paginate";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+<<<<<<< HEAD
 import qs from "query-string";
+=======
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
 
 require("dotenv").config();
 
@@ -15,7 +18,10 @@ class MovieDetail extends Component {
   constructor() {
     super();
     var thisDate = new Date().toISOString();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
     this.state = {
       data: [],
       dateBooking: `${thisDate.slice(0, 10)}`,
@@ -29,6 +35,7 @@ class MovieDetail extends Component {
       showPaginate: false
     };
   }
+<<<<<<< HEAD
   componentDidMount() {
     this.getMovieById(this.props.match.params.id);
     this.getCity(this.state.location);
@@ -36,6 +43,14 @@ class MovieDetail extends Component {
     this.handleUrlParams();
   }
 
+=======
+
+  componentDidMount() {
+    this.getMovieById(this.props.match.params.id);
+    this.getCity(this.state.location);
+    this.getScheduleFilter(this.state.dateBooking, this.state.location);
+  }
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   getMovieById = (id) => {
     axios
       .get(`movie/${id}`)
@@ -48,10 +63,17 @@ class MovieDetail extends Component {
         this.props.history.push("/");
       });
   };
+<<<<<<< HEAD
   getScheduleFilter = (date, location, page) => {
     const setData = {
       date: date,
       page: page,
+=======
+  getScheduleFilter = (date, location) => {
+    const setData = {
+      date: date,
+      page: this.state.page,
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
       location: location,
       movieId: this.props.match.params.id
     };
@@ -65,6 +87,10 @@ class MovieDetail extends Component {
         });
       })
       .catch((err) => {
+<<<<<<< HEAD
+=======
+        // console.log(err.response.data.msg);
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
         toast.error(err.response.data.msg, {
           position: "top-right",
           autoClose: 3000,
@@ -75,16 +101,27 @@ class MovieDetail extends Component {
           progress: undefined,
           theme: "colored"
         });
+<<<<<<< HEAD
+=======
+
+        // alert(err.response.data.msg);
+        // this.props.history.push("/");
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
       });
   };
   getCity = () => {
     axios
       .get("https://dev.farizdotid.com/api/daerahindonesia/provinsi")
       .then((res) => {
+<<<<<<< HEAD
+=======
+        // console.log();
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
         this.setState({
           city: res.data.provinsi
         });
       })
+<<<<<<< HEAD
       .catch((err) => {});
   };
 
@@ -107,6 +144,24 @@ class MovieDetail extends Component {
     this.props.history.push(
       `?page=1&dateBooking=${this.state.dateBooking}&location=${event.target.value}`
     );
+=======
+      .catch((err) => {
+        console.log("TIDAK AD KOTA");
+      });
+  };
+
+  changeDateBooking = () => {
+    this.setState({
+      dateBooking: event.target.value
+    });
+    this.getScheduleFilter(event.target.value, this.state.location);
+  };
+  changeLocationBooking = () => {
+    this.setState({
+      location: event.target.value
+    });
+    this.getScheduleFilter(this.state.dateBooking, event.target.value);
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   };
   handleClickState = (time, scheduleId) => {
     this.setState({
@@ -129,6 +184,7 @@ class MovieDetail extends Component {
         page: event.selected + 1
       },
       () => {
+<<<<<<< HEAD
         this.props.history.push(
           `?page=${event.selected + 1}&dateBooking=${this.state.dateBooking}&location=${
             this.state.location
@@ -149,6 +205,12 @@ class MovieDetail extends Component {
       this.getScheduleFilter(urlParams.dateBooking, urlParams.location, urlParams.page);
     }
   };
+=======
+        this.getScheduleFilter(this.state.dateBooking, this.state.location);
+      }
+    );
+  };
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   render() {
     const { data, pageInfo } = this.state;
     var dateReleasee = new Date(data.releaseDate);
@@ -159,8 +221,11 @@ class MovieDetail extends Component {
       ", " +
       dateReleasee.getFullYear()
     }`;
+<<<<<<< HEAD
     const urlParams = qs.parse(this.props.location.search);
     console.log(this.state.page);
+=======
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
 
     return (
       <>
@@ -249,6 +314,7 @@ class MovieDetail extends Component {
               <span className="input-group-text bginput__blue">
                 <img src="/assets/icon/location.svg" alt="" />
               </span>
+<<<<<<< HEAD
               <select
                 className="form-select bginput__blue"
                 value={this.state.location}
@@ -256,6 +322,9 @@ class MovieDetail extends Component {
               >
                 <option value="Aceh">Aceh</option>
                 <option value="Medan">Medan</option>
+=======
+              <select className="form-select bginput__blue" onChange={this.changeLocationBooking}>
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
                 {this.state.city.map((item, index) => (
                   <option value={item.nama} key={index}>
                     {item.nama}
@@ -269,7 +338,11 @@ class MovieDetail extends Component {
             <div className="row">
               {this.state.schedule.map((item) => (
                 <TicketCard
+<<<<<<< HEAD
                   image={`/assets/img/${item.premier}.png`}
+=======
+                  image="/assets/img/sponsor1.png"
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
                   id={item.id}
                   selectedSchedule={this.state.IdScheduleSelected}
                   selectedTime={this.state.timeSelected}
@@ -293,10 +366,14 @@ class MovieDetail extends Component {
                 nextClassName={"nonaktif_previous"}
                 breakLabel={"..."}
                 pageCount={pageInfo.totalPage}
+<<<<<<< HEAD
                 onPageChange={(event) => this.handlePagination(event)}
                 // initialPage={this.state.page - 1}
                 forcePage={this.state.page - 1}
                 // urlParams.page ? urlParams.page - 1 : this.state.page
+=======
+                onPageChange={this.handlePagination}
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
                 containerClassName={"pagination"}
                 disabledClassName={"pagination__link--disabled"}
                 activeClassName={"pagination__link--active btn-primary "}

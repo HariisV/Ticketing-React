@@ -10,7 +10,14 @@ class Counter extends Component {
     };
   }
 
+<<<<<<< HEAD
   componentDidMount() {}
+=======
+  componentDidMount() {
+    console.log("COMPONENT DIDMOUNT BERJALAN");
+    console.log(this.props.counter);
+  }
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
 
   increaseCounter = () => {
     this.setState({

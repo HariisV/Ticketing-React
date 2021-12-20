@@ -55,7 +55,13 @@ class MovieCheckout extends Component {
           dataMovie: res.data.data[0]
         });
       })
+<<<<<<< HEAD
       .catch((err) => {});
+=======
+      .catch((err) => {
+        console.log(err);
+      });
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   };
   getSchedule = (data) => {
     axios
@@ -65,7 +71,13 @@ class MovieCheckout extends Component {
           dataSchedule: res.data.data[0]
         });
       })
+<<<<<<< HEAD
       .catch((err) => {});
+=======
+      .catch((err) => {
+        console.log(err.response);
+      });
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   };
   onchangeInput = (event) => {
     this.setState(
@@ -84,6 +96,10 @@ class MovieCheckout extends Component {
         }
       }
     );
+<<<<<<< HEAD
+=======
+    console.log(this.state.fullName);
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   };
 
   handleProcessPayment = () => {
@@ -106,7 +122,13 @@ class MovieCheckout extends Component {
         const saveMidtransData = res.data.data;
         window.open(saveMidtransData.paymentUrl, "_blank");
       })
+<<<<<<< HEAD
       .catch((err) => {});
+=======
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
 
     // Handle Clik
     this.handleClickModal();

@@ -27,7 +27,11 @@ class Footer extends Component {
                 <ul className="mt-3 footer_sponsor list-inline">
                   <li className="list-inline-item">
                     <img
+<<<<<<< HEAD
                       src="/assets/img/ebuId.png"
+=======
+                      src="/assets/img/sponsor1.png"
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
                       className="footer_sponsor--item ebuid_mobile"
                       height="44px"
                       width="120px"
@@ -45,7 +49,11 @@ class Footer extends Component {
                   </li>
                   <li className="list-inline-item">
                     <img
+<<<<<<< HEAD
                       src="/assets/img/hiFlix.png"
+=======
+                      src="/assets/img/sponsor3.png"
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
                       className="footer_sponsor--item hiflix_mobile"
                       alt=""
                       width="80px"

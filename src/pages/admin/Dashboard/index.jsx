@@ -87,9 +87,15 @@ const Dashboard = () => {
   const [allMovie, setAllMovie] = useState([]);
   const [city, setCity] = useState([]);
   const [filter, setFilter] = useState({
+<<<<<<< HEAD
     movieId: "111",
     location: "Aceh",
     premier: "ebuId"
+=======
+    movieId: "",
+    location: "",
+    premier: ""
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   });
   const getDashboard = () => {
     axios
@@ -98,9 +104,17 @@ const Dashboard = () => {
       )
       .then((res) => {
         setChartValue(res.data.data);
+<<<<<<< HEAD
       })
       .catch((err) => {
         handleNotify(200, err.response.data.msg);
+=======
+        // console.log(res.data.data);
+      })
+      .catch((err) => {
+        handleNotify(200, err.response.data.msg);
+        console.log(err.response);
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
       });
   };
   const handleSelect = (event) => {
@@ -108,15 +122,28 @@ const Dashboard = () => {
       ...filter,
       [event.target.name]: event.target.value
     });
+<<<<<<< HEAD
+=======
+    console.log(filter);
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   };
 
   const getAllMovie = () => {
     axios
       .get("/movie?page=1&limit=6000")
       .then((res) => {
+<<<<<<< HEAD
         setAllMovie(res.data.data);
       })
       .catch((err) => {});
+=======
+        // console.log(res.data.data);
+        setAllMovie(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   };
   const getCity = () => {
     axios
@@ -124,7 +151,13 @@ const Dashboard = () => {
       .then((res) => {
         setCity(res.data.provinsi);
       })
+<<<<<<< HEAD
       .catch((err) => {});
+=======
+      .catch((err) => {
+        console.log(err.response);
+      });
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   };
   return (
     <>

@@ -48,7 +48,11 @@ class App extends Component {
               <PublicRoute path="/login" restricted={true} exact component={Login} />
               <PublicRoute path="/register" restricted={true} exact component={Register} />
               {/* PrivateRoute */}
+<<<<<<< HEAD
               <PublicRoute path="/profile" exact component={profile} />
+=======
+              <PrivateRoute path="/profile" exact component={profile} />
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
               <PrivateRoute path="/basic-react" exact component={BasicReact} />
               <PrivateRoute path="/booking" exact component={Booking} />
               <PrivateRoute path="/checkout" exact component={Checkout} />

@@ -8,10 +8,15 @@ import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 require("dotenv").config();
+<<<<<<< HEAD
 import qs from "query-string";
 
 const UpdateSchedule = (props) => {
   const urlParams = qs.parse(props.location.search);
+=======
+
+const UpdateSchedule = () => {
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   const [allMovie, setAllMovie] = useState([]);
   const [AllSchedule, setAllSchedule] = useState([]);
   const [city, setCity] = useState([]);
@@ -20,9 +25,15 @@ const UpdateSchedule = (props) => {
   const [page, setPage] = useState(1);
   const [time, setTime] = useState([]);
   const [filter, setFilter] = useState({
+<<<<<<< HEAD
     sortType: urlParams.sortType ? urlParams.sortType : "ASC",
     movieId: urlParams.movieId ? urlParams.movieId : "",
     location: urlParams.location ? urlParams.location : ""
+=======
+    sortType: "ASC",
+    movieId: "",
+    location: ""
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   });
   const [timeTemp, setTimeTemp] = useState(0);
   const [formInput, setFormInput] = useState({
@@ -49,7 +60,13 @@ const UpdateSchedule = (props) => {
       .then((res) => {
         setAllMovie(res.data.data);
       })
+<<<<<<< HEAD
       .catch((err) => {});
+=======
+      .catch((err) => {
+        console.log(err.response);
+      });
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   };
   const getCity = () => {
     axios
@@ -57,12 +74,22 @@ const UpdateSchedule = (props) => {
       .then((res) => {
         setCity(res.data.provinsi);
       })
+<<<<<<< HEAD
       .catch((err) => {});
+=======
+      .catch((err) => {
+        console.log(err);
+      });
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   };
   const getAllSchedule = (page) => {
     axios
       .get(
+<<<<<<< HEAD
         filter.location == "" || filter.location == "sortType" || filter.movieId == ""
+=======
+        filter.location == ""
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
           ? `/schedule?page=${page}`
           : `/schedule?page=${page}&limit=6&sortType=${filter.sortType}&movieID=${filter.movieId}&location=${filter.location}`
       )
@@ -72,6 +99,10 @@ const UpdateSchedule = (props) => {
       })
       .catch((err) => {
         handleNotify(400, "Schedule Tidak Ditemukan");
+<<<<<<< HEAD
+=======
+        console.log("ERR");
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
       });
   };
 
@@ -100,12 +131,18 @@ const UpdateSchedule = (props) => {
   };
 
   useEffect(() => {
+<<<<<<< HEAD
     getAllSchedule(1);
     // SORT
   }, [page]);
   useEffect(() => {
     getAllSchedule(1);
   }, [filter]);
+=======
+    getAllSchedule(page);
+    // SORT
+  }, [page]);
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   const getMovieById = (id) => {
     if (id) {
       axios
@@ -197,6 +234,10 @@ const UpdateSchedule = (props) => {
   };
 
   const handleClickUpdate = (data) => {
+<<<<<<< HEAD
+=======
+    console.log(data);
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
     setFormInput({
       time: data.time
     });
@@ -215,6 +256,10 @@ const UpdateSchedule = (props) => {
     setIsUpdate(true);
   };
   const handleUpdate = () => {
+<<<<<<< HEAD
+=======
+    console.log(formInput);
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
     axios
       .patch(`/schedule/${formInput.id}`, formInput)
       .then((res) => {
@@ -231,11 +276,16 @@ const UpdateSchedule = (props) => {
       ...filter,
       [event.target.name]: event.target.value
     });
+<<<<<<< HEAD
     props.history.push(
       `/schedule/create?page=${page}&limit=6&sortType=${filter.sortType}&movieID=${filter.movieId}&location=${filter.location}`
     );
 
     //
+=======
+    getAllSchedule(1);
+    console.log(filter);
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   };
   return (
     <>
@@ -488,9 +538,13 @@ const UpdateSchedule = (props) => {
                   onChange={handleSelect}
                   name="sortType"
                 >
+<<<<<<< HEAD
                   <option selected disabled>
                     Sort
                   </option>
+=======
+                  <option disabled>Sort</option>
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
                   <option value="DESC">Harga Tertinggi</option>
                   <option value="ASC">Harga Terendah</option>
                 </select>
@@ -499,9 +553,13 @@ const UpdateSchedule = (props) => {
                   onChange={handleSelect}
                   name="location"
                 >
+<<<<<<< HEAD
                   <option selected disabled>
                     Location
                   </option>
+=======
+                  <option selected>Location</option>
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
                   {city.map((element, index) => (
                     <option value={element.nama} key={index}>
                       {element.nama}
@@ -513,9 +571,13 @@ const UpdateSchedule = (props) => {
                   onChange={handleSelect}
                   name="movieId"
                 >
+<<<<<<< HEAD
                   <option selected disabled>
                     Movie
                   </option>
+=======
+                  <option selected>Movie</option>
+>>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
                   {allMovie.map((element) => (
                     <option value={element.id} key={element.id}>
                       {element.name}
