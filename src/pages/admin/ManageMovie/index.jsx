@@ -189,6 +189,7 @@ const UpdateMovie = (props) => {
         [event.target.name]: event.target.value
       });
     }
+    console.log(event.target.value);
   };
   const ThisDate = `${(FormDataMovie.releaseDate
     ? FormDataMovie.releaseDate

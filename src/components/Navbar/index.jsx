@@ -32,6 +32,7 @@ class Navbar extends Component {
     this.props.history.push("/login");
   };
   render() {
+    const isLogin = localStorage.getItem("token");
     let isAdmin = localStorage.getItem("persist:root");
     if (isAdmin) {
       isAdmin = JSON.parse(isAdmin).auth;
@@ -79,42 +80,44 @@ class Navbar extends Component {
                       </div>
                     </div>
                   </li>
-                  {isAdmin == "admin" ? (
-                    <>
-                      <li className="nav-item">
-                        <Link className="nav-link active" aria-current="page" to="/dashboard">
-                          Dashboard
-                        </Link>
-                      </li>
+                  {isLogin &&
+                    (isAdmin == "admin" ? (
+                      <>
+                        <li className="nav-item">
+                          <Link className="nav-link active" aria-current="page" to="/dashboard">
+                            Dashboard
+                          </Link>
+                        </li>
 
-                      <li className="nav-item">
-                        <Link className="nav-link" to="/movies/create">
-                          Manage Movie
-                        </Link>
-                      </li>
-                      <li className="nav-item">
-                        <Link className="nav-link" to="/schedule/create">
-                          Manage Schedule
-                        </Link>
-                      </li>
-                    </>
-                  ) : isAdmin == "unAuth" ? (
-                    ""
-                  ) : (
-                    <>
-                      <li className="nav-item">
-                        <Link className="nav-link active" aria-current="page" to="/">
-                          Home
-                        </Link>
-                      </li>
+                        <li className="nav-item">
+                          <Link className="nav-link" to="/movies/create">
+                            Manage Movie
+                          </Link>
+                        </li>
+                        <li className="nav-item">
+                          <Link className="nav-link" to="/schedule/create">
+                            Manage Schedule
+                          </Link>
+                        </li>
+                      </>
+                    ) : isAdmin == "unAuth" ? (
+                      ""
+                    ) : (
+                      <>
+                        <li className="nav-item">
+                          <Link className="nav-link active" aria-current="page" to="/">
+                            Home
+                          </Link>
+                        </li>
 
-                      <li className="nav-item">
-                        <Link className="nav-link" to="/profile">
-                          Profile
-                        </Link>
-                      </li>
-                    </>
-                  )}
+                        <li className="nav-item">
+                          <Link className="nav-link" to="/profile">
+                            Profile
+                          </Link>
+                        </li>
+                      </>
+                    ))}
+
                   <li className="nav-item d-none-desktop">
                     <p className="text-center footer__end">© 2020 Tickitz. All Rights Reserved.</p>
                   </li>

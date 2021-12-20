@@ -29,13 +29,13 @@ class MovieDetail extends Component {
       showPaginate: false
     };
   }
-
   componentDidMount() {
     this.getMovieById(this.props.match.params.id);
     this.getCity(this.state.location);
     this.getScheduleFilter(this.state.dateBooking, this.state.location, this.state.page);
     this.handleUrlParams();
   }
+
   getMovieById = (id) => {
     axios
       .get(`movie/${id}`)
@@ -99,12 +99,13 @@ class MovieDetail extends Component {
   };
   changeLocationBooking = (event) => {
     this.setState({
+      page: 1,
       location: event.target.value
     });
 
-    this.getScheduleFilter(this.state.dateBooking, event.target.value, this.state.page);
+    this.getScheduleFilter(this.state.dateBooking, event.target.value, 1);
     this.props.history.push(
-      `?page=${this.state.page}&dateBooking=${this.state.dateBooking}&location=${event.target.value}`
+      `?page=1&dateBooking=${this.state.dateBooking}&location=${event.target.value}`
     );
   };
   handleClickState = (time, scheduleId) => {
@@ -159,6 +160,7 @@ class MovieDetail extends Component {
       dateReleasee.getFullYear()
     }`;
     const urlParams = qs.parse(this.props.location.search);
+    console.log(this.state.page);
 
     return (
       <>
@@ -292,7 +294,9 @@ class MovieDetail extends Component {
                 breakLabel={"..."}
                 pageCount={pageInfo.totalPage}
                 onPageChange={(event) => this.handlePagination(event)}
-                initialPage={urlParams.page ? urlParams.page - 1 : this.state.page}
+                // initialPage={this.state.page - 1}
+                forcePage={this.state.page - 1}
+                // urlParams.page ? urlParams.page - 1 : this.state.page
                 containerClassName={"pagination"}
                 disabledClassName={"pagination__link--disabled"}
                 activeClassName={"pagination__link--active btn-primary "}

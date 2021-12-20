@@ -23,7 +23,7 @@ const HistoryOrder = (props) => {
                 <br />
                 <small className="tab__date">{getDate(element.dateBooking)}</small>
               </div>
-              <p className="tab__title">{element.invoice}</p>
+              <p className="tab__title">{element.name}</p>
               <hr />
               <div className="row">
                 <div className="col-md-6">
