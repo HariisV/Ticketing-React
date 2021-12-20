@@ -14,10 +14,6 @@ const Register = (state = initialState, action) => {
       };
     }
     case "REGISTER_USER_FULFILLED": {
-<<<<<<< HEAD
-=======
-      console.log("SUKSES");
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
       return {
         ...state,
         isLoading: false,

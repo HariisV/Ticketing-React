@@ -22,17 +22,9 @@ const UpdateMovie = (props) => {
   const urlParams = qs.parse(props.location.search);
 
   const [Search, setSearch] = useState({
-<<<<<<< HEAD
-    name: urlParams.search ? urlParams.search : "",
-    sort: urlParams.sort ? urlParams.sort : "",
-    sortType: urlParams.sortType ? urlParams.sortType : "",
-    nameButton:
-      urlParams.sort && urlParams.sortType ? urlParams.sorts + " " + urlParams.sortType : ""
-=======
     name: "",
     sort: "",
     sortType: ""
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   });
   let [FormDataMovie, setFormDataMovie] = useState({
     name: "",
@@ -50,13 +42,6 @@ const UpdateMovie = (props) => {
     // SORT
   }, [id, page]);
 
-<<<<<<< HEAD
-  useEffect(() => {
-    getListMovie(1, 8, Search.sort, Search.sortType, urlParams.search);
-  }, [urlParams.search, urlParams.sortType, urlParams.sort]);
-
-=======
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   // componentDidMount
 
   // componentDidUpdate
@@ -97,11 +82,7 @@ const UpdateMovie = (props) => {
       })
       .catch((err) => {
         handleNotify(err.response.data.msg);
-<<<<<<< HEAD
-        //
-=======
         // console.log(err.response);
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
       });
   };
   const handleNotify = (data) =>
@@ -139,10 +120,7 @@ const UpdateMovie = (props) => {
       formData.append(data, FormDataMovie[data]);
     }
     for (const data of formData.entries()) {
-<<<<<<< HEAD
-=======
       console.log(data[0] + ", " + data[1]);
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
     }
     props.addmovie(formData);
   };
@@ -152,10 +130,7 @@ const UpdateMovie = (props) => {
       formData.append(data, FormDataMovie[data]);
     }
     for (const data of formData.entries()) {
-<<<<<<< HEAD
-=======
       console.log(data[0] + ", " + data[1]);
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
     }
     props.updateMovie(formData, FormDataMovie.id);
   };
@@ -173,10 +148,7 @@ const UpdateMovie = (props) => {
     props.history.push("/movies/create");
   };
   const handleConfirmDelete = (id) => {
-<<<<<<< HEAD
-=======
     // console.log("TERHAPUS KAU BRO", id);
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
     props.deleteMovie(id);
   };
   const showAlert = (id) => {
@@ -203,34 +175,23 @@ const UpdateMovie = (props) => {
     });
   };
 
-<<<<<<< HEAD
-  const handleInputSearch = (event, type) => {
-    if (event.key == "Enter") {
-      props.history.push(
-        `/movies/create?search=${Search.name}&sort=${Search.sort}&sortType=${Search.sortType}`
-      );
-=======
   const handleInputSearch = (event) => {
     if (event.key == "Enter") {
       props.history.push(`/movies/create?search=${event.target.value}`);
       getListMovie(1, 8, Search.sort, Search.sortType, urlParams.search);
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
     } else {
       setSearch({
         ...Search,
         [event.target.name]: event.target.value
       });
     }
-<<<<<<< HEAD
-    console.log(event.target.value);
-=======
     console.log(Search);
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   };
   const ThisDate = `${(FormDataMovie.releaseDate
     ? FormDataMovie.releaseDate
     : new Date().toISOString()
   ).slice(0, 10)}`;
+
   return (
     <>
       <div className="container">
@@ -435,31 +396,19 @@ const UpdateMovie = (props) => {
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-<<<<<<< HEAD
-                    {Search.nameButton ? Search.nameButton : "Sort Name"}
-=======
                     Sort Name
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
                   </button>
 
                   <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <li>
                       <button
                         className="dropdown-item"
-<<<<<<< HEAD
-=======
                         href="/booking.html"
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
                         onClick={() =>
                           setSearch({
                             ...Search,
                             sort: "name",
-<<<<<<< HEAD
-                            sortType: "ASC",
-                            nameButton: "Nama Movie A-Z"
-=======
                             sortType: "ASC"
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
                           })
                         }
                       >
@@ -469,20 +418,12 @@ const UpdateMovie = (props) => {
                     <li>
                       <button
                         className="dropdown-item"
-<<<<<<< HEAD
-=======
                         href="/payment.html"
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
                         onClick={() =>
                           setSearch({
                             ...Search,
                             sort: "name",
-<<<<<<< HEAD
-                            sortType: "DESC",
-                            nameButton: "Nama Movie Z-A"
-=======
                             sortType: "DESC"
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
                           })
                         }
                       >
@@ -492,21 +433,8 @@ const UpdateMovie = (props) => {
                     <li>
                       <button
                         className="dropdown-item"
-<<<<<<< HEAD
-=======
-                        href="/details.html"
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
                         onClick={() =>
-                          setSearch({
-                            ...Search,
-                            sort: "releaseDate",
-<<<<<<< HEAD
-                            sortType: "ASC",
-                            nameButton: "Release Ter Lama"
-=======
-                            sortType: "DESC"
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
-                          })
+                          setSearch({ ...Search, sort: "releaseDate", sortType: "DESC" })
                         }
                       >
                         Release Lama
@@ -515,20 +443,12 @@ const UpdateMovie = (props) => {
                     <li>
                       <button
                         className="dropdown-item"
-<<<<<<< HEAD
-=======
                         href="/login.html"
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
                         onClick={() =>
                           setSearch({
                             ...Search,
                             sort: "releaseDate",
-<<<<<<< HEAD
-                            sortType: "DESC",
-                            nameButton: "Release Terbaru"
-=======
                             sortType: "ASC"
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
                           })
                         }
                       >
@@ -545,10 +465,6 @@ const UpdateMovie = (props) => {
                     name="name"
                     onKeyPress={handleInputSearch}
                     className="form-control movie__name--search"
-<<<<<<< HEAD
-                    defaultValue={Search.name}
-=======
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
                     placeholder="Search Movie Name..."
                   />
                 </div>
@@ -593,7 +509,6 @@ const UpdateMovie = (props) => {
   );
 };
 
-// NGAMBIL STATE DARI STORE
 const mapStateToProps = (state) => {
   return { movie: state.movie };
 };

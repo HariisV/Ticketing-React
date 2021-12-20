@@ -9,10 +9,6 @@ const initialState = {
 const dashboard = (state = initialState, action) => {
   switch (action.type) {
     case "GET_MOVIE_PENDING":
-<<<<<<< HEAD
-=======
-      console.log("NYARI PENDING");
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
       return {
         ...state,
         isLoading: true,

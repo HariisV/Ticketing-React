@@ -25,13 +25,6 @@ const RegisterPage = (props) => {
       [e.target.name]: e.target.value
     });
   };
-<<<<<<< HEAD
-=======
-  const handleSubmit = () => {
-    registerUser(formData);
-    setStep(3);
-  };
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   const toastError = (data) => {
     toast.error(data, {
       position: "top-right",
@@ -44,35 +37,19 @@ const RegisterPage = (props) => {
       theme: "colored"
     });
   };
-<<<<<<< HEAD
-  const handleSubmit = () => {
-    props
-      .registerUser(formData)
-      .then((res) => {
-        setStep(3);
-        console.log("SUKSES", res);
-      })
-      .catch((err) => {
-        toastError(err.response.data.msg);
-        setTimeout(() => {
-          setStep(1);
-        }, 3000);
-        console.log(err);
-        console.log(err.response.data.msg);
-      });
-    // try {
-    //   console.log("SUKSES");
-    // } catch (error) {
-    //   console.log("Err");
-    // }
+  const handleSubmit = async () => {
+    try {
+      await props.registerUser(formData);
+      setStep(3);
+    } catch (error) {
+      console.log(error);
+      // toastError(error.response &&)
+      toastError(error.response ? error.response.data.msg : error.response);
+      setStep(1);
+    }
   };
-  console.log(props.registerUser);
-  console.log(props.registMsg);
 
-  //
-=======
   // console.log(props.location.search);
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   return (
     <>
       <div className={`container ${styles.container}`}>
@@ -177,11 +154,7 @@ const RegisterPage = (props) => {
   );
 };
 const mapStateToProps = (state) => {
-<<<<<<< HEAD
-  return { registMsg: state.register };
-=======
   return { registerUser: state.register };
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
 };
 const mapDispatchToProps = {
   registerUser

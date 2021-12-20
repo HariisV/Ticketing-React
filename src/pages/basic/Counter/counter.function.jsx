@@ -7,11 +7,7 @@ const Counter = (props) => {
   const [count, setCount] = useState(0);
   // const increaseCounter = () => {
   //   // setCount(count + 1);
-<<<<<<< HEAD
-  //
-=======
   //   console.log("HAI");
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   // };
   return (
     <Container className="text-center">

@@ -27,18 +27,10 @@ axiosApiInterface.interceptors.response.use(
         axiosApiInterface
           .post("auth/refresh", { refreshToken })
           .then((res) => {
-<<<<<<< HEAD
             alert("token baru sudah berhasil di dapatkan");
             // localStorage.setItem("token", res.data.data.token);
             // localStorage.setItem("refreshToken", res.data.data.refreshToken);
             // window.location.reload();
-=======
-            // res.data.data.token
-            alert("token baru sudah berhasil di dapatkan");
-            localStorage.setItem("token", res.data.data.token);
-            localStorage.setItem("refreshToken", res.data.data.refreshToken);
-            window.location.reload();
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
           })
           .catch((err) => {
             localStorage.clear();

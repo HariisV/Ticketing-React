@@ -44,13 +44,9 @@ class MovieBooking extends Component {
           dataSchedule: res.data.data[0]
         });
       })
-<<<<<<< HEAD
-      .catch((err) => {});
-=======
       .catch((err) => {
         console.log(err.response);
       });
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   };
   getMovie = (data) => {
     axios
@@ -60,13 +56,9 @@ class MovieBooking extends Component {
           dataMovie: res.data.data[0]
         });
       })
-<<<<<<< HEAD
-      .catch((err) => {});
-=======
       .catch((err) => {
         console.log(err);
       });
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   };
   getSoldSeat = (data) => {
     axios
@@ -82,13 +74,9 @@ class MovieBooking extends Component {
           soldSeat: soldSeat
         });
       })
-<<<<<<< HEAD
-      .catch((err) => {});
-=======
       .catch((err) => {
         console.log(err.response);
       });
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
   };
   selectedSeat = (data) => {
     if (this.state.selectedSeat.includes(data)) {

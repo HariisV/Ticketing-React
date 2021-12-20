@@ -14,7 +14,7 @@
   },
   "plugins": ["react", "react-hooks", "prettier"],
   "rules": {
-    "linebreak-style": ["error", "unix"],
+    // "linebreak-style": ["error", "unix"],
     "quotes": ["error", "double", { "avoidEscape": true }],
     "semi": ["error", "always"],
     "max-len": [
@@ -33,6 +33,11 @@
     "react/prop-types": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "prettier/prettier": "error"
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
   }
 }

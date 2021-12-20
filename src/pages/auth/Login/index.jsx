@@ -20,11 +20,6 @@ class LoginPage extends Component {
   }
   handleSubmit = (event) => {
     event.preventDefault();
-<<<<<<< HEAD
-    //
-=======
-    // console.log(this.props.login);
->>>>>>> 491cf2c3e90cbf476e7cd7e4ffde2dddbe4afae8
     this.props
       .login(this.state.form)
       .then((res) => {
@@ -155,9 +150,9 @@ class LoginPage extends Component {
                   </span>
                   <p className="text-muted text-center m-0">
                     <strong className="forgot__password">
-                      Reset Your Password ?{" "}
-                      <Link to="/reset-password" className="text-primary">
-                        Reset Now
+                      Dont Have An Account ?{" "}
+                      <Link to="/register" className="text-primary">
+                        Register Now
                       </Link>
                     </strong>
                   </p>
